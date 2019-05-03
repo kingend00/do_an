@@ -42,8 +42,8 @@
 					<td> {{$value->phone}} </td>
 					<td> {{$value->address}} </td>
 					<td> {{$value->roles}} </td>
-					<td> <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('account.show',$value->id) }}" >Edit</button></td>
-					<td> <button type="button" class="btn btn-danger btn-destroy" value="{{$value->id }}">Xóa</button></td>
+					<td> <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" >Edit</button></td>
+					<td> <button type="button" class="btn btn-danger btn-destroy" data-url="{{ route('B_user.destroy',$value->user_id) }}">Xóa</button></td>
 				</tr>
 				@endforeach
 			@endif
@@ -107,7 +107,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-             {!! Form::open(['id'=>'form_add','route'=>'account.store','method'=>'POST'])!!}
+             {!! Form::open(['id'=>'form_add','route'=>'B_user.store','method'=>'POST'])!!}
              
              
             <div class="modal-body">
@@ -152,10 +152,10 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	    		    }
 			});
-
+			var url = null;
 		// show thông tin tài khoản
 		$('.btn-edit').click(function(){
-			var url = $(this).attr('data-url');
+			 url = $(this).attr('data-url');
 
 			$.ajax({
 				type:'GET',
@@ -178,13 +178,13 @@
 
 
 		$('.btn-destroy').click(function(){
-			var id = $(this).val();
+			var url = $(this).attr('data-url');
 			
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
 			{
 				$.ajax({
 				type:'DELETE',
-				url:'/B_user/'+id,
+				url:url,
 				//data:{id:id},
 				dataType:'html',
 				success:function(response){
@@ -206,7 +206,7 @@
 			var id = $('#Id').val();
 			$.ajax({
 				type:'PUT',
-				url:'/B_user/'+id,
+				url:url,
 				data:$('#form_update').serialize(),
 				
 				

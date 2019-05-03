@@ -51,15 +51,15 @@
 						<nav class="menu">
 							<ul class="main_menu">
 								<li>
-									<a href="#">Trang chủ</a>
+								<a href="{{ route('index') }}">Trang chủ</a>
 								</li>
 
 								<li>
-									<a href="#">Thực đơn</a>
+								<a href="{{ route("F_menu.index") }}">Thực đơn</a>
 								</li>
 
 								<li>
-									<a href="#">Đặt bàn</a>
+								<a href="{{ route('F_seat.index') }}">Đặt bàn</a>
 								</li>
 
 								<li>
@@ -72,6 +72,35 @@
 
 								<li>
 									<a href="contact.html">Liên hệ</a>
+								</li>
+								<li>
+									
+										<!-- Authentication Links -->
+										@guest
+											<li><a href="{{ route('B_user.index') }}">Login</a></li>
+											<li><a href="{{ route('register') }}">Register</a></li>
+										@else
+											<li class="dropdown">
+												<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+													{{ Auth::user()->name }} <span class="caret"></span>
+												</a>
+				
+												<ul class="dropdown-menu">
+													<li>
+														<a href="{{ route('logout') }}"
+															onclick="event.preventDefault();
+																	 document.getElementById('logout-form').submit();">
+															Logout
+														</a>
+				
+														<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+															{{ csrf_field() }}
+														</form>
+													</li>
+												</ul>
+											</li>
+										@endguest
+									
 								</li>
 							</ul>
 						</nav>
@@ -91,7 +120,7 @@
 								    		</div>
 								  		</li>
 									</ul>
-									<a href="?page=Cart"><button class="btn btn-primary btn-sm">Xem giỏ hàng</button></a>
+								<a href="{{ route('F_menu.showCart') }}"><button class="btn btn-primary btn-sm">Xem giỏ hàng</button></a>
 						</div>
 						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
 					</div>

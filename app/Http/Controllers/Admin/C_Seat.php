@@ -14,6 +14,9 @@ class C_Seat extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        //$this->middleware('denied_cus_emp');
+    }
     public function index()
     {
         $val = DB::table('seat')->select('type')->groupBy('type')->orderBy('type', 'ASC')->get();
@@ -41,6 +44,7 @@ class C_Seat extends Controller
         DB::table('seat')->insert([
             'type' => $request->input('Type')
         ]);
+        return redirect()->back();
     }
 
     /**
@@ -51,7 +55,7 @@ class C_Seat extends Controller
      */
     public function show($id)
     {
-        $data = M_Seat::find($id);
+        $data = DB::table('seat')->where('number_seat','=',$id)->get();
         return response()->json(['data'=>$data]);
     }
 
@@ -77,7 +81,11 @@ class C_Seat extends Controller
     {
         //
     }
-
+    public function AutoIncrement()
+    {
+        $data = DB::table('seat')->select('number_seat')->orderBy('number_seat','DESC')->get();
+        return response()->json(['data'=>$data]);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -87,9 +95,9 @@ class C_Seat extends Controller
      */
     public function update(Request $request, $id)
     {
-        $data = M_Seat::find($id);
-        $data->type = $request->get('Type');
-        $data->save();
+       
+        $data = DB::table('seat')->where('number_seat','=',$id)->update(['type'=>$request->input('Type')]);
+        return "Thành công";
     }
 
     /**
@@ -100,7 +108,7 @@ class C_Seat extends Controller
      */
     public function destroy($id)
     {
-        $seat = M_Seat::find($id);
+        $seat = DB::table('seat')->where('number_seat','=',$id)->delete();
         if($seat)
         {
             $seat->delete();

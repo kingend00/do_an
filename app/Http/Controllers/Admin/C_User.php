@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 use DB;
-use User;
+use App\User;
+use Auth;
+use UserPolicy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
@@ -13,8 +15,15 @@ class C_User extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct(){
+        //$this->middleware('denied_cus_emp');
+    }
+
     public function index()
     {
+        $user = Auth::user()->roles;
+        if($user >2)
+            return "Đây là trang dành cho nhân viên";      
         return view('Admin.index');
     }
     public function showAccount($role)
@@ -144,10 +153,10 @@ class C_User extends Controller
                  if($data == 3 || $data == 2)
                  {
                      $AccountEmp = DB::table('users')->where('user_id','=',$id)->update(
-                         ['password'=>$request->input('Password'),
-                         'name' => $request->input('Name'),
-                         'phone' =>$request->input('Phone'),
-                         'address' => $request->input('Address')]
+                         ['password'=>bcrypt($request->input('Update_Password')),
+                         'name' => $request->input('Update_Name'),
+                         'phone' =>$request->input('Update_Phone'),
+                         'address' => $request->input('Update_Address')]
                      );
                  }
  
@@ -165,7 +174,7 @@ class C_User extends Controller
      */
     public function destroy($id)
     {
-        $account = User::findOrFail($id);
+        $account = DB::table('users')->where('user_id','=',$id)->delete();
         if($account)
         {
             $account->delete();

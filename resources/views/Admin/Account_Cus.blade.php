@@ -39,7 +39,7 @@
 					<td> {{$value->name}} </td>
 					<td> {{$value->phone}} </td>
 					<td>{{ $value->point}}</td>
-					<td> <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('account.show',$value->id) }}" >Password Reset</button></td>
+					<td> <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" >Password Reset</button></td>
 				</tr>
 				@endforeach
 			@endif	
@@ -86,7 +86,7 @@
             	<h1> Thêm tài khoản</h1>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-             {!! Form::open(['id'=>'form_add','route'=>'account.store','method'=>'POST'])!!}
+             {!! Form::open(['id'=>'form_add','route'=>'B_user.store','method'=>'POST'])!!}
              
              
             <div class="modal-body">
@@ -131,9 +131,9 @@
 	    		    }
 			});
 
-
+			var url = null;
 		$('.btn-edit').click(function(){
-			var url = $(this).attr('data-url');
+			url = $(this).attr('data-url');
 
 			$.ajax({
 				type:'GET',
@@ -156,7 +156,7 @@
 			var id = $('#Id').val();
 			$.ajax({
 				type:'PUT',
-				url:'/B_user/'+id,
+				url:url,
 				data:$('#form_update').serialize(),
 				
 				

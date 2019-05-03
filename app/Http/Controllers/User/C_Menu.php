@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 use App\Model\M_Menu;
 use App\Model\M_Category;
 use DB;
+use Cart;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -25,6 +26,19 @@ class C_Menu extends Controller
        }
        return view('User.Menu',compact('data'));
 
+    }
+    public function addtoCart($id)
+    {      
+            $product = DB::table('menu')->where('menu_id','=',$id)->get();
+            Cart::add(['id'=>$product[0]->menu_id,'name'=>$product[0]->name,'qty'=>1,'price'=>$product[0]->price,'options'=>['description'=>$product[0]->description,'image'=>$product[0]->image]]);
+        return redirect()->back();
+
+
+    }
+    public function showCart()
+    {
+        $cart = Cart::content();
+        return view('User.ShoppingCart',compact('cart'));
     }
 
     /**
@@ -54,6 +68,7 @@ class C_Menu extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // trả về view xem chi tiết giỏ hàng -> thêm/sửa.xóa sản phẩm
     public function show($id)
     {
         $menu = DB::table('menu')->where('type','=',$id)->get();

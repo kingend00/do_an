@@ -14,7 +14,7 @@ class C_Seat extends Controller
      */
     public function index()
     {
-        //
+        return view('User.bookTable');
     }
     public function bookTable()
     {

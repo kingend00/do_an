@@ -12,30 +12,30 @@
 									</div>
 									<div class="breadcomb-ctn" style="padding-bottom: 20px">
 										<h2>Danh mục bàn</h2>
-										<button type="button" class="btn btn-danger btn-add" data-toggle="modal" data-target="#ModalAdd" >Thêm</button>	<br>								
+									<button type="button" class="btn btn-danger btn-add" data-toggle="modal" data-target="#ModalAdd" data-url = "{{ route('B_Seat.AutoIncrement') }}" >Thêm</button>	<br>								
 									</div>
 								</div>
 							</div>
 						</div>
 	@if (isset($val))
 			@foreach ($val as $element)
-				<a href="{{ route('Seat.showType',$element->type) }}"><button class="btn btn-submit">{{ $element->type }}</button></a>
+				<a href="{{ route('B_seat.showType',$element->type) }}"><button class="btn btn-submit">{{ $element->type }}</button></a>
 			@endforeach
-			<a href="{{ route('Seat.showType','All') }}"><button class="btn btn-danger">Show All</button></a>
+			<a href="{{ route('B_seat.showType','All') }}"><button class="btn btn-danger">Show All</button></a>
 		@endif
 	
 	<div class="bsc-tbl-hvr">
 		<table class=" table table-hover" id="tbData">
-			<th>Loại bàn</th>
 			<th>Số bàn</th>
+			<th>Loại bàn</th>
 			<th colspan="2">Thao tác</th>
 			@if (isset($data))
 				@foreach ($data as $element)
 					<tr>
+						<td>{{ $element->number_seat }}</td>
 						<td>{{ $element->type }}</td>
-						<td>{{ $element->number }}</td>
-						<td><button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('seat.show',$element->id) }}" >Edit</button></td>
-						<td><button type="button" class="btn btn-danger btn-destroy" value="{{$element->id }}">Xóa</button></td>
+						<td><button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_seat.show',$element->number_seat) }}" >Edit</button></td>
+						<td><button type="button" class="btn btn-danger btn-destroy" data-url="{{ route('B_seat.destroy',$element->number_seat) }}"">Xóa</button></td>
 					</tr>
 				@endforeach
 			@endif
@@ -87,7 +87,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-             {!! Form::open(['id'=>'form_add','route'=>'seat.store','method'=>'POST'])!!}
+             {!! Form::open(['id'=>'form_add','route'=>'B_seat.store','method'=>'POST'])!!}
              
              
             <div class="modal-body">
@@ -98,7 +98,7 @@
 						</div>
 						<div class="form-group">
 							{!! Form::label('Number','Number',['class' => 'control-label']) !!}
-							{!! Form::text('Number','',['id' =>'Number','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+							{!! Form::text('NumberAdd','',['id' =>'NumberAdd','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']) !!}
 						</div>
 				                                 
             </div>
@@ -157,16 +157,17 @@
 				}
 			});
 		});*/
+		var url = null;
 		$('.btn-edit').click(function(){
-			var url = $(this).attr('data-url');
+			 url = $(this).attr('data-url');
 
 			$.ajax({
 				type:'GET',
 				url : url,
 				success:function(response){
-					$('#Id').val(response.data.id);
+					$('#Id').val(response.data[0].type);
 					//$('#Type').val(response.data.type);
-					$('#Number').val(response.data.number);
+					$('#Number').val(response.data[0].number_seat);
 					
 				},
 				error:function(eror){
@@ -180,7 +181,7 @@
 			var id = $('#Id').val();
 			$.ajax({
 				type:'PUT',
-				url:'/seat/'+id,
+				url:url,
 				data:$('#form_update').serialize(),
 				
 				
@@ -201,13 +202,13 @@
 			});
 		});
 		$('.btn-destroy').click(function(){
-			var id = $(this).val();
 			
+			var url = $(this).attr('data-url');
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
 			{
 				$.ajax({
 				type:'DELETE',
-				url:'/seat/'+id,
+				url:url,
 				//data:{id:id},
 				dataType:'html',
 				success:function(response){
@@ -220,6 +221,22 @@
 				}
 				});
 			}
+		});
+		$('.btn-add').click(function(){
+			var url = $(this).attr('data-url');
+			$.ajax({
+				type:'GET',
+				url:url,
+				success:function(response){
+					var val = response.data[0].number_seat;
+					val = val+1;
+					$('#NumberAdd').val(val);
+				},
+				error:function(er){
+					console.log(er);
+				}
+
+			});
 		});
 	});
 

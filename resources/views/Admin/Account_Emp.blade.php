@@ -43,7 +43,7 @@
 					<td> {{$value->phone}} </td>
 					<td> {{$value->address}} </td>
 					<td> <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" >Edit</button></td>
-					<td> <button type="button" class="btn btn-danger btn-destroy" value="{{$value->user_id }}">Xóa</button></td>
+					<td> <button type="button" class="btn btn-danger btn-destroy" data-url="{{ route('B_user.destroy',$value->user_id) }}" >Xóa</button></td>
 
 				</tr>
 				@endforeach
@@ -99,7 +99,6 @@
             <div class="modal-footer">
                 {{-- {!!  Form::submit('Save changes',null,['name' => 'hihi','class'=>'btn btn-default waves-effect']) !!} --}}
 			<button class="btn btn-default " type="submit">Save</button>
-			<button class="btn btn-default " class="test">Click</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             {!! Form::close() !!}
@@ -186,24 +185,22 @@
 				}
 			});
 		});
-		$('.test').click(function(){
-			var hihi = $('#Update_Name').val();
-			alert('hihi');
-		});
+
 
 		$('.btn-destroy').click(function(){
-			var id = $(this).val();
+			var url = $(this).attr('data-url');
 			
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
 			{
 				$.ajax({
 				type:'DELETE',
-				url:'/B_user/'+id,
+				url:url,
 				//data:{id:id},
-				dataType:'html',
+				//dataType:'html',
 				success:function(response){
-					alert(response);
 					$('#tbData').load(' #tbData');
+					alert(response);					
+					
 
 				},
 				error:function(eror){
@@ -223,7 +220,9 @@
 				url:url,
 				data:$('#form_update').serialize(),							
 				success:function(data){
-					console.log(data);
+					alert(data);
+					$('#ModalUpdate').modal('hide');
+					$('#tbData').load(' #tbData');
 					
 
 				},

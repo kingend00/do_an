@@ -18,7 +18,11 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+            if(Auth::user()->roles<=2)
+                return redirect()->route('B_user.index');
+            else {
+                return redirect()->route("F_menu.index");
+            }
         }
 
         return $next($request);

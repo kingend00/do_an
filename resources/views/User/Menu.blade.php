@@ -52,7 +52,7 @@
 									</div>
 									
 									<div class="text-blo3 size21 flex-col-l-m">
-										<a href=""><button class="btn3 flex-c-m size18 txt11 trans-0-4 m-10 btnChecked"> Checked</button></a>	
+									<a href="{{ route('F_menu.addtoCart',$element->menu_id) }}"><button class="btn3 flex-c-m size18 txt11 trans-0-4 m-10 btnChecked"> Checked</button></a>	
 									</div>
 									
 								</div>
