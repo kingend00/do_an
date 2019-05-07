@@ -26,7 +26,10 @@ Route::get('/', function () {
 Route::get('test',function(){
     echo"<option value=12>hihi</option><option>hihi2</option>";
 });
+Route::get('/dbs',function(){
 
+    return view('Admin.db');
+});
 Route::group(['prefix' => 'F_menu'],function(){
     Route::get('/addtoCart/{id}','User\C_Menu@addtoCart')->name('F_menu.addtoCart');
     Route::get('/showCart','User\C_Menu@showCart')->name('F_menu.showCart');

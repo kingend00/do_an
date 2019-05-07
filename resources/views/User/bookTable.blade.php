@@ -98,7 +98,6 @@
 								<span class="txt9">
 									Name
 								</span>
-
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
 								<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" placeholder="Name" value="{{ (Auth::check()!= null) ? Auth::user()->name : "" }}">
 								</div>
@@ -201,6 +200,8 @@
 		</div>
 	</section>
 	<script type="text/javascript">
+	
+
 		$(document).ready(function(){
 
 			$.ajaxSetup({
@@ -218,7 +219,7 @@
 					
 					success:function(res){
 						var html = '';
-						html += "<select name = 'number_seat' id = 'number_seat' style = ' max-width:100%; display: block;align-items: center;background-color:white;border: 0px solid transparent;border-radius: 10px;height: 46px;outline: none;width: auto;max-width: 100%' >";
+						html += "<select name = 'number_seat' id = 'number_seat' class='rau' >";
 						$.each(res,function(key,value){
 							$.each(value,function(number2,type){
 								$.each(type,function(key2,value2){
@@ -232,7 +233,9 @@
 						
 						$('#number').html(html);
 
-						console.log(html);
+						$('.rau').select2({
+							minimumResultsForSearch: -1
+						});
 						
 						
 						

@@ -142,12 +142,6 @@
 							<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
 						<div class="nk-int-st">
 								<input id="Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Password" required>
-
-								<?php if($errors->has('password')): ?>
-									<span class="help-block">
-										<strong><?php echo e($errors->first('password')); ?></strong>
-									</span>
-								<?php endif; ?>
 							</div>
 					</div>
 					
@@ -219,7 +213,7 @@
 					
 				},
 				error:function(eror){
-					console.log(eror);
+					alert('Đã có lỗi xảy ra !!!');
 				}
 			});
 		});
@@ -260,14 +254,11 @@
 				success:function(data){
 					alert(data);
 					$('#ModalUpdate').modal('hide');
-					$('#tbData').load(' #tbData');
-					
-
+					$('#tbData').load(' #tbData');					
 				},
 				error:function(er){
 					console.log(er);
 				}
-
 			});
 		});
 

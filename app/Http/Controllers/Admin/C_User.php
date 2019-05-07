@@ -8,6 +8,7 @@ use UserPolicy;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UpdateUserRequest;
 class C_User extends Controller
 {
     /**
@@ -21,9 +22,7 @@ class C_User extends Controller
 
     public function index()
     {
-        $user = Auth::user()->roles;
-        if($user >2)
-            return "Đây là trang dành cho nhân viên";      
+            
         return view('Admin.index');
     }
     public function showAccount($role)
@@ -39,6 +38,9 @@ class C_User extends Controller
         if ($role == 4) {
             $data = DB::table('users')->where('roles',$role)->get();
             return view('Admin.Account_Cus',compact('data'));
+        }
+        else {
+            return view('Admin.index');
         }
     }
 
@@ -60,9 +62,9 @@ class C_User extends Controller
      */
     public function store(UserRequest $request)
     {
-        if(DB::table('users')->where('email','=',$request->input('email'))->exists())
+        if(DB::table('users')->where('email','=',$request->input('Email'))->exists())
        {
-            echo " null";
+            return redirect()->back()->with('error','Tài khoản đã tồn tại');
        }
        else
        {
@@ -100,7 +102,7 @@ class C_User extends Controller
 
                 ]);
            }
-           return redirect()->back();
+           return redirect()->back()->with('success','Bạn đã tạo tài khoản thành công');
        }
 
     }
@@ -114,7 +116,10 @@ class C_User extends Controller
     public function show($id)
     {
         $data = DB::table('users')->where('user_id','=',$id)->get();
-        return response()->json(['data'=>$data]);
+        if ($data) {
+            return response()->json(['data'=>$data]);
+        }
+        
     }
 
     /**
@@ -135,12 +140,12 @@ class C_User extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserRequest $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {             
         
              $dk = DB::table('users')->where('user_id','=',$id)->get();
              if ($dk == null) {
-                 echo "null";
+                return response()->json('Tài khoản chưa tồn tại');
              }
              else
              {
@@ -161,7 +166,7 @@ class C_User extends Controller
                  }
  
              }
-             return response()->json('Successfully');
+             return response()->json('Cập nhật thành công');
        
 
     }

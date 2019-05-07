@@ -194,7 +194,7 @@
 					
 				},
 				error:function(eror){
-					console.log(eror);
+					alert('Đã có lỗi xảy ra !!!');
 				}
 			});
 		});
@@ -235,14 +235,11 @@
 				success:function(data){
 					alert(data);
 					$('#ModalUpdate').modal('hide');
-					$('#tbData').load(' #tbData');
-					
-
+					$('#tbData').load(' #tbData');					
 				},
 				error:function(er){
 					console.log(er);
 				}
-
 			});
 		});
 

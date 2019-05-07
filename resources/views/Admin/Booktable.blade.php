@@ -53,8 +53,8 @@
                     <td> {{$value->status}} </td>
                     <td> {{$value->total}} </td>
                 <td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_booktable.show',$value->booktable_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Cập nhật</button></td>
-					<td> <button type="button" class="btn btn-danger danger-icon-notika btn-details" data-url="{{ route('B_booktable.edit',$value->booktable_id) }}" ><i class="notika-icon notika-close"></i>  Chi tiết</button></td>
-				<td><a href="{{ route('B_booktable.showDetails',$value->booktable_id) }}">Click</a></td>
+					<td> <a href = "{{ route('B_booktable.showDetails',$value->booktable_id) }}"><button type="button" class="btn btn-danger danger-icon-notika btn-details" ><i class="notika-icon notika-close"></i>  Chi tiết</button></a></td>
+				
 				</tr>
                 @endforeach
                 <tr><td colspan = "10" align = "center">{{ $data->links() }}</td></tr>
@@ -81,19 +81,40 @@
             <div class="modal-body">
             			<div class="form-group">
 							
-							{!! Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']) !!}
+							{!! Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
 						</div>
 						<div class="form-group">
 								{!! Form::label('date','Ngày đặt',['class' => 'control-label']) !!}
 								{!! Form::text('Update_Date','',['id' =>'Update_Date','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 							</div>
-							<div class="form-group">
+							
 								{!! Form::label('hihi','Thời gian đặt',['class' => 'control-label']) !!}
-								{!! Form::text('Update_Time','',['id' =>'Update_Time','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-							</div>
+								
+                                    <select id = "Update_Time" name = "Update_Time">
+										<option>10:00</option>
+										<option>10:30</option>
+										<option>11:00</option>
+										<option>11:30</option>
+										<option>12:00</option>
+										<option>12:30</option>
+										<option>13:00</option>
+										<option>13:30</option>
+										<option>14:00</option>
+										<option>14:30</option>
+										<option>15:00</option>
+										<option>15:30</option>
+										<option>16:00</option>
+										<option>16:30</option>
+										<option>17:00</option>
+										<option>17:30</option>
+										<option>18:00</option>
+									</select>
+                                
+								
 							<div class="form-group">
 								{!! Form::label('status','Trạng thái',['class' => 'control-label']) !!}
 								{!! Form::text('Update_Status','',['id' =>'Update_Status','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+								
 							</div>
 						
 				                                 
@@ -176,7 +197,7 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	    		    }
 			});
-
+		
 		// show thông tin tài khoản
 		var url = null;
 		$('.btn-edit').click(function(){
@@ -190,7 +211,9 @@
 					$('#Update_Id').val(response.data[0].booktable_id);
 					$('#Update_Status').val(response.data[0].status);
 					$('#Update_Date').val(response.data[0].date);
-					$('#Update_Time').val(response.data[0].time)
+					$('#Update_Time').val(response.data[0].time);
+					$('select').selectpicker('refresh');
+					
 					
 				},
 				error:function(eror){
@@ -198,7 +221,7 @@
 				}
 			});
 		});
-
+		
 
 		$('.btn-destroy').click(function(){
 			var url = $(this).attr('data-url');
@@ -240,7 +263,7 @@
 
 				},
 				error:function(er){
-					alert('Đã có lỗi xảy ra , vui lòng kiểm tra lại thông tin cần sửa');
+					console.log(er);
 				}
 
 			});

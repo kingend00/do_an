@@ -34,8 +34,24 @@
 		============================================ -->
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/normalize.css')}}">
     <!-- mCustomScrollbar CSS
-		============================================ -->
+        
+        ============================================ -->
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/bootstrap-select/bootstrap-select.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/summernote/summernote.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/themesaller-forms.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/dropzone/dropzone.css')}}">
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/scrollbar/jquery.mCustomScrollbar.min.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/datapicker/datepicker3.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/jquery.dataTables.min.css')}}">
+    <!-- Color Picker CSS
+		============================================ -->
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/color-picker/farbtastic.css')}}">
+    <!-- main CSS
+		============================================ -->
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/chosen/chosen.css')}}">
+    <!-- notification CSS
+		============================================ -->
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/notification/notification.css')}}">
     <!-- jvectormap CSS
 		============================================ -->
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/jvectormap/jquery-jvectormap-2.0.3.css')}}">
@@ -486,7 +502,17 @@
                       
         </div>
         @endif
-        
+
+        @if (Session::has('error')) 
+            <div class="alert alert-danger error-alert">
+                {{ Session::get('error') }}
+            </div>       
+        @endif
+        @if (Session::has('success')) 
+            <div class="alert alert-success error-alert">
+                {{ Session::get('success') }}
+            </div>       
+        @endif
     
 	@yield('body')
 
@@ -562,10 +588,12 @@
 		============================================ -->
     <script src="{{URL::asset('public/admin/js/todo/jquery.todo.js')}}"></script>
     <!-- plugins JS
-		============================================ -->
+        ============================================ -->
+    <script src="{{URL::asset('public/admin/js/bootstrap-select/bootstrap-select.js')}}"></script>
     <script src="{{URL::asset('public/admin/js/plugins.js')}}"></script>
 	<!--  Chat JS
         ============================================ -->
+    <script src="{{URL::asset('public/admin/js/data-table/jquery.dataTables.min.js')}}"></script>
     <script src="{{URL::asset('public/admin/js/data-table/jquery.dataTables.min.js')}}"></script>
     <script src="{{URL::asset('public/admin/js/data-table/data-table-act.js')}}"></script>
     <!-- main JS

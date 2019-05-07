@@ -17,8 +17,9 @@ class C_Booktable extends Controller
      */
     public function index()
     {
+        
         $data = DB::table('booktable')->paginate(15);
-        return view('Admin.Booktable',compact('data'));
+        return view('Admin.Booktable',compact('data','status'));
     }
 
     /**
@@ -53,7 +54,7 @@ class C_Booktable extends Controller
      */
     public function show($id)
     {
-        $data = DB::table('booktable')->select('date','time','status')->where('booktable_id','=',$id)->get();
+        $data = DB::table('booktable')->select('booktable_id','date','time','status')->where('booktable_id','=',$id)->get();
         return response()->json(['data'=>$data]);
     }
 
@@ -69,9 +70,9 @@ class C_Booktable extends Controller
     }
     public function showDetails($id)
     {
-        $data = DB::table('booktable_details')->join('menu','booktable_details.menu_id','=','menu.menu_id')->join('combo','booktable_details.combo_id','=','combo.combo_id')
-        ->select('booktable_details.*','combo.name','menu.name')->where('booktable_id','=',$id)->get();
-        dd($data);
+        
+            $data = DB::table('booktable_details')->where('booktable_id','=',$id)->get();
+            return view('Admin.Details',compact('data'));
     }
 
     /**
@@ -85,7 +86,7 @@ class C_Booktable extends Controller
     {
         $data = ['date'=>$request->input('Update_Date'),'time'=>$request->input('Update_Time'),'status'=>$request->input('Update_Status')];
         $result = DB::table('booktable')->where('booktable_id','=',$id)->update($data);
- 
+        
     }
 
     /**

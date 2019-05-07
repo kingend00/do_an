@@ -5,6 +5,7 @@ use DB;
 use App\Model\M_Seat;
 use App\Model\M_Seat_Status;
 use Illuminate\Http\Request;
+use App\Http\Requests\B_SeatRequest;
 use App\Http\Controllers\Controller;
 
 class C_Seat extends Controller
@@ -20,7 +21,8 @@ class C_Seat extends Controller
     public function index()
     {
         $val = DB::table('seat')->select('type')->distinct('type')->get();
-       return view('Admin.Seat',compact('val'));
+        $data = DB::table('seat')->get();
+       return view('Admin.Seat',compact('val','data'));
     }
 
     /**
@@ -41,10 +43,21 @@ class C_Seat extends Controller
      */
     public function store(Request $request)
     {
-        DB::table('seat')->insert([
-            'type' => $request->input('Type')
-        ]);
-        return redirect()->back();
+        if(DB::table('seat')->where('number_seat','=',$request->input('NumberAdd'))->get() != null)
+        {
+            if(DB::table('seat')->where('type','=',$request->input('Type'))->get() == null)
+            {
+                return redirect()->back()->with('error','Không tồn tại loại bàn này !!');
+            }
+            else {
+                DB::table('seat')->insert([
+                    'type' => $request->input('Type')
+                ]);
+                return redirect()->back()->with('success','Thêm bàn mới thành công'); 
+            }
+                
+        }
+        return redirect()->back()->with('error','Số bàn đã tồn tại');
     }
 
     /**
@@ -56,7 +69,8 @@ class C_Seat extends Controller
     public function show($id)
     {
         $data = DB::table('seat')->where('number_seat','=',$id)->get();
-        return response()->json(['data'=>$data]);
+        if($data)
+            return response()->json(['data'=>$data]);
     }
 
 
@@ -65,10 +79,10 @@ class C_Seat extends Controller
         // hiển thị loại bàn theo số lượng tăng dần
         $val = DB::table('seat')->select('type')->distinct('type')->get();   
         if($type == 'All')
-          $data = DB::table('seat')->simplePaginate(10);
+          $data = DB::table('seat')->get();
         else    
-         $data = DB::table('seat')->where('type','=',$type)->simplePaginate(10);
-
+         $data = DB::table('seat')->where('type','=',$type)->get();
+        
         return view('Admin.Seat',compact('data','val'));
     }
     /**
@@ -93,11 +107,19 @@ class C_Seat extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(B_SeatRequest $request, $id)
     {
-       
-        $data = DB::table('seat')->where('number_seat','=',$id)->update(['type'=>$request->input('Type')]);
-        return "Thành công";
+        if(DB::table('seat')->where('type','=',$request->input('Type'))->get())
+       {
+            if(DB::table('seat')->where('number_seat','=',$id)->get() != null)
+            {
+                DB::table('seat')->where('number_seat','=',$id)->update(['type'=>$request->input('Type')]);
+                return "thành công";
+            }
+                return "Số bàn không tồn tại";     
+       }
+        
+        return "Loại bàn không tồn tại";
     }
 
     /**

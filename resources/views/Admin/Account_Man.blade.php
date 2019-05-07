@@ -163,12 +163,12 @@
 				//dataType:'json',
 				url : url,
 				success:function(response){
-					$('#Id').val(response.data.id);
-					$('#Password').val(response.data.password);
-					$('#Address').val(response.data.address);
-					$('#Name').val(response.data.name);
-					$('#Email').val(response.data.email);
-					$('#Phone').val(response.data.phone);
+					$('#Id').val(response.data[0].id);
+					$('#Password').val(response.data[0].password);
+					$('#Address').val(response.data[0].address);
+					$('#Name').val(response.data[0].name);
+					$('#Email').val(response.data[0].email);
+					$('#Phone').val(response.data[0].phone);
 					
 				},
 				error:function(eror){
