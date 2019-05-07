@@ -11,7 +11,7 @@
 									</div>
 									<div class="breadcomb-ctn">
 										<h2>Tài khoản Quản lý</h2>
-										<button type="button" class="btn btn-danger btn-add" data-toggle="modal" data-target="#ModalAdd" >Thêm</button>
+										<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" ><i class="notika-icon notika-checked"></i> Thêm</button>
 										
 									</div>
 								</div>
@@ -32,6 +32,7 @@
 		</tr>
 		</thead>
 		<tbody>
+			
 			<?php if(isset($data)): ?>
 				<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 				<tr>
@@ -41,8 +42,8 @@
 					<td> <?php echo e($value->phone); ?> </td>
 					<td> <?php echo e($value->address); ?> </td>
 					<td> <?php echo e($value->roles); ?> </td>
-					<td> <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="<?php echo e(route('B_user.show',$value->user_id)); ?>" >Edit</button></td>
-					<td> <button type="button" class="btn btn-danger btn-destroy" value="<?php echo e($value->user_id); ?>">Xóa</button></td>
+					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="<?php echo e(route('B_user.show',$value->user_id)); ?>" ><i class = "glyphicon glyphicon-cog"></i> Edit</button></td>
+					<td> <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="<?php echo e(route('B_user.destroy',$value->user_id)); ?>"><i class="notika-icon notika-close"></i> Xóa</button></td>
 				</tr>
 				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 			<?php endif; ?>
@@ -73,7 +74,7 @@
 						<div class="form-group">
 								<?php echo Form::label('Email','Email',['class' => 'control-label']); ?>
 
-								<?php echo Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']); ?>
+								<?php echo Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true','readonly' => 'true']); ?>
 
 						</div>
 						<div class="form-group">
@@ -203,13 +204,13 @@
 
 
 		$('.btn-destroy').click(function(){
-			var id = $(this).val();
+			var url = $(this).attr('data-url');
 			
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
 			{
 				$.ajax({
 				type:'DELETE',
-				url:'/B_user/'+id,
+				url:url,
 				//data:{id:id},
 				dataType:'html',
 				success:function(response){

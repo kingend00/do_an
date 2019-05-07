@@ -13,7 +13,7 @@
 					</div>
 						<div class="breadcomb-ctn">
 								<h2>Tài khoản Khách hàng</h2>
-								<button type="button" class="btn btn-danger btn-add" data-toggle="modal" data-target="#ModalAdd" >Thêm</button>
+								<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" ><i class="notika-icon notika-checked"></i> Thêm</button>
 						</div>
 					</div>
 				</div>
@@ -39,7 +39,7 @@
 					<td> {{$value->name}} </td>
 					<td> {{$value->phone}} </td>
 					<td>{{ $value->point}}</td>
-					<td> <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" >Password Reset</button></td>
+					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Password Reset</button></td>
 				</tr>
 				@endforeach
 			@endif	

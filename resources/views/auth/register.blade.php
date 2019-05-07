@@ -1,5 +1,7 @@
 @extends('Layout.admin.login')
-
+@section('title')
+    Đăng kí
+@stop
 @section('body')
 
 <div class="login-content">

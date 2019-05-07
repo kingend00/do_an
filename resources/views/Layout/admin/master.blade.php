@@ -45,6 +45,7 @@
     <!-- wave CSS
 		============================================ -->
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/wave/waves.min.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/wave/button.css')}}">
     <!-- main CSS
 		============================================ -->
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/main.css')}}">
@@ -374,7 +375,7 @@
                         </li>
                         <li><a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Xem thông tin</a>
                         </li>
-                        <li><a data-toggle="tab" href="#Appviews"><i class="notika-icon notika-app"></i> Đơn đặt bàn</a>
+                    <li><a href="{{ route('B_booktable.index') }}"><i class="notika-icon notika-app"></i> Đơn đặt bàn</a>
                         </li>
                         <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Pages</a>
                         </li>
@@ -400,16 +401,12 @@
                         </div>
                         <div id="Charts" class="tab-pane notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
-                                <li><a href="">Dinner</a>
-                                </li>
-                                <li><a href="">Lunch</a>
-                                </li>
-                                <li><a href="">Starters</a>
-                                </li>
-                                <li><a href="">Dessert</a>
-                                </li>
-                                <li><a href="">Drink</a>
-                                </li>
+                                
+                                @if(isset($nameMenushareAll))
+                                    @foreach($nameMenushareAll as $value)
+                                    <li><a href = "{{ route('B_menu.showMenu',$value->category_id) }}">{{ $value->name }}</a></li>
+                                    @endforeach
+                                @endif
                             </ul>
                         </div>
                         <div id="Tables" class="tab-pane notika-tab-menu-bg animated flipInX">
@@ -568,7 +565,9 @@
 		============================================ -->
     <script src="{{URL::asset('public/admin/js/plugins.js')}}"></script>
 	<!--  Chat JS
-		============================================ -->
+        ============================================ -->
+    <script src="{{URL::asset('public/admin/js/data-table/jquery.dataTables.min.js')}}"></script>
+    <script src="{{URL::asset('public/admin/js/data-table/data-table-act.js')}}"></script>
     <!-- main JS
 		============================================ -->
     <script src="{{URL::asset('public/admin/js/main.js')}}"></script>

@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Providers;
-
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use App\Model\M_Category;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -13,7 +14,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        View::share('nameMenushareAll',M_Category::all());
+        
     }
 
     /**

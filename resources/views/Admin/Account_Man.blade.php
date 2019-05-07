@@ -12,7 +12,7 @@
 									</div>
 									<div class="breadcomb-ctn">
 										<h2>Tài khoản Quản lý</h2>
-										<button type="button" class="btn btn-danger btn-add" data-toggle="modal" data-target="#ModalAdd" >Thêm</button>
+										<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" ><i class="notika-icon notika-checked"></i> Thêm</button>
 										
 									</div>
 								</div>
@@ -33,6 +33,7 @@
 		</tr>
 		</thead>
 		<tbody>
+			
 			@if(isset($data))
 				@foreach ($data as $value)
 				<tr>
@@ -42,8 +43,8 @@
 					<td> {{$value->phone}} </td>
 					<td> {{$value->address}} </td>
 					<td> {{$value->roles}} </td>
-					<td> <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" >Edit</button></td>
-					<td> <button type="button" class="btn btn-danger btn-destroy" data-url="{{ route('B_user.destroy',$value->user_id) }}">Xóa</button></td>
+					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Edit</button></td>
+					<td> <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{ route('B_user.destroy',$value->user_id) }}"><i class="notika-icon notika-close"></i> Xóa</button></td>
 				</tr>
 				@endforeach
 			@endif
@@ -70,7 +71,7 @@
 						</div>
 						<div class="form-group">
 								{!! Form::label('Email','Email',['class' => 'control-label']) !!}
-								{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+								{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true','readonly' => 'true']) !!}
 						</div>
 						<div class="form-group">
 							{!! Form::label('hihi','Password',['class' => 'control-label']) !!}

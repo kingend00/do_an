@@ -19,7 +19,7 @@ class C_Seat extends Controller
     }
     public function index()
     {
-        $val = DB::table('seat')->select('type')->groupBy('type')->orderBy('type', 'ASC')->get();
+        $val = DB::table('seat')->select('type')->distinct('type')->get();
        return view('Admin.Seat',compact('val'));
     }
 
@@ -63,11 +63,11 @@ class C_Seat extends Controller
     public function showType($type)
     {
         // hiển thị loại bàn theo số lượng tăng dần
-      $val = DB::table('seat')->select('type')->groupBy('type')->orderBy('type', 'ASC')->get();      
+        $val = DB::table('seat')->select('type')->distinct('type')->get();   
         if($type == 'All')
-          $data = DB::table('seat')->select('*')->get();
+          $data = DB::table('seat')->simplePaginate(10);
         else    
-         $data = DB::table('seat')->where('type','=',$type)->get();
+         $data = DB::table('seat')->where('type','=',$type)->simplePaginate(10);
 
         return view('Admin.Seat',compact('data','val'));
     }

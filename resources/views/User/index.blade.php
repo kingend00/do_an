@@ -1,6 +1,6 @@
 @extends('Layout.user.master')
 @section('title')
-	Đây là index User
+	Trang chủ
 @stop
 @section('body')
 	<section class="section-slide">

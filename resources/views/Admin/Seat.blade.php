@@ -12,7 +12,7 @@
 									</div>
 									<div class="breadcomb-ctn" style="padding-bottom: 20px">
 										<h2>Danh mục bàn</h2>
-									<button type="button" class="btn btn-danger btn-add" data-toggle="modal" data-target="#ModalAdd" data-url = "{{ route('B_Seat.AutoIncrement') }}" >Thêm</button>	<br>								
+									<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" data-url = "{{ route('B_Seat.AutoIncrement') }}" ><i class="notika-icon notika-checked"></i> Thêm</button></button><br>								
 									</div>
 								</div>
 							</div>
@@ -21,26 +21,32 @@
 			@foreach ($val as $element)
 				<a href="{{ route('B_seat.showType',$element->type) }}"><button class="btn btn-submit">{{ $element->type }}</button></a>
 			@endforeach
-			<a href="{{ route('B_seat.showType','All') }}"><button class="btn btn-danger">Show All</button></a>
+			<a href="{{ route('B_seat.showType','All') }}"><button class="btn btn-submit">Show All</button></a>
 		@endif
 	
-	<div class="bsc-tbl-hvr">
-		<table class=" table table-hover" id="tbData">
-			<th>Số bàn</th>
-			<th>Loại bàn</th>
-			<th colspan="2">Thao tác</th>
-			@if (isset($data))
-				@foreach ($data as $element)
-					<tr>
-						<td>{{ $element->number_seat }}</td>
-						<td>{{ $element->type }}</td>
-						<td><button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_seat.show',$element->number_seat) }}" >Edit</button></td>
-						<td><button type="button" class="btn btn-danger btn-destroy" data-url="{{ route('B_seat.destroy',$element->number_seat) }}"">Xóa</button></td>
-					</tr>
-				@endforeach
-			@endif
+	<div class="data-table-list">
+		<div class="table-responsive">
+		<table class="table table-striped" id="tbData" >
+			<thead>
+				<th>Số bàn</th>
+				<th>Loại bàn</th>
+				<th colspan="2" align = "center">Thao tác</th>
+			</thead>
+			<tbody>
+				@if (isset($data))
+					@foreach ($data as $element)
+						<tr>
+							<td>{{ $element->number_seat }}</td>
+							<td>{{ $element->type }}</td>
+							<td><button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_seat.show',$element->number_seat) }}"><i class = "glyphicon glyphicon-cog"></i> Sửa</button></button></td>
+							<td><button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{ route('B_seat.destroy',$element->number_seat) }}""><i class="notika-icon notika-close"></i> Xóa</button></td>
+						</tr>
+					@endforeach
+					<tr><td colspan = "4" align = "center">{{ $data->links() }}</td></tr>
+				@endif
+			</tbody>
 		</table>
-
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="ModalUpdate" role="dialog">
@@ -220,7 +226,13 @@
 					console.log(eror);
 				}
 				});
+				$('#tbData').load(' #tbData');
 			}
+			else
+			{
+				alert('Bạn đã hủy');
+			}
+			
 		});
 		$('.btn-add').click(function(){
 			var url = $(this).attr('data-url');

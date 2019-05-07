@@ -14,7 +14,7 @@
 									</div>
 									<div class="breadcomb-ctn">
 										<h2>Tài khoản Nhân viên</h2>
-										<button type="button" class="btn btn-danger btn-add" data-toggle="modal" data-target="#ModalAdd" >Thêm</button>
+										<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" ><i class="notika-icon notika-checked"></i> Thêm</button>
 										
 									</div>
 								</div>
@@ -41,8 +41,8 @@
 					<td> <?php echo e($value->name); ?> </td>
 					<td> <?php echo e($value->phone); ?> </td>
 					<td> <?php echo e($value->address); ?> </td>
-					<td> <button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="<?php echo e(route('B_user.show',$value->user_id)); ?>" >Edit</button></td>
-					<td> <button type="button" class="btn btn-danger btn-destroy" data-url="<?php echo e(route('B_user.destroy',$value->user_id)); ?>" >Xóa</button></td>
+					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="<?php echo e(route('B_user.show',$value->user_id)); ?>" ><i class = "glyphicon glyphicon-cog"></i> Edit</button></td>
+					<td> <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="<?php echo e(route('B_user.destroy',$value->user_id)); ?>" ><i class="notika-icon notika-close"></i>  Xóa</button></td>
 
 				</tr>
 				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -71,7 +71,7 @@
             <div class="modal-body">
             			<div class="form-group">
 							
-							<?php echo Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
+							<?php echo Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']); ?>
 
 						</div>
 						<div class="form-group">
@@ -124,44 +124,57 @@
     <div class="modal-dialog modals-default">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>	
             </div>
              <?php echo Form::open(['id'=>'form_add','route'=>'B_user.store','method'=>'POST']); ?>
 
                         
             <div class="modal-body">
-					<div class="form-group">
-						<?php echo Form::label('Email','Email',['class' => 'control-label']); ?>
+					<div class="form-group ic-cmp-int">
+						
+						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+							<div class="nk-int-st">
+						<?php echo Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email đăng kí','required' => 'true']); ?>
 
-						<?php echo Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']); ?>
-
+							</div>
 					</div>
-					<div class="form-group">
-						<?php echo Form::label('hihi','Password',['class' => 'control-label']); ?>
+					<div class="form-group ic-cmp-int">
+							<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+						<div class="nk-int-st">
+								<input id="Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Password" required>
 
-						<?php echo Form::text('Password','',['id' =>'Password','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
-
-					</div>
-					<div class="form-group">
-						<?php echo Form::label('Address','Address',['class' => 'control-label']); ?>
-
-						<?php echo Form::text('Address','',['id' =>'Address','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']); ?>
-
-					</div>
-					<div class="form-group">
-						<?php echo Form::label('Name','Name',['class' => 'control-label']); ?>
-
-						<?php echo Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
-
+								<?php if($errors->has('password')): ?>
+									<span class="help-block">
+										<strong><?php echo e($errors->first('password')); ?></strong>
+									</span>
+								<?php endif; ?>
+							</div>
 					</div>
 					
-					<div class="form-group">
-						<?php echo Form::label('Phone','Phone',['class' => 'control-label']); ?>
+					<div class="form-group ic-cmp-int">
+						
+						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+							<div class="nk-int-st">
+						<?php echo Form::text('Address','',['id' =>'Address','class' => 'form-control','placeholder' => 'Nhập địa chỉ','required' => 'true']); ?>
 
-						<?php echo Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
+					</div>
+				</div>
+					<div class="form-group ic-cmp-int">
+						
+						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+							<div class="nk-int-st">
+						<?php echo Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập tên chủ khoản', 'required' => 'true']); ?>
+
+					</div>
+				</div>
+					<div class="form-group ic-cmp-int">
+						
+						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+							<div class="nk-int-st">
+						<?php echo Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập số điện thoại', 'required' => 'true']); ?>
 
 					</div>						
-				                                 
+				</div>                             
             </div>
             <div class="modal-footer">
                 

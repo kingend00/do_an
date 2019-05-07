@@ -23,7 +23,8 @@
 						</h3>
 					</div>
 
-					<form class="wrap-form-reservation size22 m-l-r-auto">
+				<form class="wrap-form-reservation size22 m-l-r-auto" method = "POST" action = "{{ route('F_seat.store') }}">
+					{{ csrf_field() }}
 						<div class="row">
 							<div class="col-md-4">
 								<!-- Date -->
@@ -45,9 +46,7 @@
 
 								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<!-- Select2 -->
-									<select class="selection-1" name="time">
-										<option>9:00</option>
-										<option>9:30</option>
+									<select class="selection-1" name="time" id="time" class="time">
 										<option>10:00</option>
 										<option>10:30</option>
 										<option>11:00</option>
@@ -77,19 +76,17 @@
 
 								<div class="wrap-inputpeople size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<!-- Select2 -->
-									<select class="selection-1" name="people">
-										<option>1 person</option>
-										<option>2 people</option>
-										<option>3 people</option>
-										<option>4 people</option>
-										<option>5 people</option>
-										<option>6 people</option>
-										<option>7 people</option>
-										<option>8 people</option>
-										<option>9 people</option>
-										<option>10 people</option>
-										<option>11 people</option>
-										<option>12 people</option>
+									<select class="selection-1" name="seat" id="seat">
+										
+										@if(isset($val))
+											<option>Chọn loại bàn</option>
+											@foreach($val as $seat)
+												<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
+											@endforeach
+										@else
+										<option>Không tồn tại loại nào</option>									
+										@endif
+										
 									</select>
 								</div>
 							</div>
@@ -103,7 +100,7 @@
 								</span>
 
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" placeholder="Name">
+								<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" placeholder="Name" value="{{ (Auth::check()!= null) ? Auth::user()->name : "" }}">
 								</div>
 							</div>
 
@@ -114,7 +111,7 @@
 								</span>
 
 								<div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" placeholder="Phone">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" placeholder="Phone" value="{{ (Auth::check() != null) ? Auth::user()->phone : "" }}">
 								</div>
 							</div>
 
@@ -125,9 +122,40 @@
 								</span>
 
 								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email" placeholder="Email">
+									<input class="bo-rad-10 sizefull txt10 p-l-20" id = "email" type="email" name="email" placeholder="Email" value="{{ (Auth::check() != null) ? Auth::user()->email : "" }}">
 								</div>
 							</div>
+							<div class="col-md-4">
+								<!-- Email -->
+								<span class="txt9">
+									Tổng số sản phẩm đã mua
+								</span>
+
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
+								<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="total_product" placeholder="Tổng sản phẩm" value = "{{ (Cart::count()!=0) ? Cart::count() : 'Bạn chưa chọn sản phẩm nào' }}" readonly ="true">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<!-- Email -->
+								<span class="txt9">
+									Tổng tiền
+								</span>
+
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
+								<input class="bo-rad-10 sizefull txt10 p-l-20" id = "total_money" type="text" name="total_money" placeholder="Tổng tiền" value = "@if(isset($total)) {{ $total }} @else 0 @endif " readonly ="true">
+								</div>
+							</div>
+							<div class="col-md-4">
+								<!-- Email -->
+								<span class="txt9">
+									Số bàn
+								</span>
+
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23" id = "number">
+
+								</div>
+							</div>
+							
 
 						</div>
 
@@ -172,4 +200,49 @@
 			</div>
 		</div>
 	</section>
+	<script type="text/javascript">
+		$(document).ready(function(){
+
+			$.ajaxSetup({
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+
+			$('#seat').change(function(){
+				var value = $(this).val();
+				
+				$.ajax({
+					type:"GET",
+					url:'F_seat/'+value,
+					
+					success:function(res){
+						var html = '';
+						html += "<select name = 'number_seat' id = 'number_seat' style = ' max-width:100%; display: block;align-items: center;background-color:white;border: 0px solid transparent;border-radius: 10px;height: 46px;outline: none;width: auto;max-width: 100%' >";
+						$.each(res,function(key,value){
+							$.each(value,function(number2,type){
+								$.each(type,function(key2,value2){
+									html += '<option value ='+value2+'>';
+									html += value2;
+									html+='</option>';
+								});
+							});
+						});
+						html += "</select>";
+						
+						$('#number').html(html);
+
+						console.log(html);
+						
+						
+						
+					},
+					error:function(er){
+						console.log(er);
+					}
+				});
+				
+			});
+		});
+	</script>
 @stop

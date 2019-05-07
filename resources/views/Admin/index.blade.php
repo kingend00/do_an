@@ -1,4 +1,8 @@
 @extends('Layout.admin.master')
+@section('title')
+Quản trị
+
+@stop
 @section('body')
 	
     <!-- Start Status area -->

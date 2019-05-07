@@ -1,3 +1,7 @@
+<?php $__env->startSection('title'); ?>
+Quản trị
+
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('body'); ?>
 	
     <!-- Start Status area -->

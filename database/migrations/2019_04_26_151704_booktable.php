@@ -19,7 +19,7 @@ class Booktable extends Migration
             $table->string('email');
             $table->string('name');
             $table->text('phone');
-            $table->date('date');
+            $table->text('date');
             $table->text('time');
             $table->string('status')->default('wait');
             $table->integer('total')->nullable();

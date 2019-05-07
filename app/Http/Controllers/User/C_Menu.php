@@ -35,6 +35,7 @@ class C_Menu extends Controller
 
 
     }
+    // trả về view xem chi tiết giỏ hàng -> thêm/sửa.xóa sản phẩm
     public function showCart()
     {
         $cart = Cart::content();
@@ -68,13 +69,12 @@ class C_Menu extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    // trả về view xem chi tiết giỏ hàng -> thêm/sửa.xóa sản phẩm
+    
     public function show($id)
     {
         $menu = DB::table('menu')->where('type','=',$id)->get();
         return view('Admin.Menu',compact('menu'));
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -83,7 +83,24 @@ class C_Menu extends Controller
      */
     public function edit($id)
     {
-        //
+        $rows = Cart::search(function($key, $value) {
+            return $key->id == $id;
+        });
+        $item = $rows->first();
+        Cart::update($item->rowId, ++$item->qty);
+        $data = $item->qty;
+        return response()->json(['data'=>$data]);
+    }
+    public function EditCart(Request $request)
+    {
+        $rowId = $request->input('rowId');
+        $qty = $request->input('qty');
+        $number = count($rowId);
+        for ($i=0; $i < $number; $i++) { 
+            Cart::update($rowId[$i],$qty[$i]);
+        }
+        return redirect()->route('F_seat.index');
+
     }
 
     /**
@@ -106,6 +123,8 @@ class C_Menu extends Controller
      */
     public function destroy($id)
     {
-        //
+        $rowId = $id;
+        Cart::remove($rowId);
+        return "Thành công";
     }
 }

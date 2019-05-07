@@ -12,7 +12,7 @@
 									</div>
 									<div class="breadcomb-ctn">
 										<h2>Thực đơn</h2>
-										<button type="button" class="btn btn-danger btn-add" data-toggle="modal" data-target="#ModalAdd">Thêm</button>
+										<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" ><i class="notika-icon notika-checked"></i> Thêm</button>
 										
 									</div>
 								</div>
@@ -38,10 +38,10 @@
 						<td> {{ $element->name }}</td>
 						<td> {{ $element->description }}</td>
 						<td> {{ $element->price }}</td>
-						<td> {{ $element->type }}</td>
+						<td> {{ $element->category_name}}</td>
 						<td> {{ $element->image }}</td>
-						<td><button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('menu.show',$element->id) }}" >Edit</button></td>
-						<td><button type="button" class="btn btn-danger btn-destroy" value="{{$element->id }}">Xóa</button></td>
+						<td><button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_menu.show',$element->menu_id) }}" >Edit</button></td>
+						<td><button type="button" class="btn btn-danger btn-destroy" data-url="{{route('B_menu.destroy',$element->menu_id) }}">Xóa</button></td>
 					</tr>
 				@endforeach
 			@endif
@@ -79,8 +79,14 @@
 							{!! Form::text('Price','',['id' =>'Price','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 						</div>
 						<div class="form-group">
-							{!! Form::label('Type','Type',['class' => 'control-label']) !!}
-							{!! Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+							{!! Form::label('category_id','Danh mục',['class' => 'control-label']) !!}
+							<select id="Category_id" name="Category_id">
+								@if (isset($nameMenushareAll))
+									@foreach ($nameMenushareAll as $element)
+									<option value="{{ $element->category_id }}">{{ $element->name }}</option>	
+									@endforeach
+								@endif
+							</select>
 						</div>
 						<div class="form-group">
 							{!! Form::label('Image','Image',['class' => 'control-label']) !!}
@@ -97,47 +103,48 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="ModalAdd" role="dialog">
+</div>
+<div class="modal fade " id="ModalAdd" role="dialog">
     <div class="modal-dialog modals-default">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-             {!! Form::open(['id'=>'form_add','route'=>'menu.store','method'=>'POST'])!!}                       
+             {!! Form::open(['id'=>'form_add','route'=>'B_menu.store','method'=>'POST'])!!}                       
             <div class="modal-body">
 
 						<div class="form-group">
 							{!! Form::label('Name','Name',['class' => 'control-label']) !!}
-							{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+							{!! Form::text('Name_Add','',['id' =>'Name_Add','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
 						</div>
 						<div class="form-group">
 							{!! Form::label('Description','Description',['class' => 'control-label']) !!}
-							{!! Form::text('Description','',['id' =>'Description','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+							{!! Form::text('Description_Add','',['id' =>'Description_Add','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
 						</div>
 						<div class="form-group">
 							{!! Form::label('Price','Price',['class' => 'control-label']) !!}
-							{!! Form::text('Price','',['id' =>'Price','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+							{!! Form::text('Price_Add','',['id' =>'Price_Add','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 						</div>
 						<div class="form-group">
-							{!! Form::label('Type','Type',['class' => 'control-label']) !!}
-							{!! Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+							{!! Form::label('category_id','Danh mục',['class' => 'control-label']) !!}
+							{!! Form::text('Category_id_Add','',['id' =>'Category_id_Add','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
 						</div>
 						<div class="form-group">
 							{!! Form::label('Image','Image',['class' => 'control-label']) !!}
-							{!! Form::text('Image','',['id' =>'Image','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+							{!! Form::text('Image_Add','',['id' =>'Image_Add','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 						</div>
 				                                 
             </div>
             <div class="modal-footer">
                 {{-- {!!  Form::submit('Save changes',null,['name' => 'hihi','class'=>'btn btn-default waves-effect']) !!} --}}
-                <button class="btn btn-default " type="submit">Save</button>
+                <button class="btn btn-default" type="submit">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             {!! Form::close() !!}
         </div>
     </div>
 </div>
+
 
 
 <script type="text/javascript">
@@ -150,20 +157,21 @@
 			});
 
 		// show thông tin tài khoản
+		var url = null;
 		$('.btn-edit').click(function(){
-			var url = $(this).attr('data-url');
+			url = $(this).attr('data-url');
 
 			$.ajax({
 				type:'GET',
 				//dataType:'json',
 				url : url,
 				success:function(response){
-					$('#Id').val(response.data.id);
-					$('#Name').val(response.data.name);
-					$('#Description').val(response.data.description);
-					$('#Price').val(response.data.price);
-					$('#Type').val(response.data.type);
-					$('#Image').val(response.data.image);					
+					$('#Id').val(response.data[0].id);
+					$('#Name').val(response.data[0].name);
+					$('#Description').val(response.data[0].description);
+					$('#Price').val(response.data[0].price);
+					$('#Category_id').val(response.data[0].category_id);
+					$('#Image').val(response.data[0].image);					
 				},
 				error:function(eror){
 					console.log(eror);
@@ -173,13 +181,13 @@
 
 
 		$('.btn-destroy').click(function(){
-			var id = $(this).val();
+			var url = $(this).attr('data-url');
 			
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
 			{
 				$.ajax({
 				type:'DELETE',
-				url:'/menu/'+id,
+				url:url,
 				//data:{id:id},
 				dataType:'html',
 				success:function(response){
@@ -191,6 +199,7 @@
 					console.log(eror);
 				}
 				});
+				$('#tbData').load(' #tbData');
 			}
 		});
 
@@ -201,19 +210,15 @@
 			var id = $('#Id').val();
 			$.ajax({
 				type:'PUT',
-				url:'/menu/'+id,
+				url:url,
 				data:$('#form_update').serialize(),
-				
-				
+							
 				success:function(data){
 					console.log(data);
 
 					$('#ModalUpdate').modal('hide');
 					alert('Thành công');
 					$('#tbData').load(' #tbData');
-					//
-					
-
 				},
 				error:function(er){
 					console.log(er);

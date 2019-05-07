@@ -11,7 +11,7 @@
 									</div>
 									<div class="breadcomb-ctn" style="padding-bottom: 20px">
 										<h2>Danh mục bàn</h2>
-									<button type="button" class="btn btn-danger btn-add" data-toggle="modal" data-target="#ModalAdd" data-url = "<?php echo e(route('B_Seat.AutoIncrement')); ?>" >Thêm</button>	<br>								
+									<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" data-url = "<?php echo e(route('B_Seat.AutoIncrement')); ?>" ><i class="notika-icon notika-checked"></i> Thêm</button></button><br>								
 									</div>
 								</div>
 							</div>
@@ -20,26 +20,32 @@
 			<?php $__currentLoopData = $val; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 				<a href="<?php echo e(route('B_seat.showType',$element->type)); ?>"><button class="btn btn-submit"><?php echo e($element->type); ?></button></a>
 			<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-			<a href="<?php echo e(route('B_seat.showType','All')); ?>"><button class="btn btn-danger">Show All</button></a>
+			<a href="<?php echo e(route('B_seat.showType','All')); ?>"><button class="btn btn-submit">Show All</button></a>
 		<?php endif; ?>
 	
-	<div class="bsc-tbl-hvr">
-		<table class=" table table-hover" id="tbData">
-			<th>Số bàn</th>
-			<th>Loại bàn</th>
-			<th colspan="2">Thao tác</th>
-			<?php if(isset($data)): ?>
-				<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-					<tr>
-						<td><?php echo e($element->number_seat); ?></td>
-						<td><?php echo e($element->type); ?></td>
-						<td><button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="<?php echo e(route('B_seat.show',$element->number_seat)); ?>" >Edit</button></td>
-						<td><button type="button" class="btn btn-danger btn-destroy" data-url="<?php echo e(route('B_seat.destroy',$element->number_seat)); ?>"">Xóa</button></td>
-					</tr>
-				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-			<?php endif; ?>
+	<div class="data-table-list">
+		<div class="table-responsive">
+		<table class="table table-striped" id="tbData" >
+			<thead>
+				<th>Số bàn</th>
+				<th>Loại bàn</th>
+				<th colspan="2" align = "center">Thao tác</th>
+			</thead>
+			<tbody>
+				<?php if(isset($data)): ?>
+					<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+						<tr>
+							<td><?php echo e($element->number_seat); ?></td>
+							<td><?php echo e($element->type); ?></td>
+							<td><button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="<?php echo e(route('B_seat.show',$element->number_seat)); ?>"><i class = "glyphicon glyphicon-cog"></i> Sửa</button></button></td>
+							<td><button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="<?php echo e(route('B_seat.destroy',$element->number_seat)); ?>""><i class="notika-icon notika-close"></i> Xóa</button></td>
+						</tr>
+					<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+					<tr><td colspan = "4" align = "center"><?php echo e($data->links()); ?></td></tr>
+				<?php endif; ?>
+			</tbody>
 		</table>
-
+		</div>
 	</div>
 </div>
 <div class="modal fade" id="ModalUpdate" role="dialog">
@@ -232,7 +238,13 @@
 					console.log(eror);
 				}
 				});
+				$('#tbData').load(' #tbData');
 			}
+			else
+			{
+				alert('Bạn đã hủy');
+			}
+			
 		});
 		$('.btn-add').click(function(){
 			var url = $(this).attr('data-url');

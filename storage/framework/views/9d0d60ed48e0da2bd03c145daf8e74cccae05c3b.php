@@ -1,7 +1,7 @@
+<?php $__env->startSection('title'); ?>
+    Đăng nhập
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('body'); ?>
-
-
-
 <div class="login-content">
         <!-- Login -->
         <div class="nk-block toggled" id="l-login">
@@ -42,7 +42,7 @@
                         </div>
             
                         <div class="nk-navigation nk-lg-ic">
-                            <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Register</span></a>
+                            <a href="<?php echo e(route('register')); ?>" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Register</span></a>
                             <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Forgot Password</span></a>
                         </div>
             </form>

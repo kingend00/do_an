@@ -1,3 +1,6 @@
+<?php $__env->startSection('title'); ?>
+    Đăng kí
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection('body'); ?>
 
 <div class="login-content">

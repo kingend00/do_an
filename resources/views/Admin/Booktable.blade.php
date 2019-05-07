@@ -1,6 +1,6 @@
 @extends('Layout.admin.master')
 @section('title')
-	Nhân viên
+	Đơn đặt bàn
 @stop
 @section('body')
 <div class="container">
@@ -14,7 +14,7 @@
 										<i class="notika-icon notika-windows"></i>
 									</div>
 									<div class="breadcomb-ctn">
-										<h2>Tài khoản Nhân viên</h2>
+										<h2>Quản lý đơn đặt bàn</h2>
 										<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" ><i class="notika-icon notika-checked"></i> Thêm</button>
 										
 									</div>
@@ -26,10 +26,15 @@
 		<table class=" table table-hover" id="tbData">
 		<thead>
 			<tr>
+            <th>Số đơn</th>
+             <th>Số bàn</th>
 			<th>Email</th>
-			<th>Tên chủ khoản</th>			
+			<th>Tên khách hàng</th>			
 			<th>Số điện thoại</th>
-			<th>Địa chỉ</th>
+            <th>Ngày đặt</th>
+            <th>Thời gian đặt</th>
+            <th>Trạng thái</th>
+            <th>Tổng tiền </th>
 			<th colspan="2">Thao tác</th>
 		</tr>
 		</thead>
@@ -38,15 +43,21 @@
 			@if(isset($data))
 				@foreach ($data as $value)
 				<tr>
+                    <td> {{$value->booktable_id}} </td>
+					<td> {{$value->number_seat}} </td>
 					<td> {{$value->email}} </td>
 					<td> {{$value->name}} </td>
-					<td> {{$value->phone}} </td>
-					<td> {{$value->address}} </td>
-					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Edit</button></td>
-					<td> <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{ route('B_user.destroy',$value->user_id) }}" ><i class="notika-icon notika-close"></i>  Xóa</button></td>
-
+                    <td> {{$value->phone}} </td>
+                    <td> {{$value->date}} </td>
+                    <td> {{$value->time}} </td>
+                    <td> {{$value->status}} </td>
+                    <td> {{$value->total}} </td>
+                <td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_booktable.show',$value->booktable_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Cập nhật</button></td>
+					<td> <button type="button" class="btn btn-danger danger-icon-notika btn-details" data-url="{{ route('B_booktable.edit',$value->booktable_id) }}" ><i class="notika-icon notika-close"></i>  Chi tiết</button></td>
+				<td><a href="{{ route('B_booktable.showDetails',$value->booktable_id) }}">Click</a></td>
 				</tr>
-				@endforeach
+                @endforeach
+                <tr><td colspan = "10" align = "center">{{ $data->links() }}</td></tr>
 			@endif
 			
 		</tbody>
@@ -73,25 +84,16 @@
 							{!! Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']) !!}
 						</div>
 						<div class="form-group">
-								{!! Form::label('Email','Email',['class' => 'control-label']) !!}
-								{!! Form::text('Update_Email','',['id' =>'Update_Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+								{!! Form::label('date','Ngày đặt',['class' => 'control-label']) !!}
+								{!! Form::text('Update_Date','',['id' =>'Update_Date','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 							</div>
 							<div class="form-group">
-								{!! Form::label('hihi','Password',['class' => 'control-label']) !!}
-								{!! Form::text('Update_Password','',['id' =>'Update_Password','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+								{!! Form::label('hihi','Thời gian đặt',['class' => 'control-label']) !!}
+								{!! Form::text('Update_Time','',['id' =>'Update_Time','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
 							</div>
 							<div class="form-group">
-								{!! Form::label('Address','Address',['class' => 'control-label']) !!}
-								{!! Form::text('Update_Address','',['id' =>'Update_Address','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
-							</div>
-							<div class="form-group">
-								{!! Form::label('Name','Name',['class' => 'control-label']) !!}
-								{!! Form::text('Update_Name','',['id' =>'Update_Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-							</div>
-							
-							<div class="form-group">
-								{!! Form::label('Phone','Phone',['class' => 'control-label']) !!}
-								{!! Form::text('Update_Phone','',['id' =>'Update_Phone','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+								{!! Form::label('status','Trạng thái',['class' => 'control-label']) !!}
+								{!! Form::text('Update_Status','',['id' =>'Update_Status','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 							</div>
 						
 				                                 
@@ -113,7 +115,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>	
             </div>
-             {!! Form::open(['id'=>'form_add','route'=>'B_user.store','method'=>'POST'])!!}
+             {!! Form::open(['id'=>'form_add','route'=>'B_booktable.store','method'=>'POST'])!!}
                         
             <div class="modal-body">
 					<div class="form-group ic-cmp-int">
@@ -124,12 +126,12 @@
 							</div>
 					</div>
 					<div class="form-group ic-cmp-int">
-							<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
-						<div class="nk-int-st">
-								<input id="Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Password" required>
-							</div>
+						
+						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+							<div class="nk-int-st">
+						{!! Form::text('Password','',['id' =>'Password','class' => 'form-control','placeholder' => 'Nhập mật khẩu', 'required' => 'true']) !!}
 					</div>
-					
+				</div>
 					<div class="form-group ic-cmp-int">
 						
 						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
@@ -185,12 +187,10 @@
 				//dataType:'json',
 				url : url,
 				success:function(response){
-					$('#Update_Id').val(response.data[0].user_id);
-					$('#Update_Password').val(response.data[0].password);
-					$('#Update_Address').val(response.data[0].address);
-					$('#Update_Name').val(response.data[0].name)
-					$('#Update_Email').val(response.data[0].email);
-					$('#Update_Phone').val(response.data[0].phone);
+					$('#Update_Id').val(response.data[0].booktable_id);
+					$('#Update_Status').val(response.data[0].status);
+					$('#Update_Date').val(response.data[0].date);
+					$('#Update_Time').val(response.data[0].time)
 					
 				},
 				error:function(eror){
@@ -233,14 +233,14 @@
 				url:url,
 				data:$('#form_update').serialize(),							
 				success:function(data){
-					alert(data);
+					alert('Update thành công');
 					$('#ModalUpdate').modal('hide');
 					$('#tbData').load(' #tbData');
 					
 
 				},
 				error:function(er){
-					console.log(er);
+					alert('Đã có lỗi xảy ra , vui lòng kiểm tra lại thông tin cần sửa');
 				}
 
 			});

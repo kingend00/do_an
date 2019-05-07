@@ -4,6 +4,7 @@
 	<title><?php echo $__env->yieldContent('title','Welcome !!!'); ?></title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
 	<!--===============================================================================================-->
 	<link rel="icon" type="image/png" href="<?php echo e(URL::asset('/public/user/images/icons/favicon.png')); ?>"/>
 <!--===============================================================================================-->
@@ -29,6 +30,8 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/user/css/util.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/user/css/main.css')); ?>">
+	<script src="<?php echo e(URL::asset('public/js/jquerynew.min.js')); ?>"></script>
+
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
@@ -77,16 +80,16 @@
 									
 										<!-- Authentication Links -->
 										<?php if(auth()->guard()->guest()): ?>
-											<li><a href="<?php echo e(route('B_user.index')); ?>">Login</a></li>
-											<li><a href="<?php echo e(route('register')); ?>">Register</a></li>
+											<li><a href="<?php echo e(route('B_user.index')); ?>">Đăng nhập</a></li>
+											<li><a href="<?php echo e(route('register')); ?>">Đăng kí</a></li>
 										<?php else: ?>
 											<li class="dropdown">
 												<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
 													<?php echo e(Auth::user()->name); ?> <span class="caret"></span>
 												</a>
 				
-												<ul class="dropdown-menu">
-													<li>
+												<div class="dropdown-menu">
+													
 														<a href="<?php echo e(route('logout')); ?>"
 															onclick="event.preventDefault();
 																	 document.getElementById('logout-form').submit();">
@@ -97,8 +100,8 @@
 															<?php echo e(csrf_field()); ?>
 
 														</form>
-													</li>
-												</ul>
+													
+												</div>
 											</li>
 										<?php endif; ?>
 									

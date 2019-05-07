@@ -16,12 +16,8 @@ class C_Menu extends Controller
      */
     public function index()
     {
-        $data = array();
-        $menu = DB::table('menu')->distinct()->select('type')->get();
-        foreach ($menu as $key) {
-            $data[$key->type] = DB::table('menu')->where('type','=',$key->type)->get();
-        }
-        return view('User.menu',compact('data'));
+        $val = DB::table('category')->get();
+        return view('Admin.Menu',compact('val'));
     }
 
     /**
@@ -43,11 +39,11 @@ class C_Menu extends Controller
     public function store(Request $request)
     {
         DB::table('menu')->insert([
-            'name' => $request->input('Name'),
-            'description' => $request->input('Description'),
-            'price' => $request->input('Price'),
-            'image' => $request->input('Image'), 
-            'type' => $request->input('Type')
+            'name' => $request->input('Name_Add'),
+            'description' => $request->input('Description_Add'),
+            'price' => $request->input('Price_Add'),
+            'image' => $request->input('Image_Add'), 
+            'category_id' => $request->input('Category_id_Add')
 
         ]);
     }
@@ -60,9 +56,15 @@ class C_Menu extends Controller
      */
     public function show($id)
     {
-        $data = M_Menu::find($id);
+        $data = DB::table('menu')->where('menu_id','=',$id)->get();
         return response()->json(['data'=>$data]);
     }
+    public function showMenu($category_id)
+    {
+        $menu = DB::table('menu')->join('category','menu.category_id','=','category.category_id')->select('menu.*','category.name as category_name')->where('menu.category_id','=',$category_id)->simplePaginate(10);
+        return view('Admin.Menu',compact('menu'));
+    }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -83,14 +85,9 @@ class C_Menu extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {       
-        $Menu_items = M_Menu::find($id);
-        $Menu_items->name = $request->input('Name'); 
-        $Menu_items->description = $request->input('Description'); 
-        $Menu_items->price = $request->input('Price'); 
-        $Menu_items->type = $request->input('Type'); 
-        $Menu_items->image = $request->input('Image');   
-        $Menu_items->save();
+    {      
+        $data = ['name'=>$request->input('Name'),'description'=>$request->input('Description'),'price'=>$request->input('Price'),'category_id'=>$request->input('Category_id'),'image'=>$request->input('Image')];
+        $Menu_items = DB::table('menu')->where('menu_id','=',$id)->update($data);
     }
 
     /**
@@ -101,7 +98,7 @@ class C_Menu extends Controller
      */
     public function destroy($id)
     {
-        $menu = M_Menu::find($id);
+        $menu = DB::table('menu')->where('menu_id','=',$id)->get();
         if($menu)
         {
             $menu->delete();

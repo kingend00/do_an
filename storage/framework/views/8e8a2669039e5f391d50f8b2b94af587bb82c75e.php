@@ -1,5 +1,5 @@
 <?php $__env->startSection('title'); ?>
-	Đây là index User
+	Trang chủ
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('body'); ?>
 	<section class="section-slide">

@@ -135,7 +135,7 @@ class C_User extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserRequest $request, $id)
     {             
         
              $dk = DB::table('users')->where('user_id','=',$id)->get();
