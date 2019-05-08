@@ -42,7 +42,7 @@
 			
 			@if(isset($data))
 				@foreach ($data as $value)
-				<tr>
+				<tr class="breaknow">
                     <td> {{$value->booktable_id}} </td>
 					<td> {{$value->number_seat}} </td>
 					<td> {{$value->email}} </td>
@@ -54,8 +54,10 @@
                     <td> {{$value->total}} </td>
                 <td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_booktable.show',$value->booktable_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Cập nhật</button></td>
 					<td> <a href = "{{ route('B_booktable.showDetails',$value->booktable_id) }}"><button type="button" class="btn btn-danger danger-icon-notika btn-details" ><i class="notika-icon notika-close"></i>  Chi tiết</button></a></td>
+					
 				
 				</tr>
+				
                 @endforeach
                 <tr><td colspan = "10" align = "center">{{ $data->links() }}</td></tr>
 			@endif
@@ -143,37 +145,74 @@
 						
 						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
 							<div class="nk-int-st">
-						{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email đăng kí','required' => 'true']) !!}
+						{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email ','required' => 'true']) !!}
 							</div>
 					</div>
 					<div class="form-group ic-cmp-int">
 						
 						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
 							<div class="nk-int-st">
-						{!! Form::text('Password','',['id' =>'Password','class' => 'form-control','placeholder' => 'Nhập mật khẩu', 'required' => 'true']) !!}
+						{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập name', 'required' => 'true']) !!}
 					</div>
 				</div>
 					<div class="form-group ic-cmp-int">
 						
 						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
 							<div class="nk-int-st">
-						{!! Form::text('Address','',['id' =>'Address','class' => 'form-control','placeholder' => 'Nhập địa chỉ','required' => 'true']) !!}
+						{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập phone','required' => 'true']) !!}
 					</div>
 				</div>
 					<div class="form-group ic-cmp-int">
 						
 						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
 							<div class="nk-int-st">
-						{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập tên chủ khoản', 'required' => 'true']) !!}
+						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control','placeholder' => 'Nhập Date', 'required' => 'true']) !!}
 					</div>
 				</div>
-					<div class="form-group ic-cmp-int">
+				<div class="form-group ic-cmp-int">
+					<select name="Type_seat" id="Type_seat">										
+						@if(isset($TypeSeat))
+							<option value="">Chọn</option>
+							@foreach($TypeSeat as $seat)
+								<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
+							@endforeach
+						@else
+							<option>Không tồn tại loại nào</option>									
+						@endif						
+					</select>
+				</div> 
+				<div class="form-group ic-cmp-int">
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
-							<div class="nk-int-st">
-						{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập số điện thoại', 'required' => 'true']) !!}
-					</div>						
-				</div>                             
+					<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+						<div class="form-group ic-cmp-int" id="number">
+
+
+
+					</div>
+				</div>  
+				<div class="form-group ic-cmp-int">
+					<select id = "Time" name = "Time">
+						<option>10:00</option>
+						<option>10:30</option>
+						<option>11:00</option>
+						<option>11:30</option>
+						<option>12:00</option>
+						<option>12:30</option>
+						<option>13:00</option>
+						<option>13:30</option>
+						<option>14:00</option>
+						<option>14:30</option>
+						<option>15:00</option>
+						<option>15:30</option>
+						<option>16:00</option>
+						<option>16:30</option>
+						<option>17:00</option>
+						<option>17:30</option>
+						<option>18:00</option>
+					</select>		
+					
+				</div>						
+			</div>                           
             </div>
             <div class="modal-footer">
                 {{-- {!!  Form::submit('Save changes',null,['name' => 'hihi','class'=>'btn btn-default waves-effect']) !!} --}}
@@ -192,6 +231,8 @@
 <script type="text/javascript">
 	
 	$(document).ready(function(){
+			
+		$('select').selectpicker();
 		$.ajaxSetup({
 				headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -268,6 +309,38 @@
 
 			});
 		});
+		$('#Type_seat').change(function(){
+				var value = $(this).val();
+				
+				$.ajax({
+					type:"GET",
+					url:'B_booktable/'+value+'/edit',
+					
+					success:function(res){
+						var html = '';
+						html += "<select name = 'Number_seat' id = 'Number_seat' class = 'TypeSeat' >";
+						$.each(res,function(key,value){
+							$.each(value,function(number2,type){
+								$.each(type,function(key2,value2){
+									html += '<option value ='+value2+'>';
+									html += value2;
+									html+='</option>';
+								});
+							});
+						});
+						html += "</select>";						
+						$('#number').html(html);
+						$('select').selectpicker();						
+						console.log(res);
+						
+						
+					},
+					error:function(er){
+						console.log(er);
+					}
+				});
+				
+			});
 
 	});
 </script>

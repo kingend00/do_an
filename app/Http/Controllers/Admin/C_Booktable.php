@@ -6,6 +6,7 @@ use Model\M_Booktable;
 use Model\M_Booktable_Details;
 use Illuminate\Http\Request;
 use App\Http\Requests\BookTableRequest;
+use App\Http\Requests\B_BooktableAddRequest;
 use App\Http\Controllers\Controller;
 
 class C_Booktable extends Controller
@@ -19,7 +20,8 @@ class C_Booktable extends Controller
     {
         
         $data = DB::table('booktable')->paginate(15);
-        return view('Admin.Booktable',compact('data','status'));
+        $TypeSeat = DB::table('seat')->select('type')->distinct('type')->get();
+        return view('Admin.Booktable',compact('data','TypeSeat'));
     }
 
     /**
@@ -38,11 +40,21 @@ class C_Booktable extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(B_BooktableAddRequest $request)
     {
-        $data = ['email'=>$request->input('Email'),'name' => $request->input('Name'),'phone' => $request->input('Phone')
-        ,'date'=>$request->input('Date'),'status'=>$request->input('Status'),'total'=>$request->input('Total')];
-        DB::table('booktable')->insert($data);
+        
+        $query = DB::table('booktable')->where('number_seat','=',$request->Number_seat)->where('date','=',$request->Date)->where('time','=',$request->Time)->whereIn('status',['success','wait','using'])->get();
+        if (count($query)<1) {
+            $data = ['email'=>$request->input('Email'),'name' => $request->input('Name'),'phone' => $request->input('Phone')
+            ,'date'=>$request->Date,'number_seat'=>$request->Number_seat,'time' => $request->Time];    
+             $test = DB::table('booktable')->insert($data);
+          return redirect()->back()->with('success','Tạo đơn đặt bàn thành công');
+
+        }
+        else {
+            return redirect()->back()->with('error','Đơn đặt bàn đã tồn tại');
+        }
+        
 
     }
 
@@ -55,7 +67,8 @@ class C_Booktable extends Controller
     public function show($id)
     {
         $data = DB::table('booktable')->select('booktable_id','date','time','status')->where('booktable_id','=',$id)->get();
-        return response()->json(['data'=>$data]);
+        if($data)
+            return response()->json(['data'=>$data]);
     }
 
     /**
@@ -66,11 +79,14 @@ class C_Booktable extends Controller
      */
     public function edit($id)
     {
-       
+        $data = DB::table('seat')->select('number_seat')->where('type','=',$id)->get();
+       if($data)
+        return response()->json(['data'=>$data]);
     }
+
+    // Tối Xử lý  cả front-end
     public function showDetails($id)
-    {
-        
+    {      
             $data = DB::table('booktable_details')->where('booktable_id','=',$id)->get();
             return view('Admin.Details',compact('data'));
     }
@@ -84,8 +100,13 @@ class C_Booktable extends Controller
      */
     public function update(BookTableRequest $request, $id)
     {
-        $data = ['date'=>$request->input('Update_Date'),'time'=>$request->input('Update_Time'),'status'=>$request->input('Update_Status')];
-        $result = DB::table('booktable')->where('booktable_id','=',$id)->update($data);
+        if(DB::table('booktable')->where('booktable_id','=',$id)->get())
+        {
+            $data = ['date'=>$request->input('Update_Date'),'time'=>$request->input('Update_Time'),'status'=>$request->input('Update_Status')];
+            $result = DB::table('booktable')->where('booktable_id','=',$id)->update($data);
+            return "Cập nhật thành công";
+        }
+        return "Cập nhật thất bại";
         
     }
 

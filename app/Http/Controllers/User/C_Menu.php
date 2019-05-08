@@ -6,6 +6,7 @@ use App\Model\M_Category;
 use DB;
 use Cart;
 use Illuminate\Http\Request;
+use App\Http\Requests\CartRequest;
 use App\Http\Controllers\Controller;
 
 class C_Menu extends Controller
@@ -30,10 +31,28 @@ class C_Menu extends Controller
     public function addtoCart($id)
     {      
             $product = DB::table('menu')->where('menu_id','=',$id)->get();
-            Cart::add(['id'=>$product[0]->menu_id,'name'=>$product[0]->name,'qty'=>1,'price'=>$product[0]->price,'options'=>['description'=>$product[0]->description,'image'=>$product[0]->image]]);
-        return redirect()->back();
+            
+            if($product)
+            {            
+                Cart::add(['id'=>$product[0]->menu_id,'name'=>$product[0]->name,'qty'=>1,'price'=>$product[0]->price,'options'=>['description'=>$product[0]->description,'image'=>$product[0]->image]]);
+                return "Bạn đã thêm thành công 1 sản phẩm";
+            }
+            
+            return "Đã có lỗi xảy ra vui lòng thử lại";
+        //return redirect()->back();
+        
 
 
+    }
+    public function addComboToCart($id)
+    {
+        $combo = DB::table('combo')->where('combo_id','=',$id)->get();
+        if($combo)
+        {
+                Cart::add(['id'=>$combo[0]->combo_id,'name'=>$combo[0]->name,'qty'=>1,'price'=>$combo[0]->price,'options'=>['image'=>$combo[0]->image,'type'=>$combo[0]->type]]);
+                return "Bạn đã thêm thành công 1 combo";
+        }
+        return "Đã có lỗi xảy ra vui lòng thử lại";
     }
     // trả về view xem chi tiết giỏ hàng -> thêm/sửa.xóa sản phẩm
     public function showCart()
@@ -60,7 +79,7 @@ class C_Menu extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return "hihi";
     }
 
     /**
@@ -73,6 +92,7 @@ class C_Menu extends Controller
     public function show($id)
     {
         $menu = DB::table('menu')->where('type','=',$id)->get();
+        if($menu)
         return view('Admin.Menu',compact('menu'));
     }
     /**
@@ -83,16 +103,21 @@ class C_Menu extends Controller
      */
     public function edit($id)
     {
-        $rows = Cart::search(function($key, $value) {
-            return $key->id == $id;
-        });
-        $item = $rows->first();
-        Cart::update($item->rowId, ++$item->qty);
-        $data = $item->qty;
-        return response()->json(['data'=>$data]);
+        $product = DB::table('menu')->where('menu_id','=',$id)->get();
+        if($product)
+        {
+            $rows = Cart::search(function($key, $value) {
+                return $key->id == $id;
+            });
+            $item = $rows->first();
+            Cart::update($item->rowId, ++$item->qty);
+            $data = $item->qty;
+            return response()->json(['data'=>$data]);   
+        }
     }
-    public function EditCart(Request $request)
+    public function EditCart(CartRequest $request)
     {
+
         $rowId = $request->input('rowId');
         $qty = $request->input('qty');
         $number = count($rowId);
@@ -124,7 +149,11 @@ class C_Menu extends Controller
     public function destroy($id)
     {
         $rowId = $id;
-        Cart::remove($rowId);
+       $result =  Cart::remove($rowId);
+        if($result)
         return "Thành công";
+        else {
+            return "Thất bại";
+        }
     }
 }

@@ -32,6 +32,7 @@ Route::get('/dbs',function(){
 });
 Route::group(['prefix' => 'F_menu'],function(){
     Route::get('/addtoCart/{id}','User\C_Menu@addtoCart')->name('F_menu.addtoCart');
+    Route::get('/addComboToCart/{id}','User\C_Menu@addComboToCart')->name('F_menu.addComboToCart');
     Route::get('/showCart','User\C_Menu@showCart')->name('F_menu.showCart');
     Route::post('/editCart','User\C_Menu@EditCart')->name('editCart');
 });

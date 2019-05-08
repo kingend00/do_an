@@ -16,7 +16,7 @@ class SeatStatus extends Migration
         Schema::create('seat_status', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('number_seat');
-            $table->date('date');
+            $table->text('date');
             $table->text('time');
             $table->foreign('number_seat')->references('number_seat')->on('seat');
         });

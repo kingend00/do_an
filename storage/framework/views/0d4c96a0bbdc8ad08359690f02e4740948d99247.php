@@ -117,10 +117,10 @@
 					  				<span class="caret"></span>
 						  			<ul class="media-list">
 								  		<li class="media">							
-										    <div class="media-body">
-										      	<h6>   Bạn đã mua
-								    				<span>0sản phẩm</span>
-								    			</h6>
+										    <div class="media-body contentCart">
+										      	<?php $__currentLoopData = Gloudemans\Shoppingcart\Facades\Cart::content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+													 <?php echo e($item->name); ?> <br>
+												<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 								    		</div>
 								  		</li>
 									</ul>
@@ -169,11 +169,34 @@
 			</li>
 		</ul>	
 	</aside>
-
+	
 
 
 	<?php echo $__env->yieldContent('body'); ?>
+	<?php if(count($errors) > 0): ?>
+	<div class="alert alert-danger error-alert">           
+				   <h2>Đã có lỗi xảy ra </h2>
+				   <ul>
+					   <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+						   <li><?php echo e($error); ?></li>
+					   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+				   </ul>
+				 
+   </div>
+   <?php endif; ?>
 
+   <?php if(Session::has('error')): ?> 
+	   <div class="alert alert-danger error-alert">
+		   <?php echo e(Session::get('error')); ?>
+
+	   </div>       
+   <?php endif; ?>
+   <?php if(Session::has('success')): ?> 
+	   <div class="alert alert-success error-alert">
+		   <?php echo e(Session::get('success')); ?>
+
+	   </div>       
+   <?php endif; ?>
 
 
 	<footer class="bg1">
@@ -406,5 +429,8 @@ $('.dropdown').on('hide.bs.dropdown', function(e){
 	<script type="text/javascript" src="<?php echo e(URL::asset('/public/user/vendor/lightbox2/js/lightbox.min.js')); ?>"></script>
 <!--===============================================================================================-->
 	<script src="<?php echo e(URL::asset('/public/user/js/main.js')); ?>"></script>
+	<script type="text/javascript">
+		$('div.alert').delay(4500).fadeOut(100);
+	</script>
 </body>
 </html>

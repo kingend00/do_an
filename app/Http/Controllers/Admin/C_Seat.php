@@ -130,10 +130,10 @@ class C_Seat extends Controller
      */
     public function destroy($id)
     {
-        $seat = DB::table('seat')->where('number_seat','=',$id)->delete();
+        $seat = DB::table('seat')->where('number_seat','=',$id)->get();
         if($seat)
         {
-            $seat->delete();
+            $seat = DB::table('seat')->where('number_seat','=',$id)->delete();
             return 'Bạn đã xóa thành công';
         }
         return 'Đã xảy ra lỗi';

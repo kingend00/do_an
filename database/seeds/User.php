@@ -15,7 +15,9 @@ class User extends Seeder
         DB::table('users')->truncate();
         $users = [
             ['Boss','admin@gmail.com',bcrypt('admin'),'0375225004','Hà nội','1',99999],
-
+            ['SuperHuman','hoang123@gmail.com',bcrypt('hoang123'),'09090909','Hà Nội Nội','3',0],
+            ['Quản lý','quanly@gmail.com',bcrypt('hoang123'),'09090909','Hà Nội Nội','2',0],
+            ['Khách hàng','khachhang@gmail.com',bcrypt('hoang123'),'09090909','Hà Nội Nội','4',0]
 
         ];
         foreach ($users as $user) {

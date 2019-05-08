@@ -121,53 +121,7 @@
 
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		 var table = $("#tbData").DataTable();
-		$('#tbData').on( 'page.dt', function () {
-			var info = table.page.info();
-			$('#pageInfo').html( 'Showing page: '+info.page+' of '+info.pages );
-		} );
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
 
-
-/*		$('.cb').click(function(){
-			var vl = $(this).val();
-			$.ajax({
-				type:'GET',
-				url: '/seat/showType/'+vl,
-				
-				success:function(response){
-					var data = response;
-					var giatri = '<table class=" table table-hover" id="tbData" >';
-						giatri += '<th>Loại bàn </th>';
-						giatri += '<th>Số bàn </th>';
-						giatri += '<th colspan = "2"> Thao tác</th>';
-					$.each(data,function(index,value){
-						$.each(value,function(index2,value2){
-							
-							giatri += '<tr>';
-							giatri += '<td>'+value2.type+'</td>';
-							giatri += '<td>'+value2.number+'</td>';
-							giatri += '<td> <button type="button" class="btn btn-danger btn-destroy" value='+value2.id+'>Xóa</button></td>';
-							giatri += '<td><button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="/seat/'+value2.id+'">Edit</button></td>'; 
-							giatri += '</tr>';
-							
-						});
-					});
-					giatri += '</table>';
-					$('.bsc-tbl-hvr').html(giatri);
-					//$('#tbData').load(' #tbData');
-					
-				},
-				error:function(error){
-					console.log(error);
-				}
-			});
-		});*/
 		var url = null;
 		$('.btn-edit').click(function(){
 			 url = $(this).attr('data-url');
@@ -188,6 +142,15 @@
 				}
 			});
 		});
+	$(document).ready(function(){
+		 $("#tbData").DataTable();
+	
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+
 		$('#form_update').on('submit',function(e){
 			e.preventDefault();
 			//var url = document.getElementById('id');

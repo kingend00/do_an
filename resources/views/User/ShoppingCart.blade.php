@@ -19,20 +19,21 @@
 					<th>Giá</th>
 					<th>Mô tả </th>
 					<th>Số lượng</th>
-					<th>Tổng giá/sản phẩm</th>
+					
 					<th>Thao tác</th>
 				</tr>
 				@foreach($cart as $item)
 					<tr>
 					<td>{{ $item->name }}</td>
+					<input type = "hidden" id="Price" value="{{ $item->price }}">
 					<td>{{ $item->price }}</td>
 					<td>{{ $item->options->description }}</td>
-					<input type="hidden" name="rowId[]" id="rowId" value="{{ $item->rowId }}">
+					<input type="hidden" name="rowId[]" id="rowId" class="rowId" value="{{ $item->rowId }}">
 					{{-- <td><button type = "button" class="up"" style="background-color:green">Tăng</button></td> --}}
-					<td><input type="number" class = "updown" value="{{ $item->qty }}" class="qty" name="qty[]" min ="1" max="100" step="1" style='width:100%'></td>
+					<td><input type="number" value="{{ $item->qty }}" class="qty" id="qty" name="qty[]" min ="1" max="100" step="1" style='width:100%'></td>
 					{{-- <td><button type = "button" class="btn btn-default down" style="background-color:green">Giảm</button></td>	
 										 --}}
-					<td> {{$item->price*$item->qty}}</td>
+					
 					<td><button type="button" class = "btn btn-default delete" name = "delete" data-url = "{{ route("F_menu.destroy",$item->rowId) }}" style="background-color:green">Xóa</button></td>
 				</tr>
 				@endforeach
@@ -76,6 +77,13 @@
 						}
 					});
 				});
+				// $('#qty').click(function(){
+				// 	var price = Number($('#Price').val());
+				// 	var amount = Number($('.qty').val());
+				// 	$('.total').html(price*amount);
+					
+
+				// });
 			});
 		</script>
 	

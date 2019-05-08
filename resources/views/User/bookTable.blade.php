@@ -219,7 +219,7 @@
 					
 					success:function(res){
 						var html = '';
-						html += "<select name = 'number_seat' id = 'number_seat' class='rau' >";
+						html += "<select name = 'number_seat' id = 'number_seat' class = 'number_seat'>";
 						$.each(res,function(key,value){
 							$.each(value,function(number2,type){
 								$.each(type,function(key2,value2){
@@ -233,7 +233,7 @@
 						
 						$('#number').html(html);
 
-						$('.rau').select2({
+						$('.number_seat').select2({
 							minimumResultsForSearch: -1
 						});
 						

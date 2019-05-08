@@ -179,10 +179,10 @@ class C_User extends Controller
      */
     public function destroy($id)
     {
-        $account = DB::table('users')->where('user_id','=',$id)->delete();
+        $account = DB::table('users')->where('user_id','=',$id)->get();
         if($account)
         {
-            $account->delete();
+            $account = DB::table('users')->where('user_id','=',$id)->delete();
             return 'Bạn đã xóa thành công';
         }
         return 'Đã xảy ra lỗi';

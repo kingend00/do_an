@@ -16,5 +16,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Seat::class);
         $this->call(Category::class);
         $this->call(User::class);
+        $this->call(Combo::class);
     }
 }

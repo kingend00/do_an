@@ -116,10 +116,10 @@
 					  				<span class="caret"></span>
 						  			<ul class="media-list">
 								  		<li class="media">							
-										    <div class="media-body">
-										      	<h6>   Bạn đã mua
-								    				<span>0sản phẩm</span>
-								    			</h6>
+										    <div class="media-body contentCart">
+										      	@foreach (Gloudemans\Shoppingcart\Facades\Cart::content() as $item)
+													 {{$item->name}} <br>
+												@endforeach
 								    		</div>
 								  		</li>
 									</ul>
@@ -168,11 +168,32 @@
 			</li>
 		</ul>	
 	</aside>
-
+	
 
 
 	@yield('body')
+	@if(count($errors) > 0)
+	<div class="alert alert-danger error-alert">           
+				   <h2>Đã có lỗi xảy ra </h2>
+				   <ul>
+					   @foreach($errors->all() as $error)
+						   <li>{{$error}}</li>
+					   @endforeach
+				   </ul>
+				 
+   </div>
+   @endif
 
+   @if (Session::has('error')) 
+	   <div class="alert alert-danger error-alert">
+		   {{ Session::get('error') }}
+	   </div>       
+   @endif
+   @if (Session::has('success')) 
+	   <div class="alert alert-success error-alert">
+		   {{ Session::get('success') }}
+	   </div>       
+   @endif
 
 
 	<footer class="bg1">
@@ -405,5 +426,8 @@ $('.dropdown').on('hide.bs.dropdown', function(e){
 	<script type="text/javascript" src="{{URL::asset('/public/user/vendor/lightbox2/js/lightbox.min.js')}}"></script>
 <!--===============================================================================================-->
 	<script src="{{URL::asset('/public/user/js/main.js')}}"></script>
+	<script type="text/javascript">
+		$('div.alert').delay(4500).fadeOut(100);
+	</script>
 </body>
 </html>
