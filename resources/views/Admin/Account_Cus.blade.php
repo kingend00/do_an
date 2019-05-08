@@ -22,14 +22,15 @@
  </div>
  <br>
 	
-	<div class="bsc-tbl-hvr">
-		<table class=" table table-hover" >
+ <div class="table-responsive">
+		<table class="table table-striped" id="tbData" >
 		<thead>
 			<tr>
 			<th>Email</th>
 			<th>Tên chủ khoản</th>		
 			<th>Số điện thoại</th>
 			<th>Điểm</th>
+			<th>Thao tác</th>
 		</tr>
 		</thead>
 		@if(isset($data))
@@ -60,10 +61,13 @@
             			<div class="form-group">
 							{!! Form::hidden('Id','',['id' =>'Id']) !!}
 						</div>
-						<div class="form-group">
-							{!! Form::label('ResetPassword','Reset Password',['class' => 'control-label']) !!}
-							{!! Form::text('resetPassword','',['id' =>'resetPassword','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
+						<div class="form-group ic-cmp-int">
+									
+								<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('resetPassword','',['id' =>'resetPassword','class' => 'form-control','placeholder' => 'Nhập số mật khẩu', 'required' => 'true']) !!}
+							</div>						
+						</div> 
 				                                 
             </div>
             <div class="modal-footer">
@@ -90,23 +94,33 @@
              
              
             <div class="modal-body">
-						<div class="form-group">
-							{!! Form::label('Email','Email',['class' => 'control-label']) !!}
-							{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('hihi','Password',['class' => 'control-label']) !!}
-							{!! Form::text('Password','',['id' =>'Password','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('Name','Name',['class' => 'control-label']) !!}
-							{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
+						<div class="form-group ic-cmp-int">
 						
-						<div class="form-group">
-							{!! Form::label('Phone','Phone',['class' => 'control-label']) !!}
-							{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
+								<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email đăng kí','required' => 'true']) !!}
+									</div>
+							</div>
+							<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
+								<div class="nk-int-st">
+										<input id="Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Password" required>
+									</div>
+							</div>
+							<div class="form-group ic-cmp-int">
+						
+									<div class="form-ic-cmp"><i class="notika-icon notika-support"></i></div>
+										<div class="nk-int-st">
+									{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập tên chủ khoản', 'required' => 'true']) !!}
+								</div>
+							</div>
+								<div class="form-group ic-cmp-int">
+									
+									<div class="form-ic-cmp"><i class="notika-icon notika-phone"></i></div>
+										<div class="nk-int-st">
+									{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập số điện thoại', 'required' => 'true']) !!}
+								</div>						
+							</div>  
 				                                 
             </div>
             <div class="modal-footer">
@@ -123,16 +137,8 @@
 
 </div>
 <script type="text/javascript">
-	
-	$(document).ready(function(){
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-
-			var url = null;
-		$('.btn-edit').click(function(){
+	var url = null;
+	$('.btn-edit').click(function(){
 			url = $(this).attr('data-url');
 
 			$.ajax({
@@ -148,6 +154,15 @@
 				}
 			});
 		});
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+			$("#tbData").DataTable();
+			
+		
 
 
 		$('#form_update').on('submit',function(e){

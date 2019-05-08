@@ -20,7 +20,8 @@
 		============================================ -->
     <link rel="stylesheet" href="{{ URL::asset('public/admin/css/font-awesome.min.css') }}">
     <!-- owl.carousel CSS
-		============================================ -->
+        ============================================ -->
+        <link rel="stylesheet" href="{{ URL::asset('public/admin/css/datapicker/datepicker3.css')}}">
     <link rel="stylesheet" href="{{ URL::asset('public/admin/css/owl.carousel.css')}}">
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/owl.theme.css')}}">
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/owl.transitions.css')}}">
@@ -563,7 +564,9 @@
 		============================================ -->
     <script src="{{URL::asset('public/admin/js/scrollbar/jquery.mCustomScrollbar.concat.min.js')}}"></script>
     <!-- jvectormap JS
-		============================================ -->
+        ============================================ -->
+    <script src="{{URL::asset('public/admin/js/datapicker/bootstrap-datepicker.js')}}"></script>
+    <script src="{{URL::asset('public/admin/js/datapicker/datepicker-active.js')}}"></script>
 
     <!-- sparkline JS
 		============================================ -->

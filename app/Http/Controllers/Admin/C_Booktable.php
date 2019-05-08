@@ -19,7 +19,7 @@ class C_Booktable extends Controller
     public function index()
     {
         
-        $data = DB::table('booktable')->paginate(15);
+        $data = DB::table('booktable')->get();
         $TypeSeat = DB::table('seat')->select('type')->distinct('type')->get();
         return view('Admin.Booktable',compact('data','TypeSeat'));
     }
@@ -88,7 +88,9 @@ class C_Booktable extends Controller
     public function showDetails($id)
     {      
             $data = DB::table('booktable_details')->where('booktable_id','=',$id)->get();
-            return view('Admin.Details',compact('data'));
+            if(count($data)>=1)
+             return view('Admin.Details',compact('data'));
+            return "Đơn này không có sản phẩm đặt trước";
     }
 
     /**

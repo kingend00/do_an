@@ -1,7 +1,8 @@
 <ul>
+    <h1>Chi tiết đơn {{ $data[0]->booktable_id }}</h1><br>
+    
 @foreach($data as $value)
-<li>{{ $value->booktable_id }}</li>
-<li>{{ $value->menu_id }}</li>
+ 
 @if($value->menu_id != null)
 <li>
     <?php $data = \App\Model\M_Booktable_Details::where('menu_id',$value->menu_id)->where('booktable_id',$value->booktable_id)->first(); ?>
@@ -13,8 +14,7 @@
     Tên combo : {{($data->combo[0]->name)}}
 </li>
 @endif
-<li>{{ $value->quantity }}</li>
-<li>{{ $value->booktable_id }}</li>
+<li>Số lượng : {{ $value->quantity }} </li>
 <br><br>
 
 @endforeach

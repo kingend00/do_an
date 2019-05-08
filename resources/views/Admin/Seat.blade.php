@@ -62,8 +62,8 @@
             			<div class="form-group">
 							{!! Form::hidden('Id','',['id' =>'Id']) !!}
 						</div>
-						<div class="form-control">
-							{!! Form::label('Type','Type',['class' => 'control-label']) !!}
+						<div class="form-group ic-cmp-int">
+								<div class="form-ic-cmp">{!! Form::label('Type','Type',['class' => 'control-label']) !!}</div>
 							<select id="Type" name="Type">
 								@if (isset($val))
 									@foreach ($val as $element)
@@ -72,9 +72,13 @@
 								@endif
 							</select>
 						</div>
-						<div class="form-group">
-							{!! Form::label('Number','Number',['class' => 'control-label']) !!}
-							{!! Form::text('Number','',['id' =>'Number','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp">{!! Form::label('Number','Number',['class' => 'control-label']) !!}</div>
+									<div class="nk-int-st">
+										{!! Form::text('Number','',['id' =>'Number','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+									</div>
 						</div>
 				                                 
             </div>
@@ -98,13 +102,19 @@
              
             <div class="modal-body">
 
-						<div class="form-group">
-							{!! Form::label('Type','Type',['class' => 'control-label']) !!}
-							{!! Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp">{!! Form::label('Number','Type',['class' => 'control-label']) !!}</div>
+									<div class="nk-int-st">
+									{!! Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+								</div>
 						</div>
-						<div class="form-group">
-							{!! Form::label('Number','Number',['class' => 'control-label']) !!}
-							{!! Form::text('NumberAdd','',['id' =>'NumberAdd','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']) !!}
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp">{!! Form::label('Number','Number',['class' => 'control-label']) !!}</div>
+									<div class="nk-int-st">
+											{!! Form::text('NumberAdd','',['id' =>'NumberAdd','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']) !!}
+										</div>
 						</div>
 				                                 
             </div>
@@ -135,6 +145,7 @@
 					$('#Number').val(response.data[0].number_seat);
 					console.log($('#Type').val());
 					console.log($('#Number').val());
+					$('select').selectpicker('refresh');
 
 				},
 				error:function(eror){

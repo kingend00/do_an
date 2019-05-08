@@ -64,9 +64,8 @@
 							<?php echo Form::hidden('Id','',['id' =>'Id']); ?>
 
 						</div>
-						<div class="form-control">
-							<?php echo Form::label('Type','Type',['class' => 'control-label']); ?>
-
+						<div class="form-group ic-cmp-int">
+								<div class="form-ic-cmp"><?php echo Form::label('Type','Type',['class' => 'control-label']); ?></div>
 							<select id="Type" name="Type">
 								<?php if(isset($val)): ?>
 									<?php $__currentLoopData = $val; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $element): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -75,11 +74,14 @@
 								<?php endif; ?>
 							</select>
 						</div>
-						<div class="form-group">
-							<?php echo Form::label('Number','Number',['class' => 'control-label']); ?>
 
-							<?php echo Form::text('Number','',['id' =>'Number','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp"><?php echo Form::label('Number','Number',['class' => 'control-label']); ?></div>
+									<div class="nk-int-st">
+										<?php echo Form::text('Number','',['id' =>'Number','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
 
+									</div>
 						</div>
 				                                 
             </div>
@@ -105,17 +107,21 @@
              
             <div class="modal-body">
 
-						<div class="form-group">
-							<?php echo Form::label('Type','Type',['class' => 'control-label']); ?>
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp"><?php echo Form::label('Number','Type',['class' => 'control-label']); ?></div>
+									<div class="nk-int-st">
+									<?php echo Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
 
-							<?php echo Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
-
+								</div>
 						</div>
-						<div class="form-group">
-							<?php echo Form::label('Number','Number',['class' => 'control-label']); ?>
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp"><?php echo Form::label('Number','Number',['class' => 'control-label']); ?></div>
+									<div class="nk-int-st">
+											<?php echo Form::text('NumberAdd','',['id' =>'NumberAdd','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']); ?>
 
-							<?php echo Form::text('NumberAdd','',['id' =>'NumberAdd','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']); ?>
-
+										</div>
 						</div>
 				                                 
             </div>
@@ -147,6 +153,7 @@
 					$('#Number').val(response.data[0].number_seat);
 					console.log($('#Type').val());
 					console.log($('#Number').val());
+					$('select').selectpicker('refresh');
 
 				},
 				error:function(eror){

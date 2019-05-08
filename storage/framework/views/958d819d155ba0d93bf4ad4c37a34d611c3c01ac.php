@@ -21,15 +21,15 @@
 							</div>
 						</div>
 	
-	<div class="bsc-tbl-hvr">
-		<table class=" table table-hover" id="tbData">
+<div class="table-responsive">
+		<table class="table table-striped" id="tbData" >
 		<thead>
 			<tr>
 			<th>Email</th>
 			<th>Tên chủ khoản</th>			
 			<th>Số điện thoại</th>
 			<th>Địa chỉ</th>
-			<th colspan="2">Thao tác</th>
+			<th >Thao tác</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -41,8 +41,8 @@
 					<td> <?php echo e($value->name); ?> </td>
 					<td> <?php echo e($value->phone); ?> </td>
 					<td> <?php echo e($value->address); ?> </td>
-					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="<?php echo e(route('B_user.show',$value->user_id)); ?>" ><i class = "glyphicon glyphicon-cog"></i> Edit</button></td>
-					<td> <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="<?php echo e(route('B_user.destroy',$value->user_id)); ?>" ><i class="notika-icon notika-close"></i>  Xóa</button></td>
+					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="<?php echo e(route('B_user.show',$value->user_id)); ?>" ><i class = "glyphicon glyphicon-cog"></i> Edit</button>
+					 <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="<?php echo e(route('B_user.destroy',$value->user_id)); ?>" ><i class="notika-icon notika-close"></i>  Xóa</button></td>
 
 				</tr>
 				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -74,36 +74,45 @@
 							<?php echo Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']); ?>
 
 						</div>
-						<div class="form-group">
-								<?php echo Form::label('Email','Email',['class' => 'control-label']); ?>
 
-								<?php echo Form::text('Update_Email','',['id' =>'Update_Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']); ?>
+							<div class="form-group ic-cmp-int">
+								<div class="form-ic-cmp"><?php echo Form::label('Email','Email',['class' => 'control-label']); ?></div>
+										<div class="nk-int-st">
+										<?php echo Form::text('Update_Email','',['id' =>'Update_Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']); ?>
 
-							</div>
-							<div class="form-group">
-								<?php echo Form::label('hihi','Password',['class' => 'control-label']); ?>
-
-								<?php echo Form::text('Update_Password','',['id' =>'Update_Password','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
-
-							</div>
-							<div class="form-group">
-								<?php echo Form::label('Address','Address',['class' => 'control-label']); ?>
-
-								<?php echo Form::text('Update_Address','',['id' =>'Update_Address','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']); ?>
-
-							</div>
-							<div class="form-group">
-								<?php echo Form::label('Name','Name',['class' => 'control-label']); ?>
-
-								<?php echo Form::text('Update_Name','',['id' =>'Update_Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
-
+										</div>
 							</div>
 							
-							<div class="form-group">
-								<?php echo Form::label('Phone','Phone',['class' => 'control-label']); ?>
+							<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp"><?php echo Form::label('Email','Password',['class' => 'control-label']); ?></div>
+											<div class="nk-int-st">
+													<?php echo Form::text('Update_Password','',['id' =>'Update_Password','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
 
-								<?php echo Form::text('Update_Phone','',['id' =>'Update_Phone','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
+											</div>
+							</div>
+							
+							<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp"><?php echo Form::label('Email','Address',['class' => 'control-label']); ?></div>
+											<div class="nk-int-st">
+													<?php echo Form::text('Update_Address','',['id' =>'Update_Address','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']); ?>
 
+											</div>
+							</div>
+							
+							<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp"><?php echo Form::label('Email','Name',['class' => 'control-label']); ?></div>
+											<div class="nk-int-st">
+													<?php echo Form::text('Update_Name','',['id' =>'Update_Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
+
+											</div>
+							</div>
+							
+							<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp"><?php echo Form::label('Email','Phone',['class' => 'control-label']); ?></div>
+											<div class="nk-int-st">
+													<?php echo Form::text('Update_Phone','',['id' =>'Update_Phone','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
+
+											</div>
 							</div>
 						
 				                                 
@@ -139,7 +148,7 @@
 							</div>
 					</div>
 					<div class="form-group ic-cmp-int">
-							<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+							<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
 						<div class="nk-int-st">
 								<input id="Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Password" required>
 							</div>
@@ -147,7 +156,7 @@
 					
 					<div class="form-group ic-cmp-int">
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+						<div class="form-ic-cmp"><i class="notika-icon notika-map"></i></div>
 							<div class="nk-int-st">
 						<?php echo Form::text('Address','',['id' =>'Address','class' => 'form-control','placeholder' => 'Nhập địa chỉ','required' => 'true']); ?>
 
@@ -155,7 +164,7 @@
 				</div>
 					<div class="form-group ic-cmp-int">
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+						<div class="form-ic-cmp"><i class="notika-icon notika-support"></i></div>
 							<div class="nk-int-st">
 						<?php echo Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập tên chủ khoản', 'required' => 'true']); ?>
 
@@ -163,7 +172,7 @@
 				</div>
 					<div class="form-group ic-cmp-int">
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+						<div class="form-ic-cmp"><i class="notika-icon notika-phone"></i></div>
 							<div class="nk-int-st">
 						<?php echo Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập số điện thoại', 'required' => 'true']); ?>
 
@@ -186,16 +195,7 @@
 
 
 <script type="text/javascript">
-	
-	$(document).ready(function(){
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-
-		// show thông tin tài khoản
-		var url = null;
+	var url = null;
 		$('.btn-edit').click(function(){
 			 url = $(this).attr('data-url');
 
@@ -217,6 +217,15 @@
 				}
 			});
 		});
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+			$("#tbData").DataTable();
+		// show thông tin tài khoản
+		
 
 
 		$('.btn-destroy').click(function(){

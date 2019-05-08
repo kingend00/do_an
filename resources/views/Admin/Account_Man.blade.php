@@ -19,8 +19,8 @@
 							</div>
 						</div>
 	
-	<div class="bsc-tbl-hvr">
-		<table class=" table table-hover" id="tbData" >
+	<div class="table-responsive">
+		<table class="table table-striped" id="tbData" >
 		<thead>
 			<tr>
 			<th>Email</th>
@@ -29,7 +29,7 @@
 			<th>Số điện thoại</th>
 			<th>Địa chỉ</th>
 			<th>Quyền</th>
-			<th colspan="2">Thao tác</th>
+			<th>Thao tác</th>
 		</tr>
 		</thead>
 		<tbody>
@@ -43,8 +43,8 @@
 					<td> {{$value->phone}} </td>
 					<td> {{$value->address}} </td>
 					<td> {{$value->roles}} </td>
-					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Edit</button></td>
-					<td> <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{ route('B_user.destroy',$value->user_id) }}"><i class="notika-icon notika-close"></i> Xóa</button></td>
+					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Edit</button>
+					 <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{ route('B_user.destroy',$value->user_id) }}"><i class="notika-icon notika-close"></i> Xóa</button></td>
 				</tr>
 				@endforeach
 			@endif
@@ -69,27 +69,41 @@
             			<div class="form-group">
 							{!! Form::hidden('Id','',['id' =>'Id']) !!}
 						</div>
-						<div class="form-group">
-								{!! Form::label('Email','Email',['class' => 'control-label']) !!}
-								{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true','readonly' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('hihi','Password',['class' => 'control-label']) !!}
-							{!! Form::text('Password','',['id' =>'Password','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('Address','Address',['class' => 'control-label']) !!}
-							{!! Form::text('Address','',['id' =>'Address','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('Name','Name',['class' => 'control-label']) !!}
-							{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
+						<div class="form-group ic-cmp-int">
 						
-						<div class="form-group">
-							{!! Form::label('Phone','Phone',['class' => 'control-label']) !!}
-							{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+								<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email đăng kí','required' => 'true']) !!}
+									</div>
+							</div>
+							<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
+								<div class="nk-int-st">
+										<input id="Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Password" required>
+									</div>
+							</div>
+							
+							<div class="form-group ic-cmp-int">
+								
+								<div class="form-ic-cmp"><i class="notika-icon notika-map"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('Address','',['id' =>'Address','class' => 'form-control','placeholder' => 'Nhập địa chỉ','required' => 'true']) !!}
+							</div>
 						</div>
+							<div class="form-group ic-cmp-int">
+								
+								<div class="form-ic-cmp"><i class="notika-icon notika-support"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập tên chủ khoản', 'required' => 'true']) !!}
+							</div>
+						</div>
+							<div class="form-group ic-cmp-int">
+								
+								<div class="form-ic-cmp"><i class="notika-icon notika-phone"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập số điện thoại', 'required' => 'true']) !!}
+							</div>						
+						</div>        
 				                                 
             </div>
             <div class="modal-footer">
@@ -112,28 +126,42 @@
              
              
             <div class="modal-body">
-
-						<div class="form-group">
-							{!! Form::label('Email','Email',['class' => 'control-label']) !!}
-							{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('hihi','Password',['class' => 'control-label']) !!}
-							{!! Form::text('Password','',['id' =>'Password','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('Address','Address',['class' => 'control-label']) !!}
-							{!! Form::text('Address','',['id' =>'Address','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('Name','Name',['class' => 'control-label']) !!}
-							{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
+						<input type="hidden" name="Roles" id="Roles" class="Roles" value="2">
+						<div class="form-group ic-cmp-int">
 						
-						<div class="form-group">
-							{!! Form::label('Phone','Phone',['class' => 'control-label']) !!}
-							{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+								<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email đăng kí','required' => 'true']) !!}
+									</div>
+							</div>
+							<div class="form-group ic-cmp-int">
+									<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
+								<div class="nk-int-st">
+										<input id="Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Password" required>
+									</div>
+							</div>
+							
+							<div class="form-group ic-cmp-int">
+								
+								<div class="form-ic-cmp"><i class="notika-icon notika-map"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('Address','',['id' =>'Address','class' => 'form-control','placeholder' => 'Nhập địa chỉ','required' => 'true']) !!}
+							</div>
 						</div>
+							<div class="form-group ic-cmp-int">
+								
+								<div class="form-ic-cmp"><i class="notika-icon notika-support"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập tên chủ khoản', 'required' => 'true']) !!}
+							</div>
+						</div>
+							<div class="form-group ic-cmp-int">
+								
+								<div class="form-ic-cmp"><i class="notika-icon notika-phone"></i></div>
+									<div class="nk-int-st">
+								{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập số điện thoại', 'required' => 'true']) !!}
+							</div>						
+						</div>        
 				                                 
             </div>
             <div class="modal-footer">
@@ -146,14 +174,7 @@
     </div>
 </div>
 <script type="text/javascript">
-	
-	$(document).ready(function(){
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-			var url = null;
+	var url = null;
 		// show thông tin tài khoản
 		$('.btn-edit').click(function(){
 			 url = $(this).attr('data-url');
@@ -176,6 +197,14 @@
 				}
 			});
 		});
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+			$("#tbData").DataTable();
+			
 
 
 		$('.btn-destroy').click(function(){

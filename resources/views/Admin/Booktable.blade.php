@@ -22,8 +22,8 @@
 							</div>
 						</div>
 	
-	<div class="bsc-tbl-hvr">
-		<table class=" table table-hover" id="tbData">
+	<div class="table-responsive">
+			<table class="table table-striped" id="tbData" >
 		<thead>
 			<tr>
             <th>Số đơn</th>
@@ -35,14 +35,14 @@
             <th>Thời gian đặt</th>
             <th>Trạng thái</th>
             <th>Tổng tiền </th>
-			<th colspan="2">Thao tác</th>
+			<th>Thao tác</th>
 		</tr>
 		</thead>
 		<tbody>
 			
 			@if(isset($data))
 				@foreach ($data as $value)
-				<tr class="breaknow">
+				<tr>
                     <td> {{$value->booktable_id}} </td>
 					<td> {{$value->number_seat}} </td>
 					<td> {{$value->email}} </td>
@@ -52,14 +52,13 @@
                     <td> {{$value->time}} </td>
                     <td> {{$value->status}} </td>
                     <td> {{$value->total}} </td>
-                <td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_booktable.show',$value->booktable_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Cập nhật</button></td>
-					<td> <a href = "{{ route('B_booktable.showDetails',$value->booktable_id) }}"><button type="button" class="btn btn-danger danger-icon-notika btn-details" ><i class="notika-icon notika-close"></i>  Chi tiết</button></a></td>
-					
-				
+                <td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_booktable.show',$value->booktable_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Cập nhật</button>
+					<button type="button" class="btn btn-danger danger-icon-notika btn-details" data-toggle="modal" data-target="#ModalDetails"  data-url = "{{ route('B_booktable.showDetails',$value->booktable_id) }}"><i class="notika-icon notika-close"></i>  Chi tiết</button></td>
+
 				</tr>
 				
                 @endforeach
-                <tr><td colspan = "10" align = "center">{{ $data->links() }}</td></tr>
+                
 			@endif
 			
 		</tbody>
@@ -85,10 +84,14 @@
 							
 							{!! Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
 						</div>
-						<div class="form-group">
-								{!! Form::label('date','Ngày đặt',['class' => 'control-label']) !!}
-								{!! Form::text('Update_Date','',['id' =>'Update_Date','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+						<div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
+						
+								<div class="form-ic-cmp">Ngày đặt</div>
+									<div class="input-group date nk-int-st">
+									<span class="input-group-addon"></span>
+								{!! Form::text('Update_Date','',['id' =>'Update_Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true']) !!}
 							</div>
+						</div>
 							
 								{!! Form::label('hihi','Thời gian đặt',['class' => 'control-label']) !!}
 								
@@ -111,11 +114,18 @@
 										<option>17:30</option>
 										<option>18:00</option>
 									</select>
-                                
+									
 								
 							<div class="form-group">
+								<br>
 								{!! Form::label('status','Trạng thái',['class' => 'control-label']) !!}
-								{!! Form::text('Update_Status','',['id' =>'Update_Status','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+								<select id = "Update_Status" name = "Update_Status">
+										<option value="wait">Wait</option>
+										<option value="using">Using</option>
+										<option value="success">Success</option>
+										<option value="delete">Delete</option>
+									
+									</select>
 								
 							</div>
 						
@@ -131,7 +141,27 @@
     </div>
 </div>
 
-<!-- FORM ADD -->
+<!-- Modal Details -->
+<div class="modal fade" id="ModalDetails" role="dialog">
+    <div class="modal-dialog modals-default">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>	
+            </div>
+			<div class="modal-body" id="contentDetails">
+
+			</div>                           
+            
+            <div class="modal-footer">
+ 
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+    	</div>
+     </div>
+</div>
+
+
+<!-- Modal ADD -->
 <div class="modal fade" id="ModalAdd" role="dialog">
     <div class="modal-dialog modals-default">
         <div class="modal-content">
@@ -150,47 +180,49 @@
 					</div>
 					<div class="form-group ic-cmp-int">
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+						<div class="form-ic-cmp"><i class="notika-icon notika-support"></i></div>
 							<div class="nk-int-st">
 						{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập name', 'required' => 'true']) !!}
 					</div>
 				</div>
 					<div class="form-group ic-cmp-int">
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+						<div class="form-ic-cmp"><i class="notika-icon notika-phone"></i></div>
 							<div class="nk-int-st">
 						{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập phone','required' => 'true']) !!}
 					</div>
 				</div>
-					<div class="form-group ic-cmp-int">
+				<div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
-							<div class="nk-int-st">
-						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control','placeholder' => 'Nhập Date', 'required' => 'true']) !!}
+						<div class="form-ic-cmp"><i class="notika-icon notika-calendar"></i></div>
+							<div class="input-group date nk-int-st">
+							<span class="input-group-addon"></span>
+						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true']) !!}
 					</div>
 				</div>
-				<div class="form-group ic-cmp-int">
-					<select name="Type_seat" id="Type_seat">										
-						@if(isset($TypeSeat))
-							<option value="">Chọn</option>
-							@foreach($TypeSeat as $seat)
-								<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
-							@endforeach
-						@else
-							<option>Không tồn tại loại nào</option>									
-						@endif						
-					</select>
-				</div> 
-				<div class="form-group ic-cmp-int">
+				<div style="margin-bottom:20px">
+						<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
 						
-					<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
-						<div class="form-group ic-cmp-int" id="number">
+						<select name="Type_seat" id="Type_seat">
+								<option value="">Chọn loại bàn</option>										
+							@if(isset($TypeSeat))								
+								@foreach($TypeSeat as $seat)
+									<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
+								@endforeach
+							@else
+								<option>Không tồn tại loại nào</option>									
+							@endif						
+						</select>
+				</div>
+				
+				<div style="margin-bottom:20px">		
+					
+						<div id="number">
 
-
-
-					</div>
-				</div>  
-				<div class="form-group ic-cmp-int">
+						</div>
+				</div>
+				<div style="margin-bottom:20px">
+					<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
 					<select id = "Time" name = "Time">
 						<option>10:00</option>
 						<option>10:30</option>
@@ -210,37 +242,28 @@
 						<option>17:30</option>
 						<option>18:00</option>
 					</select>		
-					
-				</div>						
+				</div>	
+										
 			</div>                           
-            </div>
+            
             <div class="modal-footer">
                 {{-- {!!  Form::submit('Save changes',null,['name' => 'hihi','class'=>'btn btn-default waves-effect']) !!} --}}
                 <button class="btn btn-default " type="submit">Save changes</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
-            {!! Form::close() !!}
+			{!! Form::close() !!}
+			</div>
         </div>
     </div>
-</div>
+
 
 
 
 
 
 <script type="text/javascript">
-	
-	$(document).ready(function(){
-			
-		$('select').selectpicker();
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-		
+	var url = null;
 		// show thông tin tài khoản
-		var url = null;
 		$('.btn-edit').click(function(){
 			 url = $(this).attr('data-url');
 
@@ -262,6 +285,41 @@
 				}
 			});
 		});
+	$(document).ready(function(){
+		//$(".Date").datepicker("option", "dateFormat", "yy-mm-dd");
+		 
+     
+      	
+		$('select').selectpicker();
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+		$("#tbData").DataTable();
+
+
+		$('.btn-details').click(function(){
+			var url = $(this).attr('data-url');
+
+			$.ajax({
+				type:'GET',
+				url :url,
+				success:function(data)
+				{
+					//$('#contentDetails').load (' #contentDetails');
+					$('#contentDetails').html(data);
+					
+				},
+				error:function(er)
+				{
+					console.log(er);
+				}
+			});
+			
+		});
+
+		
 		
 
 		$('.btn-destroy').click(function(){
@@ -319,6 +377,7 @@
 					success:function(res){
 						var html = '';
 						html += "<select name = 'Number_seat' id = 'Number_seat' class = 'TypeSeat' >";
+						html += "<option>Chọn số bàn</option>";
 						$.each(res,function(key,value){
 							$.each(value,function(number2,type){
 								$.each(type,function(key2,value2){
@@ -330,8 +389,8 @@
 						});
 						html += "</select>";						
 						$('#number').html(html);
-						$('select').selectpicker();						
-						console.log(res);
+						$('#Number_seat').selectpicker('refresh');						
+						//console.log(res);
 						
 						
 					},
@@ -341,6 +400,7 @@
 				});
 				
 			});
+			
 
 	});
 </script>

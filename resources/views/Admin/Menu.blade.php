@@ -19,8 +19,8 @@
 							</div>
 						</div>
 	
-	<div class="bsc-tbl-hvr">
-		<table class=" table table-hover" id="tbData" >
+	<div class="table-responsive">
+		<table class="table table-striped" id="tbData" >
 		<thead>
 			<tr>
 			<th>Tên món</th>
@@ -28,6 +28,7 @@
 			<th>giá</th>
 			<th>Loại món</th>
 			<th>Ảnh hiển thị</th>
+			<th>Thao tác</th>
 			
 		</tr>
 		</thead>
@@ -40,8 +41,8 @@
 						<td> {{ $element->price }}</td>
 						<td> {{ $element->category_name}}</td>
 						<td> {{ $element->image }}</td>
-						<td><button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_menu.show',$element->menu_id) }}" >Edit</button></td>
-						<td><button type="button" class="btn btn-danger btn-destroy" data-url="{{route('B_menu.destroy',$element->menu_id) }}">Xóa</button></td>
+						<td><button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_menu.show',$element->menu_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Edit</button>
+						<button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{route('B_menu.destroy',$element->menu_id) }}"><i class="notika-icon notika-close"></i> Xóa</button></td>
 					</tr>
 				@endforeach
 			@endif
@@ -66,18 +67,30 @@
             <div class="modal-body">
             			<div class="form-group">
 							{!! Form::hidden('Id','',['id' =>'Id','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						<div class="form-group">
-							{!! Form::label('Name','Name',['class' => 'control-label']) !!}
-							{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('Description','Description',['class' => 'control-label']) !!}
-							{!! Form::text('Description','',['id' =>'Description','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
-						</div>
-						<div class="form-group">
-							{!! Form::label('Price','Price',['class' => 'control-label']) !!}
-							{!! Form::text('Price','',['id' =>'Price','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
-						</div>
+						
+							<div class="form-group ic-cmp-int">
+						
+									<div class="form-ic-cmp">{!! Form::label('Name','Name',['class' => 'control-label']) !!}</div>
+										<div class="nk-int-st">
+												{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+											</div>
+							</div>
+						
+							<div class="form-group ic-cmp-int">
+							
+									<div class="form-ic-cmp">{!! Form::label('Name','Description',['class' => 'control-label']) !!}</div>
+										<div class="nk-int-st">
+												{!! Form::text('Description','',['id' =>'Description','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+							</div>
+							</div>
+	
+							<div class="form-group ic-cmp-int">
+							
+									<div class="form-ic-cmp">{!! Form::label('Name','Price',['class' => 'control-label']) !!}</div>
+										<div class="nk-int-st">
+											{!! Form::text('Price','',['id' =>'Price','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+											</div>
+							</div>
 						<div class="form-group">
 							{!! Form::label('category_id','Danh mục',['class' => 'control-label']) !!}
 							<select id="Category_id" name="Category_id">
@@ -88,9 +101,12 @@
 								@endif
 							</select>
 						</div>
-						<div class="form-group">
-							{!! Form::label('Image','Image',['class' => 'control-label']) !!}
-							{!! Form::text('Image','',['id' =>'Image','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp">{!! Form::label('Name','Image',['class' => 'control-label']) !!}</div>
+									<div class="nk-int-st">
+											{!! Form::text('Image','',['id' =>'Image','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+										</div>
 						</div>
 				                                 
             </div>
@@ -113,25 +129,46 @@
              {!! Form::open(['id'=>'form_add','route'=>'B_menu.store','method'=>'POST'])!!}                       
             <div class="modal-body">
 
-						<div class="form-group">
-							{!! Form::label('Name','Name',['class' => 'control-label']) !!}
-							{!! Form::text('Name_Add','',['id' =>'Name_Add','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp">{!! Form::label('Name','Name',['class' => 'control-label']) !!}</div>
+									<div class="nk-int-st">
+											{!! Form::text('Name_Add','',['id' =>'Name_Add','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+										</div>
 						</div>
-						<div class="form-group">
-							{!! Form::label('Description','Description',['class' => 'control-label']) !!}
-							{!! Form::text('Description_Add','',['id' =>'Description_Add','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+					
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp">{!! Form::label('Name','Description',['class' => 'control-label']) !!}</div>
+									<div class="nk-int-st">
+											{!! Form::text('Description_Add','',['id' =>'Description_Add','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
 						</div>
-						<div class="form-group">
-							{!! Form::label('Price','Price',['class' => 'control-label']) !!}
-							{!! Form::text('Price_Add','',['id' =>'Price_Add','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 						</div>
-						<div class="form-group">
-							{!! Form::label('category_id','Danh mục',['class' => 'control-label']) !!}
-							{!! Form::text('Category_id_Add','',['id' =>'Category_id_Add','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp">{!! Form::label('Name','Price',['class' => 'control-label']) !!}</div>
+									<div class="nk-int-st">
+										{!! Form::text('Price_Add','',['id' =>'Price_Add','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+										</div>
 						</div>
-						<div class="form-group">
-							{!! Form::label('Image','Image',['class' => 'control-label']) !!}
-							{!! Form::text('Image_Add','',['id' =>'Image_Add','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp">{!! Form::label('Name','Category',['class' => 'control-label']) !!}</div>
+								<select name="Category_id_Add" id="Category_id_Add">
+								@foreach (\App\Model\M_Category::all() as $item)
+								<option value="{{ $item->category_id }}">{{ $item->name }}</option>
+								@endforeach
+							</select>
+						</div>
+
+						<div class="form-group ic-cmp-int">
+						
+								<div class="form-ic-cmp">{!! Form::label('Name','Image',['class' => 'control-label']) !!}</div>
+									<div class="nk-int-st">
+											{!! Form::text('Image_Add','',['id' =>'Image_Add','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+										</div>
 						</div>
 				                                 
             </div>
@@ -148,16 +185,8 @@
 
 
 <script type="text/javascript">
-	
-	$(document).ready(function(){
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-
-		// show thông tin tài khoản
-		var url = null;
+	// show thông tin tài khoản
+	var url = null;
 		$('.btn-edit').click(function(){
 			url = $(this).attr('data-url');
 
@@ -171,13 +200,23 @@
 					$('#Description').val(response.data[0].description);
 					$('#Price').val(response.data[0].price);
 					$('#Category_id').val(response.data[0].category_id);
-					$('#Image').val(response.data[0].image);					
+					$('#Image').val(response.data[0].image);
+					$('select').selectpicker('refresh');					
 				},
 				error:function(eror){
 					console.log(eror);
 				}
 			});
 		});
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+		$('select').selectpicker();
+		$("#tbData").DataTable();
+		
 
 
 		$('.btn-destroy').click(function(){
