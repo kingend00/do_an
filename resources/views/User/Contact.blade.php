@@ -19,13 +19,13 @@
 				<div class="contact-map size37" id="google_map" data-map-x="40.704644" data-map-y="-74.011987" data-pin="images/icons/icon-position-map.png" data-scrollwhell="0" data-draggable="1"></div>
 			</div>
 		</div>
-
+		@include('Layout.user.error')
 		<div class="container">
 			<h3 class="tit7 t-center p-b-62 p-t-105">
 				Send us a Message
 			</h3>
-
-			<form class="wrap-form-reservation size22 m-l-r-auto">
+			
+			{!! Form::open(['class' => 'wrap-form-reservation size22 m-l-r-auto','id'=>'form_update','method'=>'POST','route'=>'F_contact.store'])!!}
 				<div class="row">
 					<div class="col-md-4">
 						<!-- Name -->
@@ -34,7 +34,7 @@
 						</span>
 
 						<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" placeholder="Name">
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" id="name" placeholder="Name" value = "{{ (Auth::check()) ? Auth::user()->name : '' }}" required>
 						</div>
 					</div>
 
@@ -45,7 +45,7 @@
 						</span>
 
 						<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email" placeholder="Email">
+							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email" id="email" placeholder="Email" value = "{{ (Auth::check()) ? Auth::user()->email : '' }}">
 						</div>
 					</div>
 
@@ -56,7 +56,7 @@
 						</span>
 
 						<div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
-							<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" placeholder="Phone">
+						<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="phone" id="phone" placeholder="Phone" value = "{{ (Auth::check()) ? Auth::user()->phone : '' }}" required>
 						</div>
 					</div>
 
@@ -65,7 +65,7 @@
 						<span class="txt9">
 							Message
 						</span>
-						<textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" name="message" placeholder="Message"></textarea>
+						<textarea class="bo-rad-10 size35 bo2 txt10 p-l-20 p-t-15 m-b-10 m-t-3" name="message" id="message" placeholder="Message" required></textarea>
 					</div>
 				</div>
 
@@ -75,7 +75,7 @@
 						Submit
 					</button>
 				</div>
-			</form>
+				{!! Form::close() !!}
 
 			<div class="row p-t-135">
 				<div class="col-sm-8 col-md-4 col-lg-4 m-l-r-auto p-t-30">

@@ -14,7 +14,10 @@
 										<i class="notika-icon notika-windows"></i>
 									</div>
 									<div class="breadcomb-ctn">
-										<h2>Quản lý đơn đặt bàn</h2>
+										<h2>Quản lý đơn đặt bàn <?php 
+											date_default_timezone_set('Asia/Ho_Chi_Minh');
+											echo date('d/m/Y - H:i:s',time()); ?></h2>
+										
 										<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" ><i class="notika-icon notika-checked"></i> Thêm</button>
 										
 									</div>
@@ -149,7 +152,7 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>	
             </div>
 			<div class="modal-body" id="contentDetails">
-
+				
 			</div>                           
             
             <div class="modal-footer">
@@ -171,6 +174,51 @@
              {!! Form::open(['id'=>'form_add','route'=>'B_booktable.store','method'=>'POST'])!!}
                         
             <div class="modal-body">
+					<div style="margin-bottom:20px">
+							<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>					
+							<select name="Type_seat" id="Type_seat" >
+																		
+								@if(isset($TypeSeat))
+								<option value ="">Chọn loại bàn</option>							
+									@foreach($TypeSeat as $seat)
+										<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
+									@endforeach
+								@else
+									<option>Không tồn tại loại nào</option>									
+								@endif						
+							</select>
+					</div>
+					
+					<div style="margin-bottom:20px">		
+						
+							<div id="number">
+	
+							</div>
+					</div>
+					<div style="margin-bottom:20px">
+						<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
+						<select id = "Time" name = "Time">
+							<option> Chọn thời gian</option>
+							<option>08:00</option>
+							<option>10:00</option>
+							<option>10:30</option>
+							<option>11:00</option>
+							<option>11:30</option>
+							<option>12:00</option>
+							<option>12:30</option>
+							<option>13:00</option>
+							<option>13:30</option>
+							<option>14:00</option>
+							<option>14:30</option>
+							<option>15:00</option>
+							<option>15:30</option>
+							<option>16:00</option>
+							<option>16:30</option>
+							<option>17:00</option>
+							<option>17:30</option>
+							<option>18:00</option>
+						</select>		
+					</div>	
 					<div class="form-group ic-cmp-int">
 						
 						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
@@ -192,57 +240,15 @@
 						{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập phone','required' => 'true']) !!}
 					</div>
 				</div>
-				<div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
+				<div class="form-group nk-datapk-ctm form-elet-mg" id="data_1" style="margin-bottom:30px;">
 						
 						<div class="form-ic-cmp"><i class="notika-icon notika-calendar"></i></div>
-							<div class="input-group date nk-int-st">
+							<div class="input-group date nk-int-st" id="Picker">
 							<span class="input-group-addon"></span>
-						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true']) !!}
+						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true','data-date-format'=>'yy-mm-dd']) !!}
 					</div>
 				</div>
-				<div style="margin-bottom:20px">
-						<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
-						
-						<select name="Type_seat" id="Type_seat">
-								<option value="">Chọn loại bàn</option>										
-							@if(isset($TypeSeat))								
-								@foreach($TypeSeat as $seat)
-									<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
-								@endforeach
-							@else
-								<option>Không tồn tại loại nào</option>									
-							@endif						
-						</select>
-				</div>
 				
-				<div style="margin-bottom:20px">		
-					
-						<div id="number">
-
-						</div>
-				</div>
-				<div style="margin-bottom:20px">
-					<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
-					<select id = "Time" name = "Time">
-						<option>10:00</option>
-						<option>10:30</option>
-						<option>11:00</option>
-						<option>11:30</option>
-						<option>12:00</option>
-						<option>12:30</option>
-						<option>13:00</option>
-						<option>13:30</option>
-						<option>14:00</option>
-						<option>14:30</option>
-						<option>15:00</option>
-						<option>15:30</option>
-						<option>16:00</option>
-						<option>16:30</option>
-						<option>17:00</option>
-						<option>17:30</option>
-						<option>18:00</option>
-					</select>		
-				</div>	
 										
 			</div>                           
             
@@ -285,20 +291,6 @@
 				}
 			});
 		});
-	$(document).ready(function(){
-		//$(".Date").datepicker("option", "dateFormat", "yy-mm-dd");
-		 
-     
-      	
-		$('select').selectpicker();
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-		$("#tbData").DataTable();
-
-
 		$('.btn-details').click(function(){
 			var url = $(this).attr('data-url');
 
@@ -308,8 +300,7 @@
 				success:function(data)
 				{
 					//$('#contentDetails').load (' #contentDetails');
-					$('#contentDetails').html(data);
-					
+					$('#contentDetails').html(data);					
 				},
 				error:function(er)
 				{
@@ -318,6 +309,20 @@
 			});
 			
 		});
+	$(document).ready(function(){
+		//$(".Date").datepicker("option", "dateFormat", "yy-mm-dd");
+		 //$('#Picker').datepicker({format: 'dd/mm/yyyy'});
+		 $('.Date').datepicker({format: 'dd/mm/yyyy'});
+		 $('#Update_Date').datepicker({format: 'dd/mm/yyyy'});
+		$('select').selectpicker();
+		$("#tbData").DataTable();
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+		
+		
 
 		
 		

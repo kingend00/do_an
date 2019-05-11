@@ -366,6 +366,7 @@ class ComposerStaticInitcbdc9f3e8596943838d923de914bcea6
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Admin\\C_Booktable' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_Booktable.php',
+        'App\\Http\\Controllers\\Admin\\C_Combo' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_Combo.php',
         'App\\Http\\Controllers\\Admin\\C_Menu' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_Menu.php',
         'App\\Http\\Controllers\\Admin\\C_Seat' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_Seat.php',
         'App\\Http\\Controllers\\Admin\\C_User' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_User.php',

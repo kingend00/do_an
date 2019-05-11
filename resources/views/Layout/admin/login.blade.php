@@ -16,11 +16,13 @@
     <!-- Bootstrap CSS
 		============================================ -->
         <link rel="stylesheet" href="{{ URL::asset('public/admin/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{URL::asset('public/admin/css/wave/button.css')}}">
     <!-- font awesome CSS font-awesome.min
 		============================================ -->
     <link rel="stylesheet" href="href="{{ URL::asset('public/admin/css/font-awesome.min.css')}}">
     <!-- owl.carousel CSS
-		============================================ -->
+    ============================================ -->
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/jquery.dataTables.min.css')}}">
         <link rel="stylesheet" href="{{ URL::asset('public/admin/css/owl.carousel.css')}}">
         <link rel="stylesheet" href="{{URL::asset('public/admin/css/owl.theme.css')}}">
         <link rel="stylesheet" href="{{URL::asset('public/admin/css/owl.transitions.css')}}">
@@ -55,7 +57,27 @@
  
 </head>
 <body>
-
+      @if(count($errors) > 0)
+      <div class="alert alert-danger error-alert">           
+                    <h2>Đã có lỗi xảy ra </h2>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                  
+    </div>
+    @endif
+    @if (Session::has('error')) 
+    <div class="alert alert-danger error-alert">
+        {{ Session::get('error') }}
+    </div>       
+    @endif
+    @if (Session::has('success')) 
+        <div class="alert alert-success error-alert">
+            {{ Session::get('success') }}
+        </div>       
+    @endif
     @yield('body')
 
     <script src="{{URL::asset('public/admin/js/vendor/jquery-1.12.4.min.js')}}"></script>
@@ -122,4 +144,8 @@
         <!-- main JS
             ============================================ -->
             <script src="{{URL::asset('public/admin/js/main.js')}}"></script>
+            <script src="{{URL::asset('public/admin/js/data-table/jquery.dataTables.min.js')}}"></script>
+            <script type="text/javascript">
+              $('div.alert').delay(2000).fadeOut(100);
+          </script>
 </body>

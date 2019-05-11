@@ -13,6 +13,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12 p-b-30">
+					@include('Layout.user.error')
 					<div class="t-center">
 						<span class="tit2 t-center">
 							Reservation

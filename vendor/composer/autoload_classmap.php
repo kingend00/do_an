@@ -9,6 +9,7 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Admin\\C_Booktable' => $baseDir . '/app/Http/Controllers/Admin/C_Booktable.php',
+    'App\\Http\\Controllers\\Admin\\C_Combo' => $baseDir . '/app/Http/Controllers/Admin/C_Combo.php',
     'App\\Http\\Controllers\\Admin\\C_Menu' => $baseDir . '/app/Http/Controllers/Admin/C_Menu.php',
     'App\\Http\\Controllers\\Admin\\C_Seat' => $baseDir . '/app/Http/Controllers/Admin/C_Seat.php',
     'App\\Http\\Controllers\\Admin\\C_User' => $baseDir . '/app/Http/Controllers/Admin/C_User.php',

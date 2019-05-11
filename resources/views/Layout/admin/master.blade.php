@@ -35,21 +35,20 @@
 		============================================ -->
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/normalize.css')}}">
     <!-- mCustomScrollbar CSS
-        
+    
         ============================================ -->
+    
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/bootstrap-select/bootstrap-select.css')}}">
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/summernote/summernote.css')}}">
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/themesaller-forms.css')}}">
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/dropzone/dropzone.css')}}">
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/scrollbar/jquery.mCustomScrollbar.min.css')}}">
-    <link rel="stylesheet" href="{{URL::asset('public/admin/css/datapicker/datepicker3.css')}}">
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/jquery.dataTables.min.css')}}">
     <!-- Color Picker CSS
 		============================================ -->
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/color-picker/farbtastic.css')}}">
     <!-- main CSS
 		============================================ -->
-    <link rel="stylesheet" href="{{URL::asset('public/admin/css/chosen/chosen.css')}}">
     <!-- notification CSS
 		============================================ -->
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/notification/notification.css')}}">
@@ -424,6 +423,7 @@
                                     <li><a href = "{{ route('B_menu.showMenu',$value->category_id) }}">{{ $value->name }}</a></li>
                                     @endforeach
                                 @endif
+                                <li><a href = "{{ route('B_combo.index') }}">combo</a></li>
                             </ul>
                         </div>
                         <div id="Tables" class="tab-pane notika-tab-menu-bg animated flipInX">
@@ -436,9 +436,7 @@
                         </div>
                         <div id="Forms" class="tab-pane notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
-                                <li><a href="form-elements.html">Khách vãng lai</a>
-                                </li>
-                                <li><a href="form-components.html">Phản hồi</a>
+                            <li><a href="{{ route('B_contact.index') }}">Phản hồi</a>
                                 </li>
                                 <!-- <li><a href="form-examples.html">Form Examples</a>
                                 </li> -->
@@ -597,11 +595,11 @@
 	<!--  Chat JS
         ============================================ -->
     <script src="{{URL::asset('public/admin/js/data-table/jquery.dataTables.min.js')}}"></script>
-    <script src="{{URL::asset('public/admin/js/data-table/jquery.dataTables.min.js')}}"></script>
     <script src="{{URL::asset('public/admin/js/data-table/data-table-act.js')}}"></script>
     <!-- main JS
 		============================================ -->
     <script src="{{URL::asset('public/admin/js/main.js')}}"></script>
+    
 	<!-- tawk chat JS
 		============================================ -->
    <script type="text/javascript">

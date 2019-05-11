@@ -45,6 +45,7 @@ class C_Menu extends Controller
             return redirect()->back()->with('error','Sản phẩm đã tồn tại');
         }
         else {
+            
             DB::table('menu')->insert([
                 'name' => $request->input('Name_Add'),
                 'description' => $request->input('Description_Add'),

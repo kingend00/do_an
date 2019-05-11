@@ -14,21 +14,9 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 Route::get('/', function () {
     return view('User.index');
 })->name('index');
-// Route::get('testlogin',function(){
-//     $rows = Cart::search(function($key, $value) {
-//         return $key->id == 1;
-//     });
-//     $rows1=$rows->first();
-//     //$rowId = '1bc9e6c81a0f9af2273448571bc668a7';
-//     Cart::update($rows1->rowId,++$rows1->qty);
-//     return Cart::get($rows1->rowId);
-// });
-Route::get('test',function(){
-    echo"<option value=12>hihi</option><option>hihi2</option>";
-});
-Route::get('/dbs',function(){
-
-    return view('Admin.db');
+Route::group(['prefix' => 'F_user'],function(){
+    Route::get('/showAccount','User\C_User@showAccount')->name('F_user.showAccount');
+    Route::post('/update','User\C_User@update')->name('F_user.update');
 });
 Route::group(['prefix' => 'F_menu'],function(){
     Route::get('/addtoCart/{id}','User\C_Menu@addtoCart')->name('F_menu.addtoCart');
@@ -36,13 +24,21 @@ Route::group(['prefix' => 'F_menu'],function(){
     Route::get('/showCart','User\C_Menu@showCart')->name('F_menu.showCart');
     Route::post('/editCart','User\C_Menu@EditCart')->name('editCart');
 });
+Route::group(['prefix' => 'F_seat'],function(){
+    Route::get('/showTime_Seat/{date}/{people}','User\C_Seat@showTime_Seat')->name('F_seat.showTime_Seat');
+});
 
-Route::resources(['F_menu'=>'User\C_Menu','F_seat'=>'User\C_Seat']);
+Route::get('/Contact',function(){
+    return view('User.Contact');
+})->name('contact');
+
+Route::resources(['F_menu'=>'User\C_Menu','F_seat'=>'User\C_Seat','F_contact'=>'Admin\C_Contact']);
 
 
 Route::group(['middleware'=>['auth','denied_cus_emp']],function(){
     //
-    Route::resources(['B_user'=>'Admin\C_User','B_seat'=>'Admin\C_Seat','B_menu'=>'Admin\C_Menu','B_booktable'=>'Admin\C_Booktable']);
+    Route::resources(['B_user'=>'Admin\C_User','B_seat'=>'Admin\C_Seat','B_menu'=>'Admin\C_Menu','B_booktable'=>'Admin\C_Booktable','B_combo'=>'Admin\C_Combo','B_contact'=>'Admin\C_Contact']);
+    
     Route::group(['prefix=>B_menu'],function(){
         Route::get('/showMenu/{category_id}','Admin\C_Menu@showMenu')->name('B_menu.showMenu');
     });
@@ -55,6 +51,9 @@ Route::group(['middleware'=>['auth','denied_cus_emp']],function(){
     });
     Route::group(['prefix => B_booktable'],function(){
         Route::get('/showDetails/{id}','Admin\C_Booktable@showDetails')->name('B_booktable.showDetails');
+    });
+    Route::group(['prefix => B_combo'],function(){
+        Route::get('/showDetails/{id}','Admin\C_Combo@showDetails')->name('B_combo.showDetails');
     });
 });
 Auth::routes();

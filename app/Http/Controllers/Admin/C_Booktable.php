@@ -42,19 +42,27 @@ class C_Booktable extends Controller
      */
     public function store(B_BooktableAddRequest $request)
     {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+       // $date = $request->Date;
+             
+            //$date = date('d/m/Y',strtotime('13/05/2019'));       
+        // if(strtotime($date) < strtotime(date('d/m/Y')))
+        //      return  strtotime($date)."---".strtotime(date('d/m/Y'));
         
-        $query = DB::table('booktable')->where('number_seat','=',$request->Number_seat)->where('date','=',$request->Date)->where('time','=',$request->Time)->whereIn('status',['success','wait','using'])->get();
+        if($request->Time < date('H:i'))
+         return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại'); 
+        //$date_new = date_format($date,'m/d/Y'); 
+            //$date = date('d/m/Y - H:i:s',strtotime($date));    
+       $query = DB::table('booktable')->where('number_seat','=',$request->Number_seat)->where('date','=',$request->Date)->where('time','=',$request->Time)->whereIn('status',['success','wait','using'])->get();
         if (count($query)<1) {
             $data = ['email'=>$request->input('Email'),'name' => $request->input('Name'),'phone' => $request->input('Phone')
             ,'date'=>$request->Date,'number_seat'=>$request->Number_seat,'time' => $request->Time];    
              $test = DB::table('booktable')->insert($data);
           return redirect()->back()->with('success','Tạo đơn đặt bàn thành công');
-
         }
         else {
             return redirect()->back()->with('error','Đơn đặt bàn đã tồn tại');
         }
-        
 
     }
 

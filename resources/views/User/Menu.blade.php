@@ -12,7 +12,7 @@
 
 	<!-- Main menu -->
 	<section class="section-lunch bgwhite">
-				
+			@include('Layout.user.error')		
 		<div class="container">
 			<div class="row p-t-108 p-b-70">
 				
@@ -80,20 +80,29 @@
 							</div>
 
 							<div class="text-blo3 size21 flex-col-l-m">
-								<a href="#" class="txt21 m-b-3">
+								<span  href="" class="txt22 m-t-20" style="color:red">
 									{{ $element->name }}
-								</a>
-
-								<span class="txt22 m-t-20">
+								</span>
+								
+								<span class="txt21 m-b-3">
 									Giảm giá : {{ $element->discount }} %
 								</span>
 
 								<span class="txt22 m-t-20">
-									{{ $element->type }}
+									Loại: {{ $element->type }}
 								</span>
-								<span class="txt22 m-t-20">
-									{{ $element->price }}
+								<span class="txt22 m-t-20" >
+									Giá: {{ $element->price }}
 								</span>
+								<div>
+								<b>Gồm :</b> <br>
+									@foreach (\App\Model\M_Combo_Details::where('combo_id',$element->combo_id)->get() as $elements)
+										@foreach (\App\Model\M_Menu::where('menu_id',$elements->menu_id)->get() as $item)
+												{{ $item->name }} ,
+										@endforeach
+										<b>Số lượng: </b> {{ $elements->quantity }} sp<br>
+									@endforeach
+								</div>
 								
 							</div>
 							

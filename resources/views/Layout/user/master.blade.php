@@ -43,14 +43,10 @@
 			<div class="container h-full">
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
-					<div class="logo">
-						<a href="index.html">
-							<img  src="{{ URL::asset('images/background/logodropdown.png') }}" alt="IMG-LOGO" data-logofixed="{{ URL::asset('images/background/logo.png') }}" width="200px" height="80px" >
-						</a>
-					</div>
+					
 
 					<!-- Menu -->
-					<div class="wrap_menu p-l-45 p-l-0-xl">
+					
 						<nav class="menu">
 							<ul class="main_menu">
 								<li>
@@ -74,7 +70,7 @@
 								</li>
 
 								<li>
-									<a href="contact.html">Liên hệ</a>
+								<a href="{{ route('contact') }}">Liên hệ</a>
 								</li>
 								<li>
 									
@@ -89,12 +85,15 @@
 												</a>
 				
 												<div class="dropdown-menu">
-													
+														<a href="{{ route('F_user.showAccount') }}">
+																Thông tin tài khoản
+															</a><br>
 														<a href="{{ route('logout') }}"
 															onclick="event.preventDefault();
 																	 document.getElementById('logout-form').submit();">
 															Logout
-														</a>
+														</a> 
+														
 				
 														<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
 															{{ csrf_field() }}
@@ -105,28 +104,29 @@
 										@endguest
 									
 								</li>
+								<li>
+										<div class="social flex-w flex-l-m p-r-20">
+												<a data-toggle='dropdown' href="" class="dropdown">Giỏ hàng</a>
+												<div class="dropdown-menu dropup">
+															  <span class="caret"></span>
+															  <ul class="media-list">
+																  <li class="media">							
+																	<div class="media-body contentCart">
+																		  @foreach (Gloudemans\Shoppingcart\Facades\Cart::content() as $item)
+																			 {{$item->name}} <br>
+																		@endforeach
+																	</div>
+																  </li>
+															</ul>
+														<a href="{{ route('F_menu.showCart') }}"><button class="btn btn-primary btn-sm">Xem giỏ hàng</button></a>
+												</div>
+												<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+											</div>
+								</li>
 							</ul>
 						</nav>
 					</div>
-
 					<!-- Social -->
-					<div class="social flex-w flex-l-m p-r-20">
-						<a data-toggle='dropdown' href="" class="dropdown">Giỏ hàng</a>
-						<div class="dropdown-menu dropup">
-					  				<span class="caret"></span>
-						  			<ul class="media-list">
-								  		<li class="media">							
-										    <div class="media-body contentCart">
-										      	@foreach (Gloudemans\Shoppingcart\Facades\Cart::content() as $item)
-													 {{$item->name}} <br>
-												@endforeach
-								    		</div>
-								  		</li>
-									</ul>
-								<a href="{{ route('F_menu.showCart') }}"><button class="btn btn-primary btn-sm">Xem giỏ hàng</button></a>
-						</div>
-						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -172,28 +172,7 @@
 
 
 	@yield('body')
-	@if(count($errors) > 0)
-	<div class="alert alert-danger error-alert">           
-				   <h2>Đã có lỗi xảy ra </h2>
-				   <ul>
-					   @foreach($errors->all() as $error)
-						   <li>{{$error}}</li>
-					   @endforeach
-				   </ul>
-				 
-   </div>
-   @endif
-
-   @if (Session::has('error')) 
-	   <div class="alert alert-danger error-alert">
-		   {{ Session::get('error') }}
-	   </div>       
-   @endif
-   @if (Session::has('success')) 
-	   <div class="alert alert-success error-alert">
-		   {{ Session::get('success') }}
-	   </div>       
-   @endif
+	
 
 
 	<footer class="bg1">

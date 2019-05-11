@@ -115,7 +115,7 @@ class C_Menu extends Controller
             return response()->json(['data'=>$data]);   
         }
     }
-    public function EditCart(CartRequest $request)
+    public function EditCart(Request $request)
     {
 
         $rowId = $request->input('rowId');

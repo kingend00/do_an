@@ -105,7 +105,7 @@
 						
 								<div class="form-ic-cmp">{!! Form::label('Name','Image',['class' => 'control-label']) !!}</div>
 									<div class="nk-int-st">
-											{!! Form::text('Image','',['id' =>'Image','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+											{!! Form::file('Image','',['id' =>'Image','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 										</div>
 						</div>
 				                                 
@@ -167,7 +167,7 @@
 						
 								<div class="form-ic-cmp">{!! Form::label('Name','Image',['class' => 'control-label']) !!}</div>
 									<div class="nk-int-st">
-											{!! Form::text('Image_Add','',['id' =>'Image_Add','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+											{!! Form::file('Image_Add','',['id' =>'Image_Add','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 										</div>
 						</div>
 				                                 

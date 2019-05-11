@@ -16,10 +16,10 @@ class Feedback extends Migration
         Schema::create('feedback', function (Blueprint $table) {
             $table->increments('feedback_id');
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->string('phone');
-            $table->multiLineString('message');
-            $table->text('type');
+            $table->string('message');
+            $table->string('type')->default('wait');
             $table->timestamps();
         });
     }

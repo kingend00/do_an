@@ -9,4 +9,7 @@ class M_Combo extends Model
     protected $table='combo';
     public $timestamps = false; 
     protected $fillable = ['name','discount','image','type','price'];
+    public function details(){
+        return $this->hasMany('App\Model\M_Combo_Details','combo_id');
+    }
 }

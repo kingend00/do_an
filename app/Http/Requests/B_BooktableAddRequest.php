@@ -26,7 +26,7 @@ class B_BooktableAddRequest extends FormRequest
         return [
             'Name' =>'required',
             'Phone' => 'required|numeric',
-            'Date' =>'required',
+            'Date' =>'required|after:today',
             'Time' => 'required',
             'Number_seat' => 'required',
             'Type_seat' => 'required',

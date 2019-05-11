@@ -10,6 +10,7 @@
 	</section>
 
 	<div class="container2">
+		@include('Layout.user.error')
 		@if(isset($cart))
 	<form method="POST" action="{{ route('editCart') }}">
 		{{ csrf_field() }}

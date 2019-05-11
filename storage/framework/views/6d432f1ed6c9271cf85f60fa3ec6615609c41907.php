@@ -83,23 +83,32 @@
 							</div>
 
 							<div class="text-blo3 size21 flex-col-l-m">
-								<a href="#" class="txt21 m-b-3">
+								<span  href="" class="txt22 m-t-20" style="color:red">
 									<?php echo e($element->name); ?>
 
-								</a>
-
-								<span class="txt22 m-t-20">
+								</span>
+								
+								<span class="txt21 m-b-3">
 									Giảm giá : <?php echo e($element->discount); ?> %
 								</span>
 
 								<span class="txt22 m-t-20">
-									<?php echo e($element->type); ?>
+									Loại: <?php echo e($element->type); ?>
 
 								</span>
-								<span class="txt22 m-t-20">
-									<?php echo e($element->price); ?>
+								<span class="txt22 m-t-20" >
+									Giá: <?php echo e($element->price); ?>
 
 								</span>
+								<div>
+								<b>Gồm :</b> <br>
+									<?php $__currentLoopData = \App\Model\M_Combo_Details::where('combo_id',$element->combo_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $elements): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+										<?php $__currentLoopData = \App\Model\M_Menu::where('menu_id',$elements->menu_id)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+												<?php echo e($item->name); ?> ,
+										<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+										<b>Số lượng: </b> <?php echo e($elements->quantity); ?> sp<br>
+									<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+								</div>
 								
 							</div>
 							

@@ -41,6 +41,10 @@ class C_Seat extends Controller
     {
         //
     }
+    public function showTime_Seat($date,$people)
+    {
+        
+    }
 
     /**
      * Store a newly created resource in storage.

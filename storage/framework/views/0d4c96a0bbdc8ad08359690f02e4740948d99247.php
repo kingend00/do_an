@@ -43,14 +43,10 @@
 			<div class="container h-full">
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
-					<div class="logo">
-						<a href="index.html">
-							<img  src="<?php echo e(URL::asset('images/background/logodropdown.png')); ?>" alt="IMG-LOGO" data-logofixed="<?php echo e(URL::asset('images/background/logo.png')); ?>" width="200px" height="80px" >
-						</a>
-					</div>
+					
 
 					<!-- Menu -->
-					<div class="wrap_menu p-l-45 p-l-0-xl">
+					
 						<nav class="menu">
 							<ul class="main_menu">
 								<li>
@@ -74,7 +70,7 @@
 								</li>
 
 								<li>
-									<a href="contact.html">Liên hệ</a>
+								<a href="<?php echo e(route('contact')); ?>">Liên hệ</a>
 								</li>
 								<li>
 									
@@ -89,12 +85,15 @@
 												</a>
 				
 												<div class="dropdown-menu">
-													
+														<a href="<?php echo e(route('F_user.showAccount')); ?>">
+																Thông tin tài khoản
+															</a><br>
 														<a href="<?php echo e(route('logout')); ?>"
 															onclick="event.preventDefault();
 																	 document.getElementById('logout-form').submit();">
 															Logout
-														</a>
+														</a> 
+														
 				
 														<form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
 															<?php echo e(csrf_field()); ?>
@@ -106,28 +105,29 @@
 										<?php endif; ?>
 									
 								</li>
+								<li>
+										<div class="social flex-w flex-l-m p-r-20">
+												<a data-toggle='dropdown' href="" class="dropdown">Giỏ hàng</a>
+												<div class="dropdown-menu dropup">
+															  <span class="caret"></span>
+															  <ul class="media-list">
+																  <li class="media">							
+																	<div class="media-body contentCart">
+																		  <?php $__currentLoopData = Gloudemans\Shoppingcart\Facades\Cart::content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+																			 <?php echo e($item->name); ?> <br>
+																		<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+																	</div>
+																  </li>
+															</ul>
+														<a href="<?php echo e(route('F_menu.showCart')); ?>"><button class="btn btn-primary btn-sm">Xem giỏ hàng</button></a>
+												</div>
+												<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+											</div>
+								</li>
 							</ul>
 						</nav>
 					</div>
-
 					<!-- Social -->
-					<div class="social flex-w flex-l-m p-r-20">
-						<a data-toggle='dropdown' href="" class="dropdown">Giỏ hàng</a>
-						<div class="dropdown-menu dropup">
-					  				<span class="caret"></span>
-						  			<ul class="media-list">
-								  		<li class="media">							
-										    <div class="media-body contentCart">
-										      	<?php $__currentLoopData = Gloudemans\Shoppingcart\Facades\Cart::content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-													 <?php echo e($item->name); ?> <br>
-												<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-								    		</div>
-								  		</li>
-									</ul>
-								<a href="<?php echo e(route('F_menu.showCart')); ?>"><button class="btn btn-primary btn-sm">Xem giỏ hàng</button></a>
-						</div>
-						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
-					</div>
 				</div>
 			</div>
 		</div>
@@ -173,30 +173,7 @@
 
 
 	<?php echo $__env->yieldContent('body'); ?>
-	<?php if(count($errors) > 0): ?>
-	<div class="alert alert-danger error-alert">           
-				   <h2>Đã có lỗi xảy ra </h2>
-				   <ul>
-					   <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-						   <li><?php echo e($error); ?></li>
-					   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-				   </ul>
-				 
-   </div>
-   <?php endif; ?>
-
-   <?php if(Session::has('error')): ?> 
-	   <div class="alert alert-danger error-alert">
-		   <?php echo e(Session::get('error')); ?>
-
-	   </div>       
-   <?php endif; ?>
-   <?php if(Session::has('success')): ?> 
-	   <div class="alert alert-success error-alert">
-		   <?php echo e(Session::get('success')); ?>
-
-	   </div>       
-   <?php endif; ?>
+	
 
 
 	<footer class="bg1">
