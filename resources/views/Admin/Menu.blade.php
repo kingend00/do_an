@@ -126,7 +126,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-             {!! Form::open(['id'=>'form_add','route'=>'B_menu.store','method'=>'POST'])!!}                       
+             {!! Form::open(['id'=>'form_add','route'=>'B_menu.store','method'=>'POST','files' => true])!!}                       
             <div class="modal-body">
 
 						<div class="form-group ic-cmp-int">

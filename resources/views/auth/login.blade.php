@@ -6,8 +6,9 @@
 <div class="login-content">
         <!-- Login -->
         <div class="nk-block toggled" id="l-login">
-            <form  method="post" action="{{ route('login') }}">
+            <form  method="POST" action="{{ route('login') }}">
                     {{ csrf_field() }}
+                   
                     <div class="nk-form">
                             <div class="input-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
@@ -43,8 +44,10 @@
             
                         <div class="nk-navigation nk-lg-ic">
                             <a href="{{ route('register') }}" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Register</span></a>
-                            <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Forgot Password</span></a>
-                        </div>
+                           
+                                <a href="{{ route('password.request')}}"><i>?</i><span>Forgot Password</span></a>
+                            
+                            </div>
             </form>
         </div>
 

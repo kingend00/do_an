@@ -1,5 +1,7 @@
 <?php
 use Gloudemans\Shoppingcart\Facades\Cart;
+use Yajra\DataTables\Facades\DataTables;
+use DB;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +16,17 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 Route::get('/', function () {
     return view('User.index');
 })->name('index');
+
+Route::get('/getcontent',function(){
+    $seat = DB::table('seat')->get();
+    return Datatables::of($seat)->addColumn('btn-edit',function($seat){
+        return '<button type="button" class="btn btn-danger btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route(\'B_seat.show\','.$seat->number_seat.')}}">Edit</button>';
+    })->addColumn('btn-destroy',function($seat){
+        return '<button type="button" class="btn btn-danger btn-destroy" value="{{$element->id }}">Xóa</button>';
+    })->rawColumns(['btn-edit','btn-destroy'])->make(true);
+
+})->name('testData');
+
 Route::group(['prefix' => 'F_user'],function(){
     Route::get('/showAccount','User\C_User@showAccount')->name('F_user.showAccount');
     Route::post('/update','User\C_User@update')->name('F_user.update');
@@ -37,7 +50,7 @@ Route::resources(['F_menu'=>'User\C_Menu','F_seat'=>'User\C_Seat','F_contact'=>'
 
 Route::group(['middleware'=>['auth','denied_cus_emp']],function(){
     //
-    Route::resources(['B_user'=>'Admin\C_User','B_seat'=>'Admin\C_Seat','B_menu'=>'Admin\C_Menu','B_booktable'=>'Admin\C_Booktable','B_combo'=>'Admin\C_Combo','B_contact'=>'Admin\C_Contact']);
+    Route::resources(['B_user'=>'Admin\C_User','B_seat'=>'Admin\C_Seat','B_menu'=>'Admin\C_Menu','B_booktable'=>'Admin\C_Booktable','B_combo'=>'Admin\C_Combo','B_contact'=>'Admin\C_Contact','B_news'=>'Admin\C_News']);
     
     Route::group(['prefix=>B_menu'],function(){
         Route::get('/showMenu/{category_id}','Admin\C_Menu@showMenu')->name('B_menu.showMenu');

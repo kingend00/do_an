@@ -7,7 +7,7 @@ use App\Model\M_Seat_Status;
 use Illuminate\Http\Request;
 use App\Http\Requests\B_SeatRequest;
 use App\Http\Controllers\Controller;
-
+use Yajra\DataTables\Facades\DataTables;
 class C_Seat extends Controller
 {
     /**
@@ -113,13 +113,13 @@ class C_Seat extends Controller
        {
             if(DB::table('seat')->where('number_seat','=',$id)->get() != null)
             {
-                DB::table('seat')->where('number_seat','=',$id)->update(['type'=>$request->input('Type')]);
-                return "thành công";
+                $hihi = DB::table('seat')->where('number_seat','=',$id)->update(['type'=>$request->input('Type')]);
+                
             }
-                return "Số bàn không tồn tại";     
+                   
        }
         
-        return "Loại bàn không tồn tại";
+       return Datatables::queryBuilder(DB::table('seat'))->make(true);
     }
 
     /**

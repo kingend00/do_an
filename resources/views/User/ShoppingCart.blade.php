@@ -14,30 +14,28 @@
 		@if(isset($cart))
 	<form method="POST" action="{{ route('editCart') }}">
 		{{ csrf_field() }}
-			<table class="table table-hover">
+			<table class="table table-hover" id="tbData">
 				<tr>
 					<th>Tên</th>
 					<th>Giá</th>
 					<th>Mô tả </th>
 					<th>Số lượng</th>
-					
+					<th>Tổng tiền/sản phẩm</th>					
 					<th>Thao tác</th>
 				</tr>
 				@foreach($cart as $item)
-					<tr>
+					<tr >
 					<td>{{ $item->name }}</td>
 					<input type = "hidden" id="Price" value="{{ $item->price }}">
-					<td>{{ $item->price }}</td>
+					<td id="price{{ $item->id }}" value = "{{ $item->price }}">{{ $item->price }}</td>
 					<td>{{ $item->options->description }}</td>
 					<input type="hidden" name="rowId[]" id="rowId" class="rowId" value="{{ $item->rowId }}">
-					{{-- <td><button type = "button" class="up"" style="background-color:green">Tăng</button></td> --}}
-					<td><input type="number" value="{{ $item->qty }}" class="qty" id="qty" name="qty[]" min ="1" max="100" step="1" style='width:100%'></td>
-					{{-- <td><button type = "button" class="btn btn-default down" style="background-color:green">Giảm</button></td>	
-										 --}}
-					
+					<td><input type="number" value="{{ $item->qty }}" data = "{{ $item->id }}" class="qty" id="qty" name="qty[]" min ="1" max="100" step="1" style='width:100%'></td>
+					<td class="dongtien"><input class="subtotal" type="text" id="total{{$item->id}}" value="{{ $item->qty*$item->price }}" readonly></td>
 					<td><button type="button" class = "btn btn-default delete" name = "delete" data-url = "{{ route("F_menu.destroy",$item->rowId) }}" style="background-color:green">Xóa</button></td>
 				</tr>
 				@endforeach
+				<tr><td colspan="4"><h2>Tổng tất cả</h2></td><td id="Fulltotal"></td></tr>
 				<tr><td><button type="submit" class="btn btn-default" style="background-color:green">Chọn bàn</button></td></tr>
 			</table>
 	</form>		
@@ -53,18 +51,6 @@
 	    		    }
 				});
 
-
-				$('.up').click(function(){
-				var gt = $('.qty').val();
-				$('.qty').val(++gt);	
-					
-				});
-				$('.down').click(function(){
-				var gt = $('.qty').val();
-				$('.qty').val(gt-1);	
-					
-				});
-
 				$('.delete').click(function(){
 					var url = $(this).attr('data-url');
 					$.ajax({
@@ -78,6 +64,29 @@
 						}
 					});
 				});
+					var money = 0;
+					var count2 = document.getElementsByClassName('subtotal');
+					for(var i =0;i<count2.length;i++)
+					{
+						money += parseInt(count2[i].value);
+					}
+					$('#Fulltotal').html(money+"  VNĐ");
+
+				
+				$('.qty').change(function(){
+					var id = $(this).attr('data');
+					var data = $(this).val();
+					var amount = $('#price'+id).html();
+					$('#total'+id).val(data*amount);
+					var money = 0;
+					var count2 = document.getElementsByClassName('subtotal');
+					for(var i =0;i<count2.length;i++)
+					{
+						money += parseInt(count2[i].value);
+					}
+					$('#Fulltotal').html(money+"  VNĐ");
+				});
+
 				// $('#qty').click(function(){
 				// 	var price = Number($('#Price').val());
 				// 	var amount = Number($('.qty').val());

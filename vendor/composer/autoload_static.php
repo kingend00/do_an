@@ -21,12 +21,17 @@ class ComposerStaticInitcbdc9f3e8596943838d923de914bcea6
         '801c31d8ed748cfa537fa45402288c95' => __DIR__ . '/..' . '/psy/psysh/src/functions.php',
         '4a1f389d6ce373bda9e57857d3b61c84' => __DIR__ . '/..' . '/barryvdh/laravel-debugbar/src/helpers.php',
         '752af1c2bdb339e8474c3c31b22b7d54' => __DIR__ . '/..' . '/illuminate/html/helpers.php',
+        '0b47d6d4a00ca9112ba3953b49e7c9a4' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/helper.php',
     );
 
     public static $prefixLengthsPsr4 = array (
         'p' => 
         array (
             'phpDocumentor\\Reflection\\' => 25,
+        ),
+        'Y' => 
+        array (
+            'Yajra\\DataTables\\' => 17,
         ),
         'X' => 
         array (
@@ -135,6 +140,10 @@ class ComposerStaticInitcbdc9f3e8596943838d923de914bcea6
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
+        ),
+        'Yajra\\DataTables\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src',
         ),
         'XdgBaseDir\\' => 
         array (
@@ -367,7 +376,9 @@ class ComposerStaticInitcbdc9f3e8596943838d923de914bcea6
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Admin\\C_Booktable' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_Booktable.php',
         'App\\Http\\Controllers\\Admin\\C_Combo' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_Combo.php',
+        'App\\Http\\Controllers\\Admin\\C_Contact' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_Contact.php',
         'App\\Http\\Controllers\\Admin\\C_Menu' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_Menu.php',
+        'App\\Http\\Controllers\\Admin\\C_News' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_News.php',
         'App\\Http\\Controllers\\Admin\\C_Seat' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_Seat.php',
         'App\\Http\\Controllers\\Admin\\C_User' => __DIR__ . '/../..' . '/app/Http/Controllers/Admin/C_User.php',
         'App\\Http\\Controllers\\Auth\\ForgotPasswordController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/ForgotPasswordController.php',
@@ -378,6 +389,7 @@ class ComposerStaticInitcbdc9f3e8596943838d923de914bcea6
         'App\\Http\\Controllers\\HomeController' => __DIR__ . '/../..' . '/app/Http/Controllers/HomeController.php',
         'App\\Http\\Controllers\\User\\C_Menu' => __DIR__ . '/../..' . '/app/Http/Controllers/User/C_Menu.php',
         'App\\Http\\Controllers\\User\\C_Seat' => __DIR__ . '/../..' . '/app/Http/Controllers/User/C_Seat.php',
+        'App\\Http\\Controllers\\User\\C_User' => __DIR__ . '/../..' . '/app/Http/Controllers/User/C_User.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Denied_Cus_Emp' => __DIR__ . '/../..' . '/app/Http/Middleware/Denied_Cus_Emp.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
@@ -387,11 +399,13 @@ class ComposerStaticInitcbdc9f3e8596943838d923de914bcea6
         'App\\Http\\Middleware\\TrustProxies' => __DIR__ . '/../..' . '/app/Http/Middleware/TrustProxies.php',
         'App\\Http\\Middleware\\VerifyCsrfToken' => __DIR__ . '/../..' . '/app/Http/Middleware/VerifyCsrfToken.php',
         'App\\Http\\Requests\\AddBooktableRequest' => __DIR__ . '/../..' . '/app/Http/Requests/AddBooktableRequest.php',
+        'App\\Http\\Requests\\AddComboRequest' => __DIR__ . '/../..' . '/app/Http/Requests/AddComboRequest.php',
         'App\\Http\\Requests\\B_BooktableAddRequest' => __DIR__ . '/../..' . '/app/Http/Requests/B_BooktableAddRequest.php',
         'App\\Http\\Requests\\B_SeatRequest' => __DIR__ . '/../..' . '/app/Http/Requests/B_SeatRequest.php',
         'App\\Http\\Requests\\BookTableRequest' => __DIR__ . '/../..' . '/app/Http/Requests/BookTableRequest.php',
         'App\\Http\\Requests\\CartRequest' => __DIR__ . '/../..' . '/app/Http/Requests/CartRequest.php',
         'App\\Http\\Requests\\MenuRequest' => __DIR__ . '/../..' . '/app/Http/Requests/MenuRequest.php',
+        'App\\Http\\Requests\\UpdateComboRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateComboRequest.php',
         'App\\Http\\Requests\\UpdateUserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UpdateUserRequest.php',
         'App\\Http\\Requests\\UserRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UserRequest.php',
         'App\\Model\\M_Booktable' => __DIR__ . '/../..' . '/app/Model/M_Booktable.php',
@@ -404,6 +418,7 @@ class ComposerStaticInitcbdc9f3e8596943838d923de914bcea6
         'App\\Model\\M_News' => __DIR__ . '/../..' . '/app/Model/M_News.php',
         'App\\Model\\M_Seat' => __DIR__ . '/../..' . '/app/Model/M_Seat.php',
         'App\\Model\\M_Seat_Status' => __DIR__ . '/../..' . '/app/Model/M_Seat_Status.php',
+        'App\\Model\\M_Time' => __DIR__ . '/../..' . '/app/Model/M_Time.php',
         'App\\Policies\\UserPolicy' => __DIR__ . '/../..' . '/app/Policies/UserPolicy.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',
         'App\\Providers\\AuthServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AuthServiceProvider.php',
@@ -3783,6 +3798,7 @@ class ComposerStaticInitcbdc9f3e8596943838d923de914bcea6
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Property\\Property' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Property/Property.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Processor' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Processor.php',
         'TijsVerkoyen\\CssToInlineStyles\\Css\\Rule\\Rule' => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src/Css/Rule/Rule.php',
+        'Time' => __DIR__ . '/../..' . '/database/seeds/Time.php',
         'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
         'User' => __DIR__ . '/../..' . '/database/seeds/User.php',
         'Webmozart\\Assert\\Assert' => __DIR__ . '/..' . '/webmozart/assert/src/Assert.php',
@@ -3805,6 +3821,21 @@ class ComposerStaticInitcbdc9f3e8596943838d923de914bcea6
         'Whoops\\Util\\SystemFacade' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/SystemFacade.php',
         'Whoops\\Util\\TemplateHelper' => __DIR__ . '/..' . '/filp/whoops/src/Whoops/Util/TemplateHelper.php',
         'XdgBaseDir\\Xdg' => __DIR__ . '/..' . '/dnoegel/php-xdg-base-dir/src/Xdg.php',
+        'Yajra\\DataTables\\ApiResourceDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/ApiResourceDataTable.php',
+        'Yajra\\DataTables\\CollectionDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/CollectionDataTable.php',
+        'Yajra\\DataTables\\Contracts\\DataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Contracts/DataTable.php',
+        'Yajra\\DataTables\\DataTableAbstract' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/DataTableAbstract.php',
+        'Yajra\\DataTables\\DataTables' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/DataTables.php',
+        'Yajra\\DataTables\\DataTablesServiceProvider' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/DataTablesServiceProvider.php',
+        'Yajra\\DataTables\\EloquentDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/EloquentDataTable.php',
+        'Yajra\\DataTables\\Exceptions\\Exception' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Exceptions/Exception.php',
+        'Yajra\\DataTables\\Facades\\DataTables' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Facades/DataTables.php',
+        'Yajra\\DataTables\\Processors\\DataProcessor' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Processors/DataProcessor.php',
+        'Yajra\\DataTables\\Processors\\RowProcessor' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Processors/RowProcessor.php',
+        'Yajra\\DataTables\\QueryDataTable' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/QueryDataTable.php',
+        'Yajra\\DataTables\\Utilities\\Config' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Utilities/Config.php',
+        'Yajra\\DataTables\\Utilities\\Helper' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Utilities/Helper.php',
+        'Yajra\\DataTables\\Utilities\\Request' => __DIR__ . '/..' . '/yajra/laravel-datatables-oracle/src/Utilities/Request.php',
         'phpDocumentor\\Reflection\\DocBlock' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlock.php',
         'phpDocumentor\\Reflection\\DocBlockFactory' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactory.php',
         'phpDocumentor\\Reflection\\DocBlockFactoryInterface' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/DocBlockFactoryInterface.php',

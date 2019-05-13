@@ -78,12 +78,16 @@ class C_Seat extends Controller
             {
                 foreach($data as $value)
                 {
-                        $bt_details = new M_Booktable_Details;
+                    $bt_details = new M_Booktable_Details;
+                    if($value->options->type != null)
+                        $bt_details->combo_id = $value->id;
+                    else   
                         $bt_details->menu_id = $value->id;
-                        $bt_details->quantity = $value->qty;
+
+                    $bt_details->quantity = $value->qty;
                         //$booktable->details()->save($bt_details);
-                        $bt_details ->booktables()->associate($booktable);
-                        $bt_details->save();
+                    $bt_details ->booktables()->associate($booktable);
+                    $bt_details->save();
                 }
             }
             return redirect()->back()->with('success','Đã gửi đi đơn đặt bàn , Quý khách vui lòng chờ trong giây lát... ');

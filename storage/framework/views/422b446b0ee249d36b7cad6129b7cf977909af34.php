@@ -187,15 +187,7 @@
     </div>
 </div>
 <script type="text/javascript">
-	
-	$(document).ready(function(){
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-			$("#tbData").DataTable();
-			var url = null;
+	var url = null;
 		// show thông tin tài khoản
 		$('.btn-edit').click(function(){
 			 url = $(this).attr('data-url');
@@ -218,6 +210,14 @@
 				}
 			});
 		});
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+			$("#tbData").DataTable();
+			
 
 
 		$('.btn-destroy').click(function(){

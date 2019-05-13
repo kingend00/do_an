@@ -22,7 +22,6 @@ class C_User extends Controller
 
     public function index()
     {
-            
         return view('Admin.index');
     }
     public function showAccount($role)

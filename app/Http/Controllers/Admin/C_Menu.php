@@ -39,25 +39,33 @@ class C_Menu extends Controller
      */
     public function store(MenuRequest $request)
     {
-        $name = $request->input('Name_Add');
-        if(!DB::table('menu')->where('name','=',$name)->get())
-        {
-            return redirect()->back()->with('error','Sản phẩm đã tồn tại');
-        }
-        else {
+       // $request->input('Image_Add');
+        if($request->hasfile('Image_Add')) 
+        { 
+            $file = $request->file('Image_Add');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            //$filename =time().'.'.$extension;
+            $file->move('images/food/', $extension);
             
-            DB::table('menu')->insert([
-                'name' => $request->input('Name_Add'),
-                'description' => $request->input('Description_Add'),
-                'price' => $request->input('Price_Add'),
-                'image' => $request->input('Image_Add'), 
-                'category_id' => $request->input('Category_id_Add')
-    
-            ]);
-            return redirect()->back()->with('success','Thêm sản phẩm mới thành công');
+            $name = $request->input('Name_Add');
+            if(!DB::table('menu')->where('name','=',$name)->get())
+            {
+                return redirect()->back()->with('error','Sản phẩm đã tồn tại');
+            }
+            else {
+                
+                DB::table('menu')->insert([
+                    'name' => $request->input('Name_Add'),
+                    'description' => $request->input('Description_Add'),
+                    'price' => $request->input('Price_Add'),
+                    'image' => $extension, 
+                    'category_id' => $request->input('Category_id_Add')
+        
+                ]);
+                return redirect()->back()->with('success','Thêm sản phẩm mới thành công');
+            }
+        
         }
-        
-        
     }
 
     /**

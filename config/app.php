@@ -166,6 +166,7 @@ return [
         Illuminate\Html\HtmlServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,6 +233,7 @@ return [
         'View'      => Illuminate\Html\HtmlFacade::class,
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
 
     ],

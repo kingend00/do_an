@@ -31,20 +31,9 @@
 				<th>Số bàn</th>
 				<th>Loại bàn</th>
 				<th>Thao tác</th>
+				<th>Add</th>
 			</thead>
-			<tbody>
-				@if (isset($data))
-					@foreach ($data as $element)
-						<tr>
-							<td>{{ $element->number_seat }}</td>
-							<td>{{ $element->type }}</td>
-							<td><button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_seat.show',$element->number_seat) }}"><i class = "glyphicon glyphicon-cog"></i> Sửa</button></button>
-							<button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{ route('B_seat.destroy',$element->number_seat) }}""><i class="notika-icon notika-close"></i> Xóa</button></td>
-						</tr>
-					@endforeach
-					<div id="pageInfo"></div>
-				@endif
-			</tbody>
+			
 		</table>
 		</div>
 	
@@ -132,6 +121,26 @@
 
 <script type="text/javascript">
 
+		
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+			
+			$('#tbData').DataTable({
+				processing: true,
+        		serverSide: true,
+				ajax:'{!!  route('testData') !!}',
+				columns :[
+					{data:'number_seat',name:'number_seat'},
+					{data:'type',name:'type'},
+					{data:'btn-edit',name:'btn-edit'},
+					{data:'btn-destroy',name:'btn-destroy'}
+				]
+			});
+
 		var url = null;
 		$('.btn-edit').click(function(){
 			 url = $(this).attr('data-url');
@@ -153,19 +162,14 @@
 				}
 			});
 		});
-	$(document).ready(function(){
-		 $("#tbData").DataTable();
-	
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
+
+
 
 		$('#form_update').on('submit',function(e){
 			e.preventDefault();
 			//var url = document.getElementById('id');
 			var id = $('#Id').val();
+			
 			$.ajax({
 				type:'PUT',
 				url:url,
@@ -173,14 +177,9 @@
 				
 				
 				success:function(data){
-					console.log(data);
-
+					//console.log(data);
 					$('#ModalUpdate').modal('hide');
-					alert('Cập nhật thành công');
-					$('#tbData').load(' #tbData');
-					//
-					
-
+					alert('Cập nhật thành công');				
 				},
 				error:function(er){
 					console.log(er);
@@ -235,5 +234,5 @@
 
 		
 </script>
-
+{{-- <script src = "https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script> --}}
 @stop

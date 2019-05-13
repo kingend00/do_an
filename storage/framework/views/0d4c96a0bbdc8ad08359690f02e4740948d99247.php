@@ -85,9 +85,11 @@
 												</a>
 				
 												<div class="dropdown-menu">
-														<a href="<?php echo e(route('F_user.showAccount')); ?>">
+														<?php if(Auth::check()&& Auth::user()->roles == 4): ?>
+															<a href="<?php echo e(route('F_user.showAccount')); ?>">
 																Thông tin tài khoản
 															</a><br>
+														<?php endif; ?>
 														<a href="<?php echo e(route('logout')); ?>"
 															onclick="event.preventDefault();
 																	 document.getElementById('logout-form').submit();">

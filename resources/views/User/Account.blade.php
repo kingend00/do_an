@@ -1,3 +1,4 @@
+@if (Auth::check()&&Auth::user()->roles==4)
 @extends('Layout.admin.login')
 
 @section('title')
@@ -164,3 +165,6 @@
     });
 </script>
 @stop
+@else
+    <h1>404 Not Found</h1>
+@endif

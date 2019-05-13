@@ -11,7 +11,7 @@
 
 	<!-- Main menu -->
 	<section class="section-lunch bgwhite">
-				
+			<?php echo $__env->make('Layout.user.error', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>		
 		<div class="container">
 			<div class="row p-t-108 p-b-70">
 				

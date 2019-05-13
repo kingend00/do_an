@@ -75,6 +75,7 @@
 		============================================ -->
     <script src="<?php echo e(URL::asset('public/admin/js/vendor/modernizr-2.8.3.min.js')); ?>"></script>
     <script src="<?php echo e(URL::asset('public/js/jquerynew.min.js')); ?>"></script>
+    
 </head>
 <body>
 	<!-- Start Header Top Area -->
@@ -390,7 +391,7 @@
                         </li>
                         <li><a data-toggle="tab" href="#Tables"><i class="notika-icon notika-windows"></i> Thống kê</a>
                         </li>
-                        <li><a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Xem thông tin</a>
+                        <li><a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Khác </a>
                         </li>
                     <li><a href="<?php echo e(route('B_booktable.index')); ?>"><i class="notika-icon notika-app"></i> Đơn đặt bàn</a>
                         </li>
@@ -437,8 +438,7 @@
                         </div>
                         <div id="Forms" class="tab-pane notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
-                            <li><a href="<?php echo e(route('B_contact.index')); ?>">Phản hồi</a>
-                                </li>
+                            <li><a href="<?php echo e(route('B_contact.index')); ?>">Phản hồi</a></li>
                                 <!-- <li><a href="form-examples.html">Form Examples</a>
                                 </li> -->
                             </ul>
