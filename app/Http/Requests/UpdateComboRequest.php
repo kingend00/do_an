@@ -30,4 +30,15 @@ class UpdateComboRequest extends FormRequest
             'Quantity' => 'required'
         ];
     }
+    public function attributes()
+    {
+        return[
+            'Name' => 'Tên', 
+            'Details' => 'Chi tiết',
+            //'Description_Add' => 'Mô tả',
+            'Type' => 'Loại',
+            'Quantity' => 'Số lượng'
+        ];
+
+    }
 }

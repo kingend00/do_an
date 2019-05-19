@@ -1,9 +1,9 @@
-@extends('layouts.app')
+@extends('Layout.admin.login')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+@section('body')
+<div class="login-content">
+
+        <div class="col-md-8 col-md-offset-2" style="padding-top:100px">
             <div class="panel panel-default">
                 <div class="panel-heading">Reset Password</div>
 
@@ -66,5 +66,5 @@
             </div>
         </div>
     </div>
-</div>
+
 @endsection

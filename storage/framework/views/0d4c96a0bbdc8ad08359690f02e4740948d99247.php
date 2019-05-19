@@ -43,10 +43,13 @@
 			<div class="container h-full">
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
-					
-
+					<div class="logo">
+						<a href="index.html">
+							<img src="<?php echo e(URL::asset('images/logo/logo2.png')); ?>" width=70px height = 80px alt="IMG-LOGO" data-logofixed="<?php echo e(URL::asset('images/logo/logo1.png')); ?>" alt="" / width=70px height = 80px>
+						</a>
+					</div>
 					<!-- Menu -->
-					
+					<div class="wrap_menu p-l-45 p-l-0-xl">
 						<nav class="menu">
 							<ul class="main_menu">
 								<li>
@@ -60,17 +63,8 @@
 								<li>
 								<a href="<?php echo e(route('F_seat.index')); ?>">Đặt bàn</a>
 								</li>
-
 								<li>
-									<a href="about.html">Giới thiệu</a>
-								</li>
-
-								<li>
-									<a href="blog.html">Sự kiện</a>
-								</li>
-
-								<li>
-								<a href="<?php echo e(route('contact')); ?>">Liên hệ</a>
+								<a href="<?php echo e(route('news')); ?>">Sự kiện</a>
 								</li>
 								<li>
 									
@@ -109,7 +103,7 @@
 								</li>
 								<li>
 										<div class="social flex-w flex-l-m p-r-20">
-												<a data-toggle='dropdown' href="" class="dropdown">Giỏ hàng</a>
+												<a data-toggle='dropdown' href="" class="dropdown">MÓN ĐÃ ĐẶT</a>
 												<div class="dropdown-menu dropup">
 															  <span class="caret"></span>
 															  <ul class="media-list">
@@ -123,13 +117,17 @@
 															</ul>
 														<a href="<?php echo e(route('F_menu.showCart')); ?>"><button class="btn btn-primary btn-sm">Xem giỏ hàng</button></a>
 												</div>
-												<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+												
 											</div>
 								</li>
 							</ul>
 						</nav>
 					</div>
 					<!-- Social -->
+					<div class="social flex-w flex-l-m p-r-20">
+						
+						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -143,29 +141,72 @@
 		<!-- - -->
 		<ul class="menu-sidebar p-t-95 p-b-70">
 			<li class="t-center m-b-13">
-				<a href="index.html" class="txt19">
-				Trang chủ</a>
-			</li>
+				<a href="<?php echo e(route('index')); ?>" class="txt19">Trang chủ</a>
+				</li>
 
+				<li class="t-center m-b-13">
+				<a href="<?php echo e(route("F_menu.index")); ?>" class="txt19">Thực đơn</a>
+				</li>
+
+				<li class="t-center m-b-13">
+				<a href="<?php echo e(route('F_seat.index')); ?>" class="txt19">Đặt bàn</a>
+				</li>
+
+				<li class="t-center m-b-13">
+					<a href="about.html" class="txt19">Giới thiệu</a>
+				</li>
+
+				<li class="t-center m-b-13">
+				<a href="<?php echo e(route('news')); ?>" class="txt19">Sự kiện</a>
+				</li>
+
+				<li class="t-center m-b-13">
+				<a href="<?php echo e(route('contact')); ?>" class="txt19">Liên hệ</a>
+				</li>
+				<li class="t-center m-b-13">
+									
+					<!-- Authentication Links -->
+					<?php if(auth()->guard()->guest()): ?>
+						<li class="t-center m-b-13" ><a href="<?php echo e(route('B_user.index')); ?>" class="txt19">Đăng nhập</a></li>
+						<li class="t-center m-b-13"><a href="<?php echo e(route('register')); ?>" class="txt19">Đăng kí</a></li>
+					<?php else: ?>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+								<?php echo e(Auth::user()->name); ?> <span class="caret"></span>
+							</a>
+
+							<div class="dropdown-menu">
+									<?php if(Auth::check()&& Auth::user()->roles == 4): ?>
+										<a href="<?php echo e(route('F_user.showAccount')); ?>" class="txt19">
+											Thông tin tài khoản
+										</a><br>
+									<?php endif; ?>
+									<a href="<?php echo e(route('logout')); ?>"
+										onclick="event.preventDefault();
+												 document.getElementById('logout-form').submit();" class="txt19">
+										Logout
+									</a> 
+									
+
+									<form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" style="display: none;">
+										<?php echo e(csrf_field()); ?>
+
+									</form>
+								
+							</div>
+						</li>
+					<?php endif; ?>
+				
+			</li>
 			<li class="t-center m-b-13">
-				<a href="menu.html" class="txt19">Thực đơn</a>
-			</li>
+					
+			<a href="<?php echo e(route('F_menu.showCart')); ?>" class="txt19">MÓN ĐÃ ĐẶT</a>
 
-			<li class="t-center m-b-13">
-				<a href="about.html" class="txt19">Giới thiệu</a>
-			</li>
-
-			<li class="t-center m-b-13">
-				<a href="blog.html" class="txt19">Sự kiện</a>
-			</li>
-
-			<li class="t-center m-b-33">
-				<a href="contact.html" class="txt19">Liên hệ</a>
 			</li>
 
 			<li class="t-center">
 				<!-- Button3 -->
-				<a href="reservation.html" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
+			<a href="<?php echo e(route('F_seat.index')); ?>" class="btn3 flex-c-m size13 txt11 trans-0-4 m-l-r-auto">
 					Đặt bàn
 				</a>
 			</li>
@@ -211,7 +252,7 @@
 
 					<ul>
 						<li class="txt14">
-							09:30 AM – 11:00 PM
+							10:00 AM – 10:00 PM
 						</li>
 
 						<li class="txt14">
@@ -356,20 +397,7 @@
 	<!-- Container Selection1 -->
 	<div id="dropDownSelect1"></div>
 
-	<!-- Modal Video 01-->
-	<div class="modal fade" id="modal-video-01" tabindex="-1" role="dialog" aria-hidden="true">
 
-		<div class="modal-dialog" role="document" data-dismiss="modal">
-			<div class="close-mo-video-01 trans-0-4" data-dismiss="modal" aria-label="Close">&times;</div>
-
-			<div class="wrap-video-mo-01">
-				<div class="w-full wrap-pic-w op-0-0"><img src="images/icons/video-16-9.jpg" alt="IMG"></div>
-				<div class="video-mo-01">
-					<!-- <iframe src="https://www.youtube.com/embed/5k1hSu2gdKE?rel=0&amp;showinfo=0" allowfullscreen></iframe> -->
-				</div>
-			</div>
-		</div>
-	</div>
 
 <script type="text/javascript">
 	$('.dropdown').on('show.bs.dropdown', function(e){

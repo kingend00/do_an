@@ -23,34 +23,19 @@
 		<table class="table table-striped" id="tbData" >
 		<thead>
 			<tr>
+			<th></th>
 			<th>Tên combo</th>
 			<th>Giảm giá</th>
 			<th>Loại</th>
 			<th>Ảnh</th>
 			<th>Giá</th>
-			<th>Thao tác</th>
+			<th>Sửa</th>
+			<th>Chi tiết</th>
+			<th>Xóa</th>
 			
 		</tr>
 		</thead>
-		<tbody>
-			@if (isset($data))
-				@foreach ($data as $element)
-					<tr>
-						<td> {{ $element->name }}</td>
-						<td> {{ $element->discount }}</td>
-						<td> {{ $element->type }}</td>
-						<td> {{ $element->image}}</td>
-						<td> {{ $element->price }}</td>
-						<td><button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_combo.show',$element->combo_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Edit</button>
-						<button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{route('B_combo.destroy',$element->combo_id) }}"><i class="notika-icon notika-close"></i> Xóa</button>
-						<button type="button" class="btn btn-danger danger-icon-notika btn-details" data-toggle="modal" data-target="#ModalDetails" data-url="{{route('B_combo.showDetails',$element->combo_id) }}"><i class="notika-icon notika-close"></i> Chi tiết </button></td>
-					</tr>
-				@endforeach
-			@endif
-			
-		</tbody>
-
-
+	
 	</table>
 
 	</div>
@@ -62,9 +47,9 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-             {!! Form::open(['id'=>'form_update','method'=>'POST'])!!}
+             {!! Form::open(['id'=>'form_update','route'=>'B_combo.update2','method'=>'POST','files'=>true])!!}
              
-             {{ method_field('PUT') }}
+             
             <div class="modal-body">
             			<div class="form-group">
 							{!! Form::hidden('Id','',['id' =>'Id','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
@@ -108,7 +93,7 @@
 							
 									<div class="form-ic-cmp">{!! Form::label('Name','Ảnh',['class' => 'control-label']) !!}</div>
 										<div class="nk-int-st">
-											{!! Form::text('Image','',['id' =>'Image','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+											{!! Form::file('Image','',['id' =>'Image','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
 											</div>
 							</div>
 						
@@ -160,7 +145,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-             {!! Form::open(['id'=>'form_add','route'=>'B_combo.store','method'=>'POST'])!!}                       
+             {!! Form::open(['id'=>'form_add','route'=>'B_combo.store','method'=>'POST','files' => true])!!}                       
             <div class="modal-body">
 
 						<div class="form-group ic-cmp-int">
@@ -211,7 +196,7 @@
 						
 								<div class="form-ic-cmp">{!! Form::label('Name','Ảnh',['class' => 'control-label']) !!}</div>
 									<div class="nk-int-st">
-											{!! Form::text('Image_Add','',['id' =>'Image_Add','class' => 'form-control','placeholder' => 'Enter here']) !!}
+											{!! Form::file('Image_Add','',['id' =>'Image_Add','class' => 'form-control','placeholder' => 'Enter here']) !!}
 										</div>
                         </div>
                        
@@ -219,7 +204,7 @@
             </div>
             <div class="modal-footer">
                 {{-- {!!  Form::submit('Save changes',null,['name' => 'hihi','class'=>'btn btn-default waves-effect']) !!} --}}
-                <button class="btn btn-default" type="submit">Save</button>
+			<button class="btn btn-default" type="submit" data-url = "{{ route('B_combo.update2') }}">Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
             {!! Form::close() !!}
@@ -230,9 +215,36 @@
 
 
 <script type="text/javascript">
-	// show thông tin tài khoản
-	var url = null;
-		$('.btn-edit').click(function(){
+	
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+        
+		$('select').selectpicker();
+		$('#tbData').DataTable({
+				processing: true,
+        		serverSide: true,
+				ajax:'{!!  route('B_combo.getData') !!}',
+				columns :[
+					{data:'combo_id',"visible": false,
+                "searchable": false},
+					{data:'name'},
+					{data:'discount'},
+					{data:'type'},
+					{data:'image'},
+					{data:'price'},
+					{data:'btn-edit'},
+					{data:'btn-details'},
+					{data:'btn-destroy'}
+				]
+			});
+
+		// show thông tin tài khoản
+		var url = null;
+		$(document).on('click','.btn-edit',function(){
 			url = $(this).attr('data-url');
 
 			$.ajax({
@@ -257,7 +269,8 @@
 					$('#Discount').val(response.data[0].discount);
 					$('#Type').val(response.data[0].type);
 					$('#Image').val(response.data[0].image);
-					$('#Quantity').val(quantity2);										
+					$('#Quantity').val(quantity2);
+														
 					
 				},
 				error:function(eror){
@@ -265,7 +278,7 @@
 				}
 			});
 		});
-		$('.btn-details').click(function(){
+		$(document).on('click','.btn-details',function(){
 			var url = $(this).attr('data-url');
 
 			$.ajax({
@@ -283,18 +296,8 @@
 			});
 			
 		});
-	$(document).ready(function(){
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-        
-		$('select').selectpicker();
-		$("#tbData").DataTable();
 
-
-		$('.btn-destroy').click(function(){
+		$(document).on('click','.btn-destroy',function(){
 			var url = $(this).attr('data-url');
 			
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
@@ -306,37 +309,18 @@
 				dataType:'html',
 				success:function(response){
 					alert(response);
-					$('#tbData').load(' #tbData');
+					$('#tbData').DataTable().ajax.reload();	
 
 				},
 				error:function(eror){
 					console.log(eror);
 				}
 				});
-				$('#tbData').load(' #tbData');
+				
 			}
 		});
 
 
-		$('#form_update').on('submit',function(e){
-			e.preventDefault();
-			//var url = document.getElementById('id');
-			
-			$.ajax({
-				type:'PUT',
-				url:url,
-				data:$('#form_update').serialize(),						
-				success:function(data){
-					alert(data);
-					$('#ModalUpdate').modal('hide');
-					$('#tbData').load(' #tbData');					
-				},
-				error:function(er){
-					console.log(er);
-				}
-
-			});
-		});
 
 	});
 </script>

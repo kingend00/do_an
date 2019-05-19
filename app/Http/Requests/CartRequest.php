@@ -28,4 +28,12 @@ class CartRequest extends FormRequest
             'rowId' =>'required',
         ];
     }
+    public function attributes()
+    {
+        return[
+            'qty' => 'Số lượng', 
+            'rowId' => 'Chỉ mục',                  
+        ];
+
+    }
 }

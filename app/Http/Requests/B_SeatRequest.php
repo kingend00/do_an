@@ -28,4 +28,14 @@ class B_SeatRequest extends FormRequest
             'Number' => 'required|numeric',
         ];
     }
+    public function attributes()
+    {
+        return[
+            'Type' => 'Loại bàn', 
+            'Number' => 'Số bàn',
+           
+            
+        ];
+
+    }
 }

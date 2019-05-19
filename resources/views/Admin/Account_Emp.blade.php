@@ -26,30 +26,16 @@
 		<table class="table table-striped" id="tbData" >
 		<thead>
 			<tr>
+			<th></th>
 			<th>Email</th>
 			<th>Tên chủ khoản</th>			
 			<th>Số điện thoại</th>
 			<th>Địa chỉ</th>
-			<th >Thao tác</th>
+			<th >Sửa</th>
+			<th>Xóa</th>
 		</tr>
 		</thead>
-		<tbody>
-			
-			@if(isset($data))
-				@foreach ($data as $value)
-				<tr>
-					<td> {{$value->email}} </td>
-					<td> {{$value->name}} </td>
-					<td> {{$value->phone}} </td>
-					<td> {{$value->address}} </td>
-					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_user.show',$value->user_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Edit</button>
-					 <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{ route('B_user.destroy',$value->user_id) }}" ><i class="notika-icon notika-close"></i>  Xóa</button></td>
 
-				</tr>
-				@endforeach
-			@endif
-			
-		</tbody>
 
 
 	</table>
@@ -83,7 +69,7 @@
 							<div class="form-group ic-cmp-int">
 									<div class="form-ic-cmp">{!! Form::label('Email','Password',['class' => 'control-label']) !!}</div>
 											<div class="nk-int-st">
-													{!! Form::text('Update_Password','',['id' =>'Update_Password','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+													<input id="Update_Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Update_Password" required>
 											</div>
 							</div>
 							
@@ -181,8 +167,31 @@
 
 
 <script type="text/javascript">
-	var url = null;
-		$('.btn-edit').click(function(){
+	
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+			$('#tbData').DataTable({
+				processing: true,
+        		serverSide: true,
+				ajax:'{!!  route('B_user.getData',3) !!}',
+				columns :[
+					{data:'user_id',"visible": false,
+                "searchable": false},
+					{data:'email'},
+					{data:'name'},
+					{data:'phone'},
+					{data:'address'},
+					{data:'btn-edit'},
+					{data:'btn-destroy'}
+				]
+			});
+		// show thông tin tài khoản
+		var url = null;
+		$(document).on('click','.btn-edit',function(){
 			 url = $(this).attr('data-url');
 
 			$.ajax({
@@ -203,18 +212,9 @@
 				}
 			});
 		});
-	$(document).ready(function(){
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-			$("#tbData").DataTable();
-		// show thông tin tài khoản
-		
 
 
-		$('.btn-destroy').click(function(){
+		$(document).on('click','.btn-destroy',function(){
 			var url = $(this).attr('data-url');
 			
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
@@ -222,12 +222,9 @@
 				$.ajax({
 				type:'DELETE',
 				url:url,
-				//data:{id:id},
-				//dataType:'html',
-				success:function(response){
-					$('#tbData').load(' #tbData');
+				success:function(response){					
 					alert(response);					
-					
+					$('#tbData').DataTable().ajax.reload();	
 
 				},
 				error:function(eror){
@@ -249,7 +246,7 @@
 				success:function(data){
 					alert(data);
 					$('#ModalUpdate').modal('hide');
-					$('#tbData').load(' #tbData');					
+					$('#tbData').DataTable().ajax.reload();						
 				},
 				error:function(er){
 					console.log(er);

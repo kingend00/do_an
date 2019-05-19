@@ -5,6 +5,7 @@ use DB;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class C_Contact extends Controller
 {
@@ -63,7 +64,7 @@ class C_Contact extends Controller
     public function show($id)
     {
         $feedback = DB::table('feedback')->where('feedback_id','=',$id)->get();
-        if($feedback)
+        if(count($feedback)>=1)
         {
             DB::table('feedback')->where('feedback_id','=',$id)->update(['type'=>'seen']);
              return view('Admin.Details',compact('feedback'));
@@ -102,7 +103,7 @@ class C_Contact extends Controller
     public function destroy($id)
     {
         $combo = DB::table('feedback')->where('feedback_id','=',$id)->get();
-        if($combo)
+        if(count($combo)>=1)
         {
             
             DB::table('feedback')->where('feedback_id','=',$id)->delete();

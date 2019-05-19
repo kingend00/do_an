@@ -36,8 +36,10 @@
 				</tr>
 				@endforeach
 				<tr><td colspan="4"><h2>Tổng tất cả</h2></td><td id="Fulltotal"></td></tr>
-				<tr><td><button type="submit" class="btn btn-default" style="background-color:green">Chọn bàn</button></td></tr>
+				<tr><td><button type="submit" class="btn btn-default" style="background-color:green">Chọn bàn</button></td><td><a href="{{ route('F_menu.index') }}"><button type = "button" class="btn btn-default" style="background-color:green"> Chọn thêm ...</button></a></td></tr>
+				
 			</table>
+		
 	</form>		
 		@endif
 	

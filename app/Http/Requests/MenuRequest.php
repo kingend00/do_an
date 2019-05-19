@@ -25,10 +25,22 @@ class MenuRequest extends FormRequest
     {
         return [
             'Name_Add' => 'required',
-            'Description_Add' =>'max:255',
+            //'Description_Add' =>'max:255',
             'Price_Add' =>'required|numeric',
-            'Category_id_Add' =>'required|numeric'
+            'Category_id_Add' =>'required|numeric',
+            'Image_Add' => 'required|file'
 
         ];
+    }
+    public function attributes()
+    {
+        return[
+            'Category_id_Add' => 'Danh mục', 
+            'Price_Add' => 'Giá',
+            //'Description_Add' => 'Mô tả',
+            'Name_Add' => 'Tên',
+            'Image_Add' => 'Ảnh'
+        ];
+
     }
 }

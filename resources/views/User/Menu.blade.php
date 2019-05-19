@@ -5,7 +5,7 @@
 @section('body')
 	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url('./images/background/menu.jpg');">
 		<h2 class="tit6 t-center">
-			Pato Menu
+			RogTeam Place
 		</h2>
 	</section>
 
@@ -22,7 +22,7 @@
 
 							<div class="col-md-12">
 								<div class="header-lunch parallax0 parallax100" style="background-image: url(./images/background/img_menu_banner.jpg);margin-bottom: 40px;border-radius:30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;">
-									<div class="bg1-overlay t-center p-t-170 p-b-165" style="border-radius:30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;border: none;">
+								<div id = "{{$key}}" class="bg1-overlay t-center p-t-170 p-b-165" style="border-radius:30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;border: none;">
 										<h2 class="tit4 t-center">
 											{{ $key }}
 										</h2>
@@ -65,7 +65,7 @@
 					<!-- Block3 -->
 					<div class="col-md-12">
 						<div class="header-lunch parallax0 parallax100" style="background-image: url(./images/background/img_menu_banner.jpg);margin-bottom: 40px;border-radius:30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;">
-							<div class="bg1-overlay t-center p-t-170 p-b-165" style="border-radius:30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;border: none;">
+							<div id = "combo" class="bg1-overlay t-center p-t-170 p-b-165" style="border-radius:30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;border: none;">
 								<h2 class="tit4 t-center">
 									Combo
 								</h2>

@@ -17,7 +17,7 @@
 
 						<div class="wrap-btn-slide1 animated visible-false" data-appear="zoomIn">
 							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
+							<a href="#menu" class="btn1 flex-c-m size1 txt3 trans-0-4">
 								Xem thực đơn
 							</a>
 						</div>
@@ -36,7 +36,7 @@
 
 						<div class="wrap-btn-slide1 animated visible-false" data-appear="slideInUp">
 							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
+							<a href="#menu" class="btn1 flex-c-m size1 txt3 trans-0-4">
 								Xem thực đơn
 							</a>
 						</div>
@@ -55,7 +55,7 @@
 
 						<div class="wrap-btn-slide1 animated visible-false" data-appear="rotateIn">
 							<!-- Button1 -->
-							<a href="menu.html" class="btn1 flex-c-m size1 txt3 trans-0-4">
+							<a href="#menu" class="btn1 flex-c-m size1 txt3 trans-0-4">
 								Xem thực đơn
 							</a>
 						</div>
@@ -86,7 +86,7 @@
 							Là 1 lĩnh vực nhỏ thuộc tập đoàn <strong>Rog</strong>, ông lớn đứng đầu AI System tại Việt Nam, RogTeam Place có tất cả 60 chi nhánh trên toàn quốc... 
 						</p>
 
-						<a href="about.html" class="txt4">
+					<a href="<?php echo e(route('about')); ?>" class="txt4">
 							Our Story
 							<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 						</a>
@@ -196,7 +196,7 @@
 
 	<!-- Our menu -->
 	<section class="section-ourmenu bg2-pattern p-t-115 p-b-120">
-		<div class="container">
+		<div class="container" id="menu">
 			<div class="title-section-ourmenu t-center m-b-22">
 				<span class="tit2 t-center">
 					Discover
@@ -216,8 +216,18 @@
 								<img src="<?php echo e(URL::asset('images/background/low7.jpg')); ?>" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt5 ab-c-m size4">
+							<a href="<?php echo e(route('F_menu.index')); ?>/#lunch" class="btn2 flex-c-m txt5 ab-c-m size4">
 									Lunch
+								</a>
+							</div>
+
+
+							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
+								<img src="<?php echo e(URL::asset('images/background/slow10.jpg')); ?>" alt="IMG-MENU">
+
+								<!-- Button2 -->
+							<a href="<?php echo e(route('F_menu.index')); ?>/#combo" class="btn2 flex-c-m txt5 ab-c-m size4">
+									Combo
 								</a>
 							</div>
 						</div>
@@ -228,7 +238,7 @@
 								<img src="<?php echo e(URL::asset('images/background/low4.jpg')); ?>" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt5 ab-c-m size5">
+								<a href="<?php echo e(route('F_menu.index')); ?>/#dinner" class="btn2 flex-c-m txt5 ab-c-m size5">
 									Dinner
 								</a>
 							</div>
@@ -238,7 +248,7 @@
 								<img src="<?php echo e(URL::asset('images/background/low1.jpg')); ?>" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt5 ab-c-m size9">
+								<a href="<?php echo e(route('F_menu.index')); ?>/#dessert" class="btn2 flex-c-m txt5 ab-c-m size5">
 									Dessert
 								</a>
 							</div>
@@ -256,18 +266,19 @@
 								<img src="<?php echo e(URL::asset('images/background/low6.jpg')); ?>" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt5 ab-c-m size7" >
+								<a href="<?php echo e(route('F_menu.index')); ?>/#drink" class="btn2 flex-c-m txt5 ab-c-m size7" >
 									Drink
 								</a>
 							</div>
 						</div>
+						
 					<div class="col-12">
 							<!-- Item our menu -->
 							<div class="item-ourmenu bo-rad-10 hov-img-zoom pos-relative m-t-30">
 								<img src="<?php echo e(URL::asset('images/background/low2.jpg')); ?>" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="#" class="btn2 flex-c-m txt5 ab-c-m size8">
+								<a href="<?php echo e(route('F_menu.index')); ?>/#starters" class="btn2 flex-c-m txt5 ab-c-m size8">
 									Starters
 								</a>
 							</div>
@@ -300,7 +311,7 @@
 							<!-- Block2 -->
 							<div class="blo2 flex-w flex-str flex-col-c-m-lg animated visible-false" data-appear="zoomIn">
 								<!-- Pic block2 -->
-								<a href="#" class="wrap-pic-blo2 bg1-blo2" style="background-image: url(./images/background/220.jpg);">
+							<a href="<?php echo e(route('news')); ?>" class="wrap-pic-blo2 bg1-blo2" style="background-image: url(./images/background/220.jpg);">
 									<div class="time-event size10 txt6 effect1">
 										<span class="txt-effect1 flex-c-m t-center">
 											08:00 PM Tuesday - 21 November 2018
@@ -387,7 +398,7 @@
 							<!-- Block2 -->
 							<div class="blo2 flex-w flex-str flex-col-c-m-lg animated visible-false" data-appear="fadeInDown">
 								<!-- Pic block2 -->
-								<a href="#" class="wrap-pic-blo2 bg2-blo2" style="background-image: url(images/event-06.jpg);">
+								<a href="<?php echo e(route('news')); ?>" class="wrap-pic-blo2 bg2-blo2" style="background-image: url(images/event-06.jpg);">
 									<div class="time-event size10 txt6 effect1">
 										<span class="txt-effect1 flex-c-m">
 											08:00 PM Tuesday - 21 November 2018
@@ -474,7 +485,7 @@
 							<!-- Block2 -->
 							<div class="blo2 flex-w flex-str flex-col-c-m-lg animated visible-false" data-appear="rotateInUpLeft">
 								<!-- Pic block2 -->
-								<a href="#" class="wrap-pic-blo2 bg3-blo2" style="background-image: url(images/event-01.jpg);">
+								<a href="<?php echo e(route('news')); ?>" class="wrap-pic-blo2 bg3-blo2" style="background-image: url(images/event-01.jpg);">
 									<div class="time-event size10 txt6 effect1">
 										<span class="txt-effect1 flex-c-m">
 											08:00 PM Tuesday - 21 November 2018
@@ -563,6 +574,11 @@
 						<h3 class="tit3 t-center m-b-35 m-t-2">
 							Book table
 						</h3>
+						<div style="text-align:center;padding-left:150px">
+						<a href ="<?php echo e(route('F_seat.index')); ?>"><button type="button" class="btn3 flex-c-m size13 txt11 trans-0-4" style="width:250px;height:130px;font-size:30px">
+								Đặt bàn
+							</button></a>
+						</div>
 					</div>
 
 					
@@ -625,7 +641,7 @@
 					<div class="wrap-content-slide3 p-b-50 p-t-50">
 						<div class="container">
 							<div class="pic-review size14 bo4 wrap-cir-pic m-l-r-auto animated visible-false" data-appear="zoomIn">
-								<img src="<?php echo e(URL::asset('images/background/chef2.jpg')); ?>" alt="IGM-AVATAR">
+								<img src="<?php echo e(URL::asset('images/background/chef2.JPG')); ?>" alt="IGM-AVATAR">
 							</div>
 
 							<div class="content-review m-t-33 animated visible-false" data-appear="fadeInUp">
@@ -697,67 +713,12 @@
 			</div>
 
 			<div class="row">
+				<?php $__currentLoopData = \App\Model\M_News::all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 				<div class="col-md-4 p-t-30">
 					<!-- Block1 -->
 					<div class="blo1">
 						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
-							<a href="blog-detail.html"><img src="images/blog-01.jpg" alt="IMG-INTRO"></a>
-
-							<div class="time-blog">
-								21 Dec 2017
-							</div>
-						</div>
-
-						<div class="wrap-text-blo1 p-t-35">
-							<a href="blog-detail.html"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-								Best Places for Wine
-							</h4></a>
-
-							<p class="m-b-20">
-								Phasellus lorem enim, luctus ut velit eget, con-vallis egestas eros.
-							</p>
-
-							<a href="blog-detail.html" class="txt4">
-								Continue Reading
-								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 p-t-30">
-					<!-- Block1 -->
-					<div class="blo1">
-						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
-							<a href="blog-detail.html"><img src="images/blog-02.jpg" alt="IMG-INTRO"></a>
-
-							<div class="time-blog">
-								15 Dec 2017
-							</div>
-						</div>
-
-						<div class="wrap-text-blo1 p-t-35">
-							<a href="blog-detail.html"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-								Eggs and Cheese
-							</h4></a>
-
-							<p class="m-b-20">
-								Duis elementum, risus sit amet lobortis nunc justo condimentum ligula, vitae feugiat
-							</p>
-
-							<a href="blog-detail.html" class="txt4">
-								Continue Reading
-								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 p-t-30">
-					<!-- Block1 -->
-					<div class="blo1">
-						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
-							<a href="blog-detail.html"><img src="images/blog-03.jpg" alt="IMG-INTRO"></a>
+							<a href="blog-detail.html"><img src="<?php echo e(URL::asset('images/background/'.$item->image)); ?>" width=100px height = 200px alt="IMG-INTRO"></a>
 
 							<div class="time-blog">
 								12 Dec 2017
@@ -766,21 +727,23 @@
 
 						<div class="wrap-text-blo1 p-t-35">
 							<a href="blog-detail.html"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-								Style the Wedding Party
+								<?php echo e($item->title); ?>
+
 							</h4></a>
 
 							<p class="m-b-20">
-								Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
+								<?php echo e($item->content); ?>
+
 							</p>
 
-							<a href="blog-detail.html" class="txt4">
+						<a href="<?php echo e(route('news')); ?>/#<?php echo e($item->news_id); ?>" class="txt4">
 								Continue Reading
 								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 							</a>
 						</div>
 					</div>
 				</div>
-
+				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 			</div>
 		</div>
 	</section>
@@ -790,18 +753,13 @@
 	<div class="section-signup bg1-pattern p-t-85 p-b-85">
 		<form class="flex-c-m flex-w flex-col-c-m-lg p-l-5 p-r-5">
 			<span class="txt5 m-10">
-				Specials Sign up
+				Liên hệ với chúng tôi !
 			</span>
 
-			<div class="wrap-input-signup size17 bo2 bo-rad-10 bgwhite pos-relative txt10 m-10">
-				<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email-address" placeholder="Email Adrress">
-				<i class="fa fa-envelope ab-r-m m-r-18" aria-hidden="true"></i>
-			</div>
-
 			<!-- Button3 -->
-			<button type="submit" class="btn3 flex-c-m size18 txt11 trans-0-4 m-10">
-				Sign-up
-			</button>
+		<a href = "<?php echo e(route('contact')); ?>"><button type="button" class="btn3 flex-c-m size18 txt11 trans-0-4 m-10">
+			Contact
+		</button></a>
 		</form>
 	</div>
 <?php $__env->stopSection(); ?>

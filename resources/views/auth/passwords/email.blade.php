@@ -1,11 +1,11 @@
-@extends('layouts.app')
+@extends('Layout.admin.login')
 
-@section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+@section('body')
+<div class="login-content">
+
+        <div class="col-md-8 col-md-offset-2" style="padding-top:150px">
             <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
+                <div class="panel-heading"><h3>Lấy lại mật khẩu</h3></div>
 
                 <div class="panel-body">
                     @if (session('status'))
@@ -18,7 +18,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+                            <label for="email" class="col-md-4 control-label">Địa chỉ Email</label>
 
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
@@ -34,7 +34,7 @@
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Send Password Reset Link
+                                    Gửi yêu cầu tới Email
                                 </button>
                             </div>
                         </div>
@@ -43,5 +43,5 @@
             </div>
         </div>
     </div>
-</div>
+
 @endsection

@@ -26,10 +26,23 @@ class B_BooktableAddRequest extends FormRequest
         return [
             'Name' =>'required',
             'Phone' => 'required|numeric',
-            'Date' =>'required|after:today',
+            'Date' =>'required',
             'Time' => 'required',
             'Number_seat' => 'required',
             'Type_seat' => 'required',
         ];
+    }
+    public function attributes()
+    {
+        return[
+            'Name' => 'Tên', 
+            'Phone' => 'Số điện thoại',
+            'Date' => 'Ngày tháng',
+            'Time' => 'Thời gian',
+            'Number_seat' => 'Số bàn',
+            'Type_seat' =>'Loại bàn'
+            
+        ];
+
     }
 }

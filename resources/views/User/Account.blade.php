@@ -29,8 +29,8 @@
                                 <ul class="nav navbar-nav navbar-right">
                                     <!-- Authentication Links -->
                                     @guest
-                                        <li><a href="{{ route('login') }}">Login</a></li>
-                                        <li><a href="{{ route('register') }}">Register</a></li>
+                                        <li><a href="{{ route('login') }}">ĐĂNG NHẬP</a></li>
+                                        <li><a href="{{ route('register') }}">ĐĂNG KÍ</a></li>
                                     @else
                                         <li class="dropdown">
                                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
@@ -42,7 +42,7 @@
                                                     <a href="{{ route('logout') }}"
                                                         onclick="event.preventDefault();
                                                                  document.getElementById('logout-form').submit();">
-                                                        Logout
+                                                        Đăng xuất
                                                     </a>
             
                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -65,7 +65,6 @@
     @if(Auth::check())
 <div class="container">
     <div class="row">
-        @inlcude('Layout.user.error')
         <div class="col-lg-5" id="formData">
             {!! Form::open(['id'=>'form_update','route'=>'F_user.update','method'=>'POST'])!!}                     
                 <fieldset>

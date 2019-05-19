@@ -31,4 +31,15 @@ class AddComboRequest extends FormRequest
 
         ];
     }
+    public function attributes()
+    {
+        return[
+            'Name_Add' => 'Tên', 
+            'Details_Add' => 'Chi tiết Combo',
+            'Type_Add' => 'Loại',
+            'Quantity_Add' => 'Số lượng',
+            
+        ];
+
+    }
 }

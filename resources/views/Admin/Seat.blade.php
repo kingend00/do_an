@@ -17,12 +17,7 @@
 								</div>
 							</div>
 						</div>
-	@if (isset($val))
-			@foreach ($val as $element)
-				<a href="{{ route('B_seat.showType',$element->type) }}"><button class="btn btn-submit">{{ $element->type }}</button></a>
-			@endforeach
-			<a href="{{ route('B_seat.showType','All') }}"><button class="btn btn-submit">Show All</button></a>
-		@endif
+
 	
 	
 		<div class="table-responsive">
@@ -30,8 +25,8 @@
 			<thead>
 				<th>Số bàn</th>
 				<th>Loại bàn</th>
-				<th>Thao tác</th>
-				<th>Add</th>
+				<th>Sửa</th>
+				<th>Xóa</th>
 			</thead>
 			
 		</table>
@@ -80,6 +75,8 @@
         </div>
     </div>
 </div>
+
+
 <div class="modal fade" id="ModalAdd" role="dialog">
     <div class="modal-dialog modals-default">
         <div class="modal-content">
@@ -94,8 +91,9 @@
 						<div class="form-group ic-cmp-int">
 						
 								<div class="form-ic-cmp">{!! Form::label('Number','Type',['class' => 'control-label']) !!}</div>
-									<div class="nk-int-st">
+								<div class="nk-int-st">
 									{!! Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+									
 								</div>
 						</div>
 						<div class="form-group ic-cmp-int">
@@ -103,7 +101,7 @@
 								<div class="form-ic-cmp">{!! Form::label('Number','Number',['class' => 'control-label']) !!}</div>
 									<div class="nk-int-st">
 											{!! Form::text('NumberAdd','',['id' =>'NumberAdd','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']) !!}
-										</div>
+									</div>
 						</div>
 				                                 
             </div>
@@ -132,18 +130,18 @@
 			$('#tbData').DataTable({
 				processing: true,
         		serverSide: true,
-				ajax:'{!!  route('testData') !!}',
+				ajax:'{!!  route('B_seat.getData',$type) !!}',
 				columns :[
-					{data:'number_seat',name:'number_seat'},
-					{data:'type',name:'type'},
-					{data:'btn-edit',name:'btn-edit'},
-					{data:'btn-destroy',name:'btn-destroy'}
+					{data:'number_seat'},
+					{data:'type'},
+					{data:'btn-edit'},
+					{data:'btn-destroy'}
 				]
 			});
 
 		var url = null;
-		$('.btn-edit').click(function(){
-			 url = $(this).attr('data-url');
+		$(document).on('click','.btn-edit',function(){
+			url = $(this).attr('data-url');
 
 			$.ajax({
 				type:'GET',
@@ -155,12 +153,14 @@
 					console.log($('#Type').val());
 					console.log($('#Number').val());
 					$('select').selectpicker('refresh');
+					
 
 				},
 				error:function(eror){
 					console.log(eror);
 				}
 			});
+			
 		});
 
 
@@ -173,13 +173,12 @@
 			$.ajax({
 				type:'PUT',
 				url:url,
-				data:$('#form_update').serialize(),
-				
-				
+				data:$('#form_update').serialize(),								
 				success:function(data){
 					//console.log(data);
 					$('#ModalUpdate').modal('hide');
-					alert('Cập nhật thành công');				
+					alert('Cập nhật thành công');
+					$('#tbData').DataTable().ajax.reload();				
 				},
 				error:function(er){
 					console.log(er);
@@ -187,8 +186,8 @@
 
 			});
 		});
-		$('.btn-destroy').click(function(){
-			
+
+		$(document).on('click','.btn-destroy',function(){			
 			var url = $(this).attr('data-url');
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
 			{
@@ -196,24 +195,21 @@
 				type:'DELETE',
 				url:url,
 				//data:{id:id},
-				dataType:'html',
+				
 				success:function(response){
 					alert(response);
-					$('#tbData').load(' #tbData');
+					$('#tbData').DataTable().ajax.reload();	
 
 				},
 				error:function(eror){
 					console.log(eror);
 				}
 				});
-				$('#tbData').load(' #tbData');
-			}
-			else
-			{
-				alert('Bạn đã hủy');
 			}
 			
+			
 		});
+		
 		$('.btn-add').click(function(){
 			var url = $(this).attr('data-url');
 			$.ajax({
@@ -234,5 +230,4 @@
 
 		
 </script>
-{{-- <script src = "https://cdn.datatables.net/plug-ins/1.10.19/api/fnReloadAjax.js"></script> --}}
 @stop

@@ -38,34 +38,11 @@
             <th>Thời gian đặt</th>
             <th>Trạng thái</th>
             <th>Tổng tiền </th>
-			<th>Thao tác</th>
+			<th>Sửa</th>
+			<th>Xóa</th>
 		</tr>
 		</thead>
-		<tbody>
-			
-			@if(isset($data))
-				@foreach ($data as $value)
-				<tr>
-                    <td> {{$value->booktable_id}} </td>
-					<td> {{$value->number_seat}} </td>
-					<td> {{$value->email}} </td>
-					<td> {{$value->name}} </td>
-                    <td> {{$value->phone}} </td>
-                    <td> {{$value->date}} </td>
-                    <td> {{$value->time}} </td>
-                    <td> {{$value->status}} </td>
-                    <td> {{$value->total}} </td>
-                <td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_booktable.show',$value->booktable_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Cập nhật</button>
-					<button type="button" class="btn btn-danger danger-icon-notika btn-details" data-toggle="modal" data-target="#ModalDetails"  data-url = "{{ route('B_booktable.showDetails',$value->booktable_id) }}"><i class="notika-icon notika-close"></i>  Chi tiết</button></td>
-
-				</tr>
-				
-                @endforeach
-                
-			@endif
-			
-		</tbody>
-
+		
 
 	</table>
 
@@ -199,24 +176,31 @@
 						<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
 						<select id = "Time" name = "Time">
 							<option> Chọn thời gian</option>
-							<option>08:00</option>
-							<option>10:00</option>
-							<option>10:30</option>
-							<option>11:00</option>
-							<option>11:30</option>
-							<option>12:00</option>
-							<option>12:30</option>
-							<option>13:00</option>
-							<option>13:30</option>
-							<option>14:00</option>
-							<option>14:30</option>
-							<option>15:00</option>
-							<option>15:30</option>
-							<option>16:00</option>
-							<option>16:30</option>
-							<option>17:00</option>
-							<option>17:30</option>
-							<option>18:00</option>
+										<option>10:00</option>
+										
+										<option>11:00</option>
+										
+										<option>12:00</option>
+										
+										<option>13:00</option>
+										
+										<option>14:00</option>
+										
+										<option>15:00</option>
+										
+										<option>16:00</option>
+										
+										<option>17:00</option>
+										
+										<option>18:00</option>
+										
+										<option>19:00</option>
+
+										<option>20:00</option>
+
+										<option>21:00</option>
+
+										<option>22:00</option>
 						</select>		
 					</div>	
 					<div class="form-group ic-cmp-int">
@@ -268,9 +252,45 @@
 
 
 <script type="text/javascript">
-	var url = null;
+	
+	$(document).ready(function(){
+		//$(".Date").datepicker("option", "dateFormat", "yy-mm-dd");
+		 //$('#Picker').datepicker({format: 'dd/mm/yyyy'});
+
+		 $('.Date').datepicker({format: 'dd/mm/yyyy'});
+		 $('#Update_Date').datepicker({format: 'dd/mm/yyyy'});
+		$('select').selectpicker();
+
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+
+			$('#tbData').DataTable({
+				processing: true,
+        		serverSide: true,
+				ajax:'{!!  route('B_booktable.getData') !!}',
+				columns :[
+					{data:'booktable_id'},
+					{data:'number_seat'},
+					{data:'email'},
+					{data:'name'},
+					{data:'phone'},
+					{data:'date'},
+					{data:'time'},
+					{data:'status'},
+					{data:'total'},
+					{data:'btn-edit'},
+					{data:'btn-details'}
+				]
+			});
+
+
+
+			var url = null;
 		// show thông tin tài khoản
-		$('.btn-edit').click(function(){
+		$(document).on('click','.btn-edit',function(){
 			 url = $(this).attr('data-url');
 
 			$.ajax({
@@ -291,7 +311,7 @@
 				}
 			});
 		});
-		$('.btn-details').click(function(){
+		$(document).on('click','.btn-details',function(){
 			var url = $(this).attr('data-url');
 
 			$.ajax({
@@ -309,46 +329,6 @@
 			});
 			
 		});
-	$(document).ready(function(){
-		//$(".Date").datepicker("option", "dateFormat", "yy-mm-dd");
-		 //$('#Picker').datepicker({format: 'dd/mm/yyyy'});
-		 $('.Date').datepicker({format: 'dd/mm/yyyy'});
-		 $('#Update_Date').datepicker({format: 'dd/mm/yyyy'});
-		$('select').selectpicker();
-		$("#tbData").DataTable();
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-		
-		
-
-		
-		
-
-		$('.btn-destroy').click(function(){
-			var url = $(this).attr('data-url');
-			
-			if(confirm('Bạn có chắc chắn muốn xóa ?'))
-			{
-				$.ajax({
-				type:'DELETE',
-				url:url,
-				//data:{id:id},
-				//dataType:'html',
-				success:function(response){
-					$('#tbData').load(' #tbData');
-					alert(response);					
-					
-
-				},
-				error:function(eror){
-					console.log(eror);
-				}
-				});
-			}
-		});
 
 		//var url2 = $('.btn-edit').attr('data-url');
 		$('#form_update').on('submit',function(e){
@@ -362,7 +342,7 @@
 				success:function(data){
 					alert('Update thành công');
 					$('#ModalUpdate').modal('hide');
-					$('#tbData').load(' #tbData');
+					$('#tbData').DataTable().ajax.reload();	
 					
 
 				},

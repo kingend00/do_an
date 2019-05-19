@@ -71,10 +71,13 @@
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/responsive.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/dialog/sweetalert2.min.css')}}">
+    <link rel="stylesheet" href="{{URL::asset('public/admin/css/dialog/dialog.css')}}">
     <!-- modernizr JS
 		============================================ -->
     <script src="{{URL::asset('public/admin/js/vendor/modernizr-2.8.3.min.js')}}"></script>
     <script src="{{ URL::asset('public/js/jquerynew.min.js') }}"></script>
+   
     
 </head>
 <body>
@@ -84,156 +87,13 @@
             <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                     <div class="logo-area">
-                        <a href="#"><img src="./public/admin/img/logo/logo.png" alt="" /></a>
+                    <a href="{{route('index')}}"><img src="{{ URL::asset('images/logo/logo2.png') }}" alt="" / width=70px height = 80px></a>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div class="header-top-menu">
                         <ul class="nav navbar-nav notika-top-nav">
-                            <li class="nav-item dropdown">
-                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-search"></i></span></a>
-                                <div role="menu" class="dropdown-menu search-dd animated flipInX">
-                                    <div class="search-input">
-                                        <i class="notika-icon notika-left-arrow"></i>
-                                        <input type="text" />
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item dropdown">
-                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-mail"></i></span></a>
-                                <div role="menu" class="dropdown-menu message-dd animated zoomIn">
-                                    <div class="hd-mg-tt">
-                                        <h2>Messages</h2>
-                                    </div>
-                                    <div class="hd-message-info">
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="./public/admin/img/post/1.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>David Belle</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="./public/admin/img/post/2.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>Jonathan Morris</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="./public/admin/img/post/4.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>Fredric Mitchell</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="./public/admin/./public/admin/img/post/1.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>David Belle</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="img/post/2.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>Glenn Jecobs</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="hd-mg-va">
-                                        <a href="#">View All</a>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="nav-item nc-al"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-alarm"></i></span><div class="spinner4 spinner-4"></div><div class="ntd-ctn"><span>3</span></div></a>
-                                <div role="menu" class="dropdown-menu message-dd notification-dd animated zoomIn">
-                                    <div class="hd-mg-tt">
-                                        <h2>Notification</h2>
-                                    </div>
-                                    <div class="hd-message-info">
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="./public/admin/img/post/1.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>David Belle</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="./public/admin/img/post/2.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>Jonathan Morris</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="./public/admin/img/post/4.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>Fredric Mitchell</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="./public/admin/img/post/1.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>David Belle</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="./public/admin/img/post/2.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>Glenn Jecobs</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    <div class="hd-mg-va">
-                                        <a href="#">View All</a>
-                                    </div>
-                                </div>
-                            </li>
+                           
                             <li class="nav-item">
                                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                                     <!-- Left Side Of Navbar -->
@@ -252,20 +112,21 @@
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                                     {{ Auth::user()->name }} <span class="caret"></span>
                                                 </a>
-                
                                                 <ul class="dropdown-menu">
-                                                    <li>
-                                                        <a href="{{ route('logout') }}"
-                                                            onclick="event.preventDefault();
-                                                                     document.getElementById('logout-form').submit();">
-                                                            Logout
-                                                        </a>
-                
-                                                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                            {{ csrf_field() }}
-                                                        </form>
-                                                    </li>
-                                                </ul>
+                                                        <li>
+                                                         <div class="dropdown-trig-sgn">
+                                                            <a href="{{ route('logout') }}"
+                                                                onclick="event.preventDefault();
+                                                                         document.getElementById('logout-form').submit();">
+                                                            <button class="btn triger-fadeIn" >Logout</button>
+                                                                
+                                                            </a>
+                                                        </div> 
+                                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                                {{ csrf_field() }}
+                                                            </form>
+                                                        </li>
+                                                    </ul>                                            
                                             </li>
                                         @endguest
                                     </ul>
@@ -384,22 +245,27 @@
                         </li>
                         <li><a data-toggle="tab" href="#mailbox"><i class="notika-icon notika-mail"></i> Tài khoản</a>
                         </li>
-                    <li><a href="{{ route('B_seat.index') }}"><i class="notika-icon notika-edit"></i> Bàn</a>
+                    <li><a data-toggle="tab" href="#Home"><i class="notika-icon notika-edit"></i> Bàn</a>
                         </li>
                         <li><a data-toggle="tab" href="#Charts"><i class="notika-icon notika-bar-chart"></i> Thực đơn</a>
+                        </li>
+                        <li><a href="{{ route('B_booktable.index') }}"><i class="notika-icon notika-app"></i> Đơn đặt bàn</a>
                         </li>
                         <li><a data-toggle="tab" href="#Tables"><i class="notika-icon notika-windows"></i> Thống kê</a>
                         </li>
                         <li><a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Khác </a>
-                        </li>
-                    <li><a href="{{ route('B_booktable.index') }}"><i class="notika-icon notika-app"></i> Đơn đặt bàn</a>
-                        </li>
+                        </li>               
                         <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Pages</a>
                         </li>
                     </ul>
                     <div class="tab-content custom-menu-content">
                         <div id="Home" class="tab-pane notika-tab-menu-bg animated flipInX">
-                       
+                            <ul class="notika-main-menu-dropdown">
+                                @foreach (\App\Model\M_Seat::select('type')->distinct('type')->orderBy('type','DESC')->get() as $item)
+                            <li><a href = "{{ route('B_seat.showType',$item->type) }}">Loại {{ $item->type }}</a></li>
+                                @endforeach
+                            <li><a href = "{{ route('B_seat.showType',"All") }}">Hiện tất cả</a></li>
+                            </ul>
                         </div>
                         <div id="mailbox" class="tab-pane notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
@@ -431,13 +297,14 @@
                             <ul class="notika-main-menu-dropdown">
                                 <li><a href="normal-table.html">Theo ngày</a>
                                 </li>
-                                <li><a href="data-table.html">Theo khoảng thời gian</a>
+                            <li><a href="{{ route('B_statistic.index') }}">Theo khoảng thời gian</a>
                                 </li>
                             </ul>
                         </div>
                         <div id="Forms" class="tab-pane notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
                             <li><a href="{{ route('B_contact.index') }}">Phản hồi</a></li>
+                            <li><a href="{{ route('B_news.index') }}">Sự kiện</a></li>
                                 <!-- <li><a href="form-examples.html">Form Examples</a>
                                 </li> -->
                             </ul>
@@ -532,7 +399,8 @@
     </div>
     <!-- End Footer area-->
     <!-- jquery
-		============================================ -->
+        ============================================ -->
+       
 
     <script src="{{URL::asset('public/admin/js/vendor/jquery-1.12.4.min.js')}}"></script>
     <!-- bootstrap JS
@@ -592,6 +460,18 @@
         ============================================ -->
     <script src="{{URL::asset('public/admin/js/bootstrap-select/bootstrap-select.js')}}"></script>
     <script src="{{URL::asset('public/admin/js/plugins.js')}}"></script>
+     <!--  notification JS
+		============================================ -->
+        <script src="{{URL::asset('public/admin/js/notification/bootstrap-growl.min.js')}}"></script>
+        <script src="{{URL::asset('public/admin/js/notification/notification-active.js')}}"></script>
+        <!--  summernote JS
+            ============================================ -->
+        <script src="{{URL::asset('public/admin/js/summernote/summernote-updated.min.js')}}"></script>
+        <script src="{{URL::asset('public/admin/js/summernote/summernote-active.js')}}"></script>
+        <!-- dropzone JS
+            ============================================ -->
+        <script src="{{URL::asset('public/admin/js/dropzone/dropzone.js')}}"></script>
+    
 	<!--  Chat JS
         ============================================ -->
     <script src="{{URL::asset('public/admin/js/data-table/jquery.dataTables.min.js')}}"></script>

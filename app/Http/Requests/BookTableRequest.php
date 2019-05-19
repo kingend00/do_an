@@ -31,4 +31,16 @@ class BookTableRequest extends FormRequest
             
         ];
     }
+    public function attributes()
+    {
+        return[
+            'Update_Id' => 'Chỉ mục', 
+            'Update_Date' => 'Ngày tháng',
+            'Update_Time' =>'Thời gian',
+            'Update_Status' => 'Trạng thái'
+           
+            
+        ];
+
+    }
 }

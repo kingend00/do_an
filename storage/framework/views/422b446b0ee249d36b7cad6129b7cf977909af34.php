@@ -22,32 +22,16 @@
 		<table class="table table-striped" id="tbData" >
 		<thead>
 			<tr>
+			<th></th>
 			<th>Email</th>
-			<th>Password</th>
 			<th>Tên chủ khoản</th>			
 			<th>Số điện thoại</th>
 			<th>Địa chỉ</th>
-			<th>Quyền</th>
-			<th>Thao tác</th>
+			<th>Sửa</th>
+			<th>Xóa</th>
 		</tr>
 		</thead>
-		<tbody>
-			
-			<?php if(isset($data)): ?>
-				<?php $__currentLoopData = $data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-				<tr>
-					<td> <?php echo e($value->email); ?> </td>
-					<td> <?php echo e($value->password); ?> </td>
-					<td> <?php echo e($value->name); ?> </td>					
-					<td> <?php echo e($value->phone); ?> </td>
-					<td> <?php echo e($value->address); ?> </td>
-					<td> <?php echo e($value->roles); ?> </td>
-					<td> <button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="<?php echo e(route('B_user.show',$value->user_id)); ?>" ><i class = "glyphicon glyphicon-cog"></i> Edit</button>
-					 <button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="<?php echo e(route('B_user.destroy',$value->user_id)); ?>"><i class="notika-icon notika-close"></i> Xóa</button></td>
-				</tr>
-				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-			<?php endif; ?>
-		</tbody>
+		
 
 
 	</table>
@@ -75,14 +59,14 @@
 						
 								<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
 									<div class="nk-int-st">
-								<?php echo Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email đăng kí','required' => 'true']); ?>
+								<?php echo Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email đăng kí','required' => 'true','readonly'=>'true']); ?>
 
 									</div>
 							</div>
 							<div class="form-group ic-cmp-int">
 									<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
 								<div class="nk-int-st">
-										<input id="Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Password" required>
+										<input id="Update_Password" type="Password" class="form-control" placeholder = "Nhập mật khẩu" name="Update_Password" required>
 									</div>
 							</div>
 							
@@ -90,7 +74,7 @@
 								
 								<div class="form-ic-cmp"><i class="notika-icon notika-map"></i></div>
 									<div class="nk-int-st">
-								<?php echo Form::text('Address','',['id' =>'Address','class' => 'form-control','placeholder' => 'Nhập địa chỉ','required' => 'true']); ?>
+								<?php echo Form::text('Update_Address','',['id' =>'Update_Address','class' => 'form-control','placeholder' => 'Nhập địa chỉ','required' => 'true']); ?>
 
 							</div>
 						</div>
@@ -98,7 +82,7 @@
 								
 								<div class="form-ic-cmp"><i class="notika-icon notika-support"></i></div>
 									<div class="nk-int-st">
-								<?php echo Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập tên chủ khoản', 'required' => 'true']); ?>
+								<?php echo Form::text('Update_Name','',['id' =>'Update_Name','class' => 'form-control','placeholder' => 'Nhập tên chủ khoản', 'required' => 'true']); ?>
 
 							</div>
 						</div>
@@ -106,7 +90,7 @@
 								
 								<div class="form-ic-cmp"><i class="notika-icon notika-phone"></i></div>
 									<div class="nk-int-st">
-								<?php echo Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập số điện thoại', 'required' => 'true']); ?>
+								<?php echo Form::text('Update_Phone','',['id' =>'Update_Phone','class' => 'form-control','placeholder' => 'Nhập số điện thoại', 'required' => 'true']); ?>
 
 							</div>						
 						</div>        
@@ -136,7 +120,6 @@
             <div class="modal-body">
 						<input type="hidden" name="Roles" id="Roles" class="Roles" value="2">
 						<div class="form-group ic-cmp-int">
-						
 								<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
 									<div class="nk-int-st">
 								<?php echo Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email đăng kí','required' => 'true']); ?>
@@ -187,9 +170,33 @@
     </div>
 </div>
 <script type="text/javascript">
-	var url = null;
+	
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+			$('#tbData').DataTable({
+				processing: true,
+        		serverSide: true,
+				ajax:'<?php echo route('B_user.getData',2); ?>',
+				columns :[
+					{data:'user_id',"visible": false,
+                "searchable": false},
+					{data:'email'},
+					{data:'name'},
+					{data:'phone'},
+					{data:'address'},
+					{data:'btn-edit'},
+					{data:'btn-destroy'}
+				]
+			});
+			
+
+			var url = null;
 		// show thông tin tài khoản
-		$('.btn-edit').click(function(){
+		$(document).on('click','.btn-edit',function(){
 			 url = $(this).attr('data-url');
 
 			$.ajax({
@@ -198,11 +205,11 @@
 				url : url,
 				success:function(response){
 					$('#Id').val(response.data[0].id);
-					$('#Password').val(response.data[0].password);
-					$('#Address').val(response.data[0].address);
-					$('#Name').val(response.data[0].name);
-					$('#Email').val(response.data[0].email);
-					$('#Phone').val(response.data[0].phone);
+					$('#Update_Password').val(response.data[0].password);
+					$('#Update_Address').val(response.data[0].address);
+					$('#Update_Name').val(response.data[0].name);
+					$('#Update_Email').val(response.data[0].email);
+					$('#Update_Phone').val(response.data[0].phone);
 					
 				},
 				error:function(eror){
@@ -210,17 +217,7 @@
 				}
 			});
 		});
-	$(document).ready(function(){
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-			$("#tbData").DataTable();
-			
-
-
-		$('.btn-destroy').click(function(){
+		$(document).on('click','.btn-destroy',function(){
 			var url = $(this).attr('data-url');
 			
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
@@ -232,7 +229,7 @@
 				dataType:'html',
 				success:function(response){
 					alert(response);
-					$('#tbData').load(' #tbData');
+					$('#tbData').DataTable().ajax.reload();	
 
 				},
 				error:function(eror){
@@ -258,7 +255,7 @@
 
 					$('#ModalUpdate').modal('hide');
 					alert('Thành công');
-					$('#tbData').load(' #tbData');
+					$('#tbData').DataTable().ajax.reload();	
 					//
 					
 

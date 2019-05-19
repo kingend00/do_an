@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use Yajra\DataTables\Facades\DataTables;
 class C_User extends Controller
 {
     /**
@@ -27,20 +28,34 @@ class C_User extends Controller
     public function showAccount($role)
     {
         if ($role == 2) {
-            $data = DB::table('users')->where('roles',$role)->get();
-            return view('Admin.Account_Man',compact('data'));
+            
+            return view('Admin.Account_Man');
         }
         if ($role == 3) {
-            $data = DB::table('users')->where('roles',$role)->get();
-            return view('Admin.Account_Emp',compact('data'));
+            
+            return view('Admin.Account_Emp');
         }
         if ($role == 4) {
-            $data = DB::table('users')->where('roles',$role)->get();
-            return view('Admin.Account_Cus',compact('data'));
+            
+            return view('Admin.Account_Cus');
         }
         else {
             return view('Admin.index');
         }
+    }
+    public function getData($roles)
+    {
+        $user = null;
+        if($roles == 4)
+            $user =  DB::table('users')->select('user_id','email','name','phone','point')->where('roles','=',$roles)->get();
+        if($roles == 2 || $roles == 3)
+            $user = DB::table('users')->select('user_id','email','name','phone','address')->where('roles','=',$roles)->get();
+        
+        return Datatables::of($user)->addColumn('btn-edit',function($user){
+            return '<button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="'.route('B_user.show',$user->user_id).'"><i class = "glyphicon glyphicon-cog"></i> Sửa</button>';
+        })->addColumn('btn-destroy',function($user){
+            return '<button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="'.route('B_user.destroy',$user->user_id).'"><i class="notika-icon notika-close"></i> Xóa</button>';
+        })->rawColumns(['btn-edit','btn-destroy'])->make(true);
     }
 
     /**
@@ -61,14 +76,26 @@ class C_User extends Controller
      */
     public function store(UserRequest $request)
     {
-        if(DB::table('users')->where('email','=',$request->input('Email'))->exists())
-       {
+        $user = DB::table('users')->where('email','=',$request->input('Email'))->get();
+        if(count($user)>=1)
+        {
             return redirect()->back()->with('error','Tài khoản đã tồn tại');
-       }
+        }
        else
        {
-        if($request->has('Address'))
-           {
+        if ($request->has('Roles')) {
+            DB::table('users')->insert([
+                 'password' => bcrypt($request->input('Password')),
+                 'name' => $request->input('Name'),
+                 'email' => $request->input('Email'), 
+                 'address' => $request->input('Address'),
+                 'roles' => 2,
+                 'phone' => $request->input('Phone')
+
+             ]);
+        }
+        elseif($request->has('Address'))
+        {
                 DB::table('users')->insert([
                     'password' => bcrypt($request->input('Password')),
                     'name' => $request->input('Name'),
@@ -78,7 +105,7 @@ class C_User extends Controller
                     'phone' => $request->input('Phone')
 
                 ]);
-           }
+        }
            else
            {
                 DB::table('users')->insert([
@@ -89,18 +116,7 @@ class C_User extends Controller
                     'phone' => $request->input('Phone')
 
                 ]);
-           }
-           if ($request->has('Roles')) {
-               DB::table('users')->insert([
-                    'password' => bcrypt($request->input('Password')),
-                    'name' => $request->input('Name'),
-                    'email' => $request->input('Email'), 
-                    'address' => $request->input('Address'),
-                    'roles' => 2,
-                    'phone' => $request->input('Phone')
-
-                ]);
-           }
+           }          
            return redirect()->back()->with('success','Bạn đã tạo tài khoản thành công');
        }
 
@@ -139,7 +155,7 @@ class C_User extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, $id)
+    public function update(Request $request, $id)
     {             
         
              $dk = DB::table('users')->where('user_id','=',$id)->get();
@@ -151,7 +167,7 @@ class C_User extends Controller
                  $data = $dk[0]->roles;
                  if($data == 4)
                  {
-                     $AccountEmp = DB::table('users')->where('user_id','=',$id)->update(['password'=> $request->input('resetPassword')]);
+                     $AccountEmp = DB::table('users')->where('user_id','=',$id)->update(['password'=> bcrypt($request->input('resetPassword'))]);
 
                  }
                  if($data == 3 || $data == 2)

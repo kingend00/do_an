@@ -33,4 +33,15 @@ class AddBooktableRequest extends FormRequest
 
         ];
     }
+    public function attributes()
+    {
+        return[
+            'name' => 'Tên', 
+            'date' => 'Ngày tháng',
+            'time' => 'Thời gian',
+            'number_seat' => 'Số bàn',
+            'phone' => 'Số điện thoại'
+        ];
+
+    }
 }

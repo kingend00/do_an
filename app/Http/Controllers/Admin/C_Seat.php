@@ -20,9 +20,18 @@ class C_Seat extends Controller
     }
     public function index()
     {
-        $val = DB::table('seat')->select('type')->distinct('type')->get();
-        $data = DB::table('seat')->get();
+       
        return view('Admin.Seat',compact('val','data'));
+    }
+    public function getData($type){
+         $seat = DB::table('seat')->where('type','=',$type)->get();
+        if($type == 'All')
+        $seat = DB::table('seat')->get();
+        return Datatables::of($seat)->addColumn('btn-edit',function($seat){
+            return '<button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="'.route('B_seat.show',$seat->number_seat).'"><i class = "glyphicon glyphicon-cog"></i> Sửa</button>';
+        })->addColumn('btn-destroy',function($seat){
+            return '<button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="'.route('B_seat.destroy',$seat->number_seat).'"><i class="notika-icon notika-close"></i> Xóa</button>';
+        })->rawColumns(['btn-edit','btn-destroy'])->make(true);
     }
 
     /**
@@ -43,6 +52,13 @@ class C_Seat extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'Type'=>'required|numeric',
+            'NumberAdd' => 'required|numeric'
+            
+        ],
+        [],
+        ['Type'=>'Loại bàn','NumberAdd' => 'Số bàn']);
         if(DB::table('seat')->where('number_seat','=',$request->input('NumberAdd'))->get() != null)
         {
             if(DB::table('seat')->where('type','=',$request->input('Type'))->get() == null)
@@ -50,8 +66,10 @@ class C_Seat extends Controller
                 return redirect()->back()->with('error','Không tồn tại loại bàn này !!');
             }
             else {
+                $type = $request->input('Type');
                 DB::table('seat')->insert([
-                    'type' => $request->input('Type')
+                    'type' => $type
+                    
                 ]);
                 return redirect()->back()->with('success','Thêm bàn mới thành công'); 
             }
@@ -77,13 +95,9 @@ class C_Seat extends Controller
     public function showType($type)
     {
         // hiển thị loại bàn theo số lượng tăng dần
-        $val = DB::table('seat')->select('type')->distinct('type')->get();   
-        if($type == 'All')
-          $data = DB::table('seat')->get();
-        else    
-         $data = DB::table('seat')->where('type','=',$type)->get();
         
-        return view('Admin.Seat',compact('data','val'));
+        $val = DB::table('seat')->select('type')->distinct('type')->get();
+        return view('Admin.Seat',compact('type','val'));
     }
     /**
      * Show the form for editing the specified resource.

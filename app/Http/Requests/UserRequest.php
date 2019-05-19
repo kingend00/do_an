@@ -34,4 +34,16 @@ class UserRequest extends FormRequest
             
         ];
     }
+    public function attributes()
+    {
+        return[
+            'Name' => 'Tên', 
+            'Phone' => 'Số điện thoại',
+            //'Description_Add' => 'Mô tả',
+            'Address' => 'Địa chỉ',
+            'Password' => 'Mật khẩu',
+            'Email' => 'Email'
+        ];
+
+    }
 }

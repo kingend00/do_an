@@ -45,9 +45,9 @@
                         <div class="nk-navigation nk-lg-ic">
                             <a href="<?php echo e(route('register')); ?>" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Register</span></a>
                            
-                                <a href="<?php echo e(route('password.request')); ?>"><i>?</i><span>Forgot Password</span></a>
+                             <a href="<?php echo e(route('password.request')); ?>" data-ma-block="#l-forget-password"><i>?</i><span>Forgot Password</span></a>
                             
-                            </div>
+                         </div>
             </form>
         </div>
 

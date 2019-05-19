@@ -31,4 +31,16 @@ class UpdateUserRequest extends FormRequest
             'Update_Email' => 'required|email',
         ];
     }
+    public function attributes()
+    {
+        return[
+            'Update_Name' => 'Tên', 
+            'Update_Phone' => 'Số điện thoại',
+            //'Description_Add' => 'Mô tả',
+            'Update_Address' => 'Địa chỉ',
+            'Update_Password' => 'Mật khẩu',
+            'Update_Email' => 'Email'
+        ];
+
+    }
 }

@@ -67,11 +67,6 @@ class C_Seat extends Controller
             $booktable->time = $request->time;
             $booktable->total = $request->input('total_money');
             $booktable->save();
-            $seat_status = new M_Seat_Status;
-            $seat_status->number_seat = $request->number_seat;
-            $seat_status->date = $request->input('date');
-            $seat_status->time = $request->time;
-            $seat_status->save();
             //foreach lặp để lưu các chi tiết đơn đặt bàn ---- Mai 
             $data = Cart::content();
             if(count($data)>1)
@@ -85,11 +80,13 @@ class C_Seat extends Controller
                         $bt_details->menu_id = $value->id;
 
                     $bt_details->quantity = $value->qty;
+                    $bt_details->price = $value->price;
                         //$booktable->details()->save($bt_details);
                     $bt_details ->booktables()->associate($booktable);
                     $bt_details->save();
                 }
             }
+            Cart::destroy();
             return redirect()->back()->with('success','Đã gửi đi đơn đặt bàn , Quý khách vui lòng chờ trong giây lát... ');
         }
         return redirect()->back()->with('error','Đã có người đặt đơn này , Quý khách vui lòng chọn lại thời gian khác !');

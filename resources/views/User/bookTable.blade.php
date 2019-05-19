@@ -5,7 +5,7 @@
 @section('body')
 	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image:url('./images/background/slide1.jpg');">
 		<h2 class="tit6 t-center" style="color: green">
-			Pato Menu
+			Rogteam Place
 		</h2>
 	</section>
 
@@ -20,7 +20,7 @@
 						</span>
 
 						<h3 class="tit3 t-center m-b-35 m-t-2">
-							Book table
+							ĐẶT BÀN
 						</h3>
 					</div>
 
@@ -30,7 +30,7 @@
 							<div class="col-md-4">
 								<!-- Date -->
 								<span class="txt9">
-									Date
+									Ngày
 								</span>
 
 								<div class="wrap-inputdate pos-relative txt10 size12 bo2 bo-rad-10 m-t-3 m-b-23">
@@ -42,29 +42,37 @@
 							<div class="col-md-4">
 								<!-- Time -->
 								<span class="txt9">
-									Time
+									Thời gian
 								</span>
 
 								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<!-- Select2 -->
 									<select class="selection-1" name="time" id="time" class="time">
 										<option>10:00</option>
-										<option>10:30</option>
+										
 										<option>11:00</option>
-										<option>11:30</option>
+										
 										<option>12:00</option>
-										<option>12:30</option>
+										
 										<option>13:00</option>
-										<option>13:30</option>
+										
 										<option>14:00</option>
-										<option>14:30</option>
+										
 										<option>15:00</option>
-										<option>15:30</option>
+										
 										<option>16:00</option>
-										<option>16:30</option>
+										
 										<option>17:00</option>
-										<option>17:30</option>
+										
 										<option>18:00</option>
+										
+										<option>19:00</option>
+
+										<option>20:00</option>
+
+										<option>21:00</option>
+
+										<option>22:00</option>
 									</select>
 								</div>
 							</div>
@@ -72,7 +80,7 @@
 							<div class="col-md-4">
 								<!-- People -->
 								<span class="txt9">
-									People
+									Số người
 								</span>
 
 								<div class="wrap-inputpeople size12 bo2 bo-rad-10 m-t-3 m-b-23">
@@ -97,7 +105,7 @@
 							<div class="col-md-4">
 								<!-- Name -->
 								<span class="txt9">
-									Name
+									Tên khách hàng
 								</span>
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
 								<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" placeholder="Name" value="{{ (Auth::check()!= null) ? Auth::user()->name : "" }}">
@@ -107,7 +115,7 @@
 							<div class="col-md-4">
 								<!-- Phone -->
 								<span class="txt9">
-									Phone
+									Số điện thoại
 								</span>
 
 								<div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
@@ -162,7 +170,7 @@
 						<div class="wrap-btn-booking flex-c-m m-t-6">
 							<!-- Button3 -->
 							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
-								Book Table
+								Đặt bàn
 							</button>
 						</div>
 					</form>

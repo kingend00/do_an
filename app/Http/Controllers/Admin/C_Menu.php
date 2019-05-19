@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MenuRequest;
+use Yajra\DataTables\Facades\DataTables;
 
 class C_Menu extends Controller
 {
@@ -30,6 +31,53 @@ class C_Menu extends Controller
     {
         //
     }
+    public function getDataMenu($category_id)
+    {
+        if(DB::table('menu')->where('category_id','=',$category_id)->get())
+        {
+            $menu = DB::table('menu')->join('category','menu.category_id','=','category.category_id')->select('menu.*','category.name as category_name')->where('menu.category_id','=',$category_id)->get();
+            return Datatables::of($menu)->addColumn('btn-edit',function($menu){
+                return '<button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="'.route('B_menu.show',$menu->menu_id).'"><i class = "glyphicon glyphicon-cog"></i> Sửa</button>';
+            })->addColumn('btn-destroy',function($menu){
+                return '<button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="'.route('B_menu.destroy',$menu->menu_id).'"><i class="notika-icon notika-close"></i> Xóa</button>';
+            })->addColumn('image',function($menu){
+                    return '<img src="../images/food/'.$menu->image.'" width = 70px height = 70px >';})
+                        
+                ->rawColumns(['btn-edit','btn-destroy','image'])->make(true);
+            
+        }
+        include view('Admin.Menu');
+    }
+    
+    public function UpdateMenu(Request $request)
+    {
+        $request->validate([
+            'Name'=>'required|string',
+            'Price' => 'required|numeric',
+            'Category_id' =>'required',
+            'Image' =>'required'
+
+        ],
+        [],
+        ['Image'=>'Ảnh','Price'=>'Giá','Category_id' => 'Danh mục']
+        
+    );
+        $id = $request->Id;
+        if(DB::table('menu')->where('menu_id','=',$id)->get())
+        {
+            if($request->hasfile('Image')) 
+            { 
+                $file = $request->file('Image');
+                $extension = $file->getClientOriginalExtension(); // getting image extension
+                $filename =time().'.'.$extension;
+                $file->move('images/food/', $filename);
+                $data = ['name'=>$request->input('Name'),'description'=>$request->input('Description'),'price'=>$request->input('Price'),'category_id'=>$request->input('Category_id'),'image'=>$filename];
+                $Menu_items = DB::table('menu')->where('menu_id','=',$id)->update($data);
+                return redirect()->back()->with('success',"Cập nhật thành công");
+            }
+        }
+        return redirect()->back()->with('error',"Cập nhật thất bại");
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -48,7 +96,7 @@ class C_Menu extends Controller
             $file->move('images/food/', $extension);
             
             $name = $request->input('Name_Add');
-            if(!DB::table('menu')->where('name','=',$name)->get())
+            if(count(DB::table('menu')->where('name','=',$name)->get())>=1)
             {
                 return redirect()->back()->with('error','Sản phẩm đã tồn tại');
             }
@@ -82,12 +130,9 @@ class C_Menu extends Controller
     }
     public function showMenu($category_id)
     {
-        if(DB::table('menu')->where('category_id','=',$category_id)->get())
-        {
-        $menu = DB::table('menu')->join('category','menu.category_id','=','category.category_id')->select('menu.*','category.name as category_name')->where('menu.category_id','=',$category_id)->simplePaginate(10);
-            return view('Admin.Menu',compact('menu'));
-        }
-        return redirect()->back()->with('error','Danh mục không tồn tại !!!');
+        $menu = DB::table('menu')->join('category','menu.category_id','=','category.category_id')->select('menu.*','category.name as category_name')->where('menu.category_id','=',$category_id)->get();
+        
+        return view('Admin.Menu',compact('category_id'));
     }
 
 
@@ -111,8 +156,9 @@ class C_Menu extends Controller
      */
     public function update(MenuRequest $request, $id)
     {   
-        if(DB::table('menu')->where('menu_id','=',$id)->get())
+        if(count(DB::table('menu')->where('menu_id','=',$id)->get())>=1)
         {
+            
             $data = ['name'=>$request->input('Name'),'description'=>$request->input('Description'),'price'=>$request->input('Price'),'category_id'=>$request->input('Category_id'),'image'=>$request->input('Image')];
             $Menu_items = DB::table('menu')->where('menu_id','=',$id)->update($data);
             return "Cập nhật thành công";
@@ -130,7 +176,7 @@ class C_Menu extends Controller
     public function destroy($id)
     {
         $menu = DB::table('menu')->where('menu_id','=',$id)->get();
-        if($menu)
+        if(count($menu)>=1)
         {
             DB::table('menu')->where('menu_id','=',$id)->delete();
             return 'Bạn đã xóa thành công';

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\BookTableRequest;
 use App\Http\Requests\B_BooktableAddRequest;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
 
 class C_Booktable extends Controller
 {
@@ -18,7 +19,6 @@ class C_Booktable extends Controller
      */
     public function index()
     {
-        
         $data = DB::table('booktable')->get();
         $TypeSeat = DB::table('seat')->select('type')->distinct('type')->get();
         return view('Admin.Booktable',compact('data','TypeSeat'));
@@ -32,6 +32,15 @@ class C_Booktable extends Controller
     public function create()
     {
         //
+    }
+    public function getData()
+    {
+        $booktable = DB::table('booktable')->orderBy('booktable_id','DESC')->get();
+        return Datatables::of($booktable)->addColumn('btn-edit',function($booktable){
+            return '<button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="'.route('B_booktable.show',$booktable->booktable_id).'"><i class = "glyphicon glyphicon-cog"></i> Sửa</button>';
+        })->addColumn('btn-details',function($booktable){
+            return '<button type="button" class="btn btn-danger danger-icon-notika btn-details" data-toggle="modal" data-target="#ModalDetails" data-url="'.route('B_booktable.showDetails',$booktable->booktable_id).'"><i class="notika-icon notika-close"></i>Chi tiết</button>';
+        })->rawColumns(['btn-edit','btn-details'])->make(true);
     }
 
     /**
@@ -88,7 +97,7 @@ class C_Booktable extends Controller
     public function edit($id)
     {
         $data = DB::table('seat')->select('number_seat')->where('type','=',$id)->get();
-       if($data)
+       if(count($data)>=1)
         return response()->json(['data'=>$data]);
     }
 
@@ -110,7 +119,7 @@ class C_Booktable extends Controller
      */
     public function update(BookTableRequest $request, $id)
     {
-        if(DB::table('booktable')->where('booktable_id','=',$id)->get())
+        if(count(DB::table('booktable')->where('booktable_id','=',$id)->get())>=1)
         {
             $data = ['date'=>$request->input('Update_Date'),'time'=>$request->input('Update_Time'),'status'=>$request->input('Update_Status')];
             $result = DB::table('booktable')->where('booktable_id','=',$id)->update($data);

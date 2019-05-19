@@ -23,33 +23,17 @@
 		<table class="table table-striped" id="tbData" >
 		<thead>
 			<tr>
+			<th></th>
 			<th>Tên món</th>
 			<th>Mô tả</th>
 			<th>giá</th>
 			<th>Loại món</th>
 			<th>Ảnh hiển thị</th>
-			<th>Thao tác</th>
-			
+			<th>Sửa</th>
+			<th>Xóa</th>
 		</tr>
 		</thead>
-		<tbody>
-			@if (isset($menu))
-				@foreach ($menu as $element)
-					<tr>
-						<td> {{ $element->name }}</td>
-						<td> {{ $element->description }}</td>
-						<td> {{ $element->price }}</td>
-						<td> {{ $element->category_name}}</td>
-						<td> {{ $element->image }}</td>
-						<td><button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="{{ route('B_menu.show',$element->menu_id) }}" ><i class = "glyphicon glyphicon-cog"></i> Edit</button>
-						<button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="{{route('B_menu.destroy',$element->menu_id) }}"><i class="notika-icon notika-close"></i> Xóa</button></td>
-					</tr>
-				@endforeach
-			@endif
-			
-		</tbody>
-
-
+		
 	</table>
 
 	</div>
@@ -61,9 +45,9 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
-             {!! Form::open(['id'=>'form_update','method'=>'POST'])!!}
+             {!! Form::open(['id'=>'form_update','route'=>'B_menu.updateMenu','method'=>'POST','files'=>true])!!}
              
-             {{ method_field('PUT') }}
+             
             <div class="modal-body">
             			<div class="form-group">
 							{!! Form::hidden('Id','',['id' =>'Id','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
@@ -186,8 +170,34 @@
 
 <script type="text/javascript">
 	// show thông tin tài khoản
-	var url = null;
-		$('.btn-edit').click(function(){
+	
+	$(document).ready(function(){
+		$.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+		$('select').selectpicker();
+		$('#tbData').DataTable({
+				processing: true,
+        		serverSide: true,
+				ajax:'{!!  route('B_menu.getData',$category_id) !!}',
+				columns :[
+					{data:'menu_id',"visible": false,
+                "searchable": false},
+					{data:'name'},
+					{data:'description'},
+					{data:'price'},
+					{data:'category_name'},
+					{data:'image'},
+					{data:'btn-edit'},
+					{data:'btn-destroy'}
+					
+				]
+			});
+
+		var url = null;
+		$(document).on('click','.btn-edit',function(){
 			url = $(this).attr('data-url');
 
 			$.ajax({
@@ -195,7 +205,7 @@
 				//dataType:'json',
 				url : url,
 				success:function(response){
-					$('#Id').val(response.data[0].id);
+					$('#Id').val(response.data[0].menu_id);
 					$('#Name').val(response.data[0].name);
 					$('#Description').val(response.data[0].description);
 					$('#Price').val(response.data[0].price);
@@ -208,18 +218,9 @@
 				}
 			});
 		});
-	$(document).ready(function(){
-		$.ajaxSetup({
-				headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-	    		    }
-			});
-		$('select').selectpicker();
-		$("#tbData").DataTable();
-		
 
 
-		$('.btn-destroy').click(function(){
+		$(document).on('click','.btn-destroy',function(){
 			var url = $(this).attr('data-url');
 			
 			if(confirm('Bạn có chắc chắn muốn xóa ?'))
@@ -231,7 +232,7 @@
 				dataType:'html',
 				success:function(response){
 					alert(response);
-					$('#tbData').load(' #tbData');
+					$('#tbData').DataTable().ajax.reload();	
 
 				},
 				error:function(eror){
@@ -243,28 +244,7 @@
 		});
 
 
-		$('#form_update').on('submit',function(e){
-			e.preventDefault();
-			//var url = document.getElementById('id');
-			var id = $('#Id').val();
-			$.ajax({
-				type:'PUT',
-				url:url,
-				data:$('#form_update').serialize(),
-							
-				success:function(data){
-					console.log(data);
-
-					$('#ModalUpdate').modal('hide');
-					alert('Thành công');
-					$('#tbData').load(' #tbData');
-				},
-				error:function(er){
-					console.log(er);
-				}
-
-			});
-		});
+		
 
 	});
 </script>
