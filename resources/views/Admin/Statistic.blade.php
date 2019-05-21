@@ -12,9 +12,9 @@
                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                                 <div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
                                     <label>Từ ngày</label>
-                                    <div class="input-group date nk-int-st">
+                                    <div class="input-group date nk-int-st" id="Picker">
                                         <span class="input-group-addon"></span>
-                                    <input type="text" class="form-control" id="from" name="from" value="{{ date('d/m/Y',time()) }}">
+                                    <input type="text" class="form-control" id="from" name="from" value="{{ date('d/m/Y',time()) }}" data-date-format = 'yy-mm-dd'>
                                     </div>
                                 </div>
                             </div>
@@ -22,9 +22,9 @@
                 <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
                         <div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
                             <label>Đến ngày</label>
-                            <div class="input-group date nk-int-st">
+                            <div class="input-group date nk-int-st" id="Picker">
                                 <span class="input-group-addon"></span>
-                                <input type="text" class="form-control" id="to" name="to" value="- - / - - / - - - -">
+                                <input type="text" class="form-control" id="to" name="to" value="- - / - - / - - - -" data-date-format = 'yy-mm-dd'>
                             </div>
                         </div>
                     </div>
@@ -46,8 +46,8 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	    		    }
 			});
-        $('#from').datepicker({format: 'dd/mm/yyyy'});
-        $('#to').datepicker({format: 'dd/mm/yyyy'});
+        $('#from').datepicker();
+        $('#to').datepicker();
         $('#formShow').on('submit',function(e){ 
             e.preventDefault();
             $.ajax({

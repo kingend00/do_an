@@ -41,9 +41,81 @@ class C_Seat extends Controller
     {
         //
     }
-    public function showTime_Seat($date,$people)
+    public function showTime_Seat(Request $request)
     {
+        $seat = $request->seat;
+       
+        $date = $request->input('date');
+        $date2 =  strtotime(str_replace('/', '-', $date));
+        $date3 = date('Y-m-d',$date2);
+        $data_seat = DB::table('seat')->select('number_seat')->where('type',$seat)->get();
+        $data = array();
+        $datanew = array();
         
+        for($i = 0;$i < count($data_seat);$i++)
+        {
+            $value = array();
+            $row = DB::table('booktable')->select('time')->where('date',$date3)->where('number_seat',$data_seat[$i]->number_seat)->get();
+           if(count($row) != 0)
+           {
+            for($j=0;$j<count($row);$j++)
+            {
+                $split  = explode(':',$row[$j]->time);
+                array_push($value,(int)$split[0]);
+            }
+
+                array_push($value,22);
+                sort($value);
+                for($k = 0 ; $k < count($value)-1;$k++)
+                {
+                    $datanew[$k] = [1 => $this->start_end($value[$k],$value[$k+1])];
+                    
+                }
+
+                $data[$data_seat[$i]->number_seat] = $datanew;
+           }
+           
+           
+        }
+         $new['12'] = $data;
+
+        return json_encode($new);
+        // $hihi = 1;
+        // $html = "{";
+        //     foreach($data as $key=>$value)
+        //     {
+               
+        //         $html .= "'".$hihi."' :{";
+        //         $html .= "title: '".$key."',";
+        //         $html .= "schedule :[";
+        //         for($i = 0 ; $i < count($value)-1;$i++)
+        //         {
+        //             $data2 = $this->start_end($value[$i],$value[$i+1]);
+        //             $html .= "{start: '".$data2[0].":00',";
+        //             $html .= "end: '".$data2[1].":00',},";
+        //         } 
+        //         $html .= "]";
+        //         $html .= "},";
+        //         $hihi++;   
+        //     }
+        // $html .= "}";
+        // session()->put(['hihi'=>$html]);
+        // return $html;
+
+        
+    }
+    public function start_end($a,$b)
+    {
+        if($b-$a >= 2)
+        {
+            $result =  $a.":00-".($a+2).":00";
+            return $result;
+        }
+        else
+        {
+            $result =  $a.":00-".($a+1).":00";
+            return $result;
+        }
     }
 
     /**
@@ -54,16 +126,29 @@ class C_Seat extends Controller
      */
     public function store(AddBooktableRequest $request)
     {
-  
+        $date2 =  strtotime(str_replace('/', '-', $request->input('date')));
+        $date3 = date('Y-m-d',$date2);
+        $date_now = date('Y-m-d',time());
+        if($date3 < $date_now)
+            return redirect()->back()->with('error','Ngày đặt nhỏ hơn ngày hiện tại');
+        elseif($date3 == $date_now)
+        {
+            if($request->time < date('H:i'))
+            return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại');
+        }
+        
         $query = DB::table('booktable')->where('number_seat','=',$request->number_seat)->where('date','=',$request->input('date'))->where('time','=',$request->time)->whereIn('status',['success','wait','using'])->get();
         if(count($query)<1)
         {
+            $date = $request->input('date');
+            $date2 =  strtotime(str_replace('/', '-', $date));
+            $date3 = date('Y-m-d',$date2);
             $booktable = new M_Booktable;
             $booktable->number_seat = $request->number_seat;
             $booktable->email = $request->input('email');
             $booktable->name = $request->input('name');
             $booktable->phone = $request->input('phone');
-            $booktable->date = $request->input('date');
+            $booktable->date = $date3;
             $booktable->time = $request->time;
             $booktable->total = $request->input('total_money');
             $booktable->save();

@@ -76,23 +76,27 @@
 								{!! Form::label('hihi','Thời gian đặt',['class' => 'control-label']) !!}
 								
                                     <select id = "Update_Time" name = "Update_Time">
-										<option>10:00</option>
-										<option>10:30</option>
-										<option>11:00</option>
-										<option>11:30</option>
-										<option>12:00</option>
-										<option>12:30</option>
-										<option>13:00</option>
-										<option>13:30</option>
-										<option>14:00</option>
-										<option>14:30</option>
-										<option>15:00</option>
-										<option>15:30</option>
-										<option>16:00</option>
-										<option>16:30</option>
-										<option>17:00</option>
-										<option>17:30</option>
-										<option>18:00</option>
+											<option>10:00</option>
+										
+											<option>11:00</option>
+											
+											<option>12:00</option>
+											
+											<option>13:00</option>
+											
+											<option>14:00</option>
+											
+											<option>15:00</option>
+											
+											<option>16:00</option>
+											
+											<option>17:00</option>
+											
+											<option>18:00</option>
+											
+											<option>19:00</option>
+	
+											<option>20:00</option>
 									</select>
 									
 								
@@ -198,9 +202,7 @@
 
 										<option>20:00</option>
 
-										<option>21:00</option>
-
-										<option>22:00</option>
+										
 						</select>		
 					</div>	
 					<div class="form-group ic-cmp-int">
@@ -229,7 +231,7 @@
 						<div class="form-ic-cmp"><i class="notika-icon notika-calendar"></i></div>
 							<div class="input-group date nk-int-st" id="Picker">
 							<span class="input-group-addon"></span>
-						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true','data-date-format'=>'yy-mm-dd']) !!}
+						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true','data-date-format'=>'yy-mm-dd','readonly'=>true]) !!}
 					</div>
 				</div>
 				
@@ -257,8 +259,8 @@
 		//$(".Date").datepicker("option", "dateFormat", "yy-mm-dd");
 		 //$('#Picker').datepicker({format: 'dd/mm/yyyy'});
 
-		 $('.Date').datepicker({format: 'dd/mm/yyyy'});
-		 $('#Update_Date').datepicker({format: 'dd/mm/yyyy'});
+		 $('.Date').datepicker();
+		 $('#Update_Date').datepicker();
 		$('select').selectpicker();
 
 		$.ajaxSetup({

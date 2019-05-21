@@ -31,7 +31,11 @@
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/user/css/util.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/user/css/main.css')); ?>">
 	<script src="<?php echo e(URL::asset('public/js/jquerynew.min.js')); ?>"></script>
-
+	
+	
+	
+	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/showTable/TimeTable.css')); ?>">
+	
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
@@ -44,7 +48,7 @@
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.html">
+					<a href="<?php echo e(route('index')); ?>">
 							<img src="<?php echo e(URL::asset('images/logo/logo2.png')); ?>" width=70px height = 80px alt="IMG-LOGO" data-logofixed="<?php echo e(URL::asset('images/logo/logo1.png')); ?>" alt="" / width=70px height = 80px>
 						</a>
 					</div>
@@ -409,9 +413,12 @@ $('.dropdown').on('hide.bs.dropdown', function(e){
 });
 
 </script>
-
+	
+	<script type="text/javascript" src="<?php echo e(URL::asset('/public/showTable/createjs.min.js')); ?>"></script>
+	<script type="text/javascript" src="<?php echo e(URL::asset('/public/showTable/TimeTable.js')); ?>"></script>
+	
 <!--===============================================================================================-->
-	<script type="text/javascript" src="<?php echo e(URL::asset('/public/user/vendor/jquery/jquery-3.2.1.min.js')); ?>"></script>
+	
 <!--===============================================================================================-->
 	<script type="text/javascript" src="<?php echo e(URL::asset('/public/user/vendor/animsition/js/animsition.min.js')); ?>"></script>
 <!--===============================================================================================-->

@@ -11,7 +11,7 @@
    @endif
 
    @if (Session::has('error')) 
-   		<div class="alert alert-success error-alert">
+   		<div class="alert alert-danger error-alert">
 		   {{ Session::get('error') }}
 	    </div>
    @endif

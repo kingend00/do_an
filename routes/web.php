@@ -19,7 +19,96 @@ Route::get('/', function () {
 Route::get('/reset',function(){
     return view('auth.passwords.reset');
 });
+Route::get('flush',function(){
+    session()->flush();
+});
+Route::get('/hihi123',function(){
+    return view('User.testTable');
+});
+Route::get('/hihi',function(){
+    $date_now = date('Y-m-d',time());
+    $date_pick = '2019-05-20';
+   echo ($date_now == $date_pick);
+});
+Route::get('/hihi222',function(){
+    $seat = "6";
+       
+    $date = "2019-05-19";
+    $date2 =  strtotime(str_replace('/', '-', $date));
+    $date3 = date('Y-m-d',$date2);
+    $data_seat = DB::table('seat')->select('number_seat')->where('type',$seat)->get();
+    $data = array();
+    $datanew = array();
+    $new = array();
+    for($i = 0;$i < count($data_seat);$i++)
+    {
+        $value = array();
+        $row = DB::table('booktable')->select('time')->where('date',$date3)->where('number_seat',$data_seat[$i]->number_seat)->get();
+       if(count($row) != 0)
+       {
+        for($j=0;$j<count($row);$j++)
+        {
+            $split  = explode(':',$row[$j]->time);
+            array_push($value,(int)$split[0]);
+        }
 
+            array_push($value,22);
+            sort($value);
+            
+            for($k = 0 ; $k < count($value)-1;$k++)
+            {
+                $datanew[$k] = [1 => start_end($value[$k],$value[$k+1])];
+               
+            }
+
+            $data[$data_seat[$i]->number_seat] = $datanew;
+            $new['12'] = $data;
+       }
+       
+       
+       
+    }
+
+    return json_encode($new);
+    // $hihi = 1;
+    // $html = "{";
+    //     foreach($data as $key=>$value)
+    //     {
+           
+    //         $html .= "'".$hihi."' :{";
+    //         $html .= "title: '".$key."',";
+    //         $html .= "schedule :[";
+    //         for($i = 0 ; $i < count($value)-1;$i++)
+    //         {
+    //             $data2 = $this->start_end($value[$i],$value[$i+1]);
+    //             $html .= "{start: '".$data2[0].":00',";
+    //             $html .= "end: '".$data2[1].":00',},";
+    //         } 
+    //         $html .= "]";
+    //         $html .= "},";
+    //         $hihi++;   
+    //     }
+    // $html .= "}";
+    // session()->put(['hihi'=>$html]);
+    // return $html;
+
+    
+
+    
+});
+function start_end($a,$b)
+    {
+        if($b-$a >= 2)
+        {
+            $result =  $a.":00-".($a+2).":00";
+            return $result;
+        }
+        else
+        {
+            $result =  $a.":00-".($a+1).":00";
+            return $result;
+        }
+    }
 Route::group(['prefix' => 'F_user'],function(){
     Route::get('/showAccount','User\C_User@showAccount')->name('F_user.showAccount');
     Route::post('/update','User\C_User@update')->name('F_user.update');
@@ -31,7 +120,8 @@ Route::group(['prefix' => 'F_menu'],function(){
     Route::post('/editCart','User\C_Menu@EditCart')->name('editCart');
 });
 Route::group(['prefix' => 'F_seat'],function(){
-    Route::get('/showTime_Seat/{date}/{people}','User\C_Seat@showTime_Seat')->name('F_seat.showTime_Seat');
+    Route::post('/showTime_Seat','User\C_Seat@showTime_Seat')->name('F_seat.showTime_Seat');
+    Route::get('/start_end/{a}/{b}','User\C_Seat@start_end')->name('start_end');
 });
 
 Route::get('/Contact',function(){

@@ -61,7 +61,8 @@ class C_Booktable extends Controller
         if($request->Time < date('H:i'))
          return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại'); 
         //$date_new = date_format($date,'m/d/Y'); 
-            //$date = date('d/m/Y - H:i:s',strtotime($date));    
+            //$date = date('d/m/Y - H:i:s',strtotime($date));   
+            
        $query = DB::table('booktable')->where('number_seat','=',$request->Number_seat)->where('date','=',$request->Date)->where('time','=',$request->Time)->whereIn('status',['success','wait','using'])->get();
         if (count($query)<1) {
             $data = ['email'=>$request->input('Email'),'name' => $request->input('Name'),'phone' => $request->input('Phone')
@@ -87,6 +88,7 @@ class C_Booktable extends Controller
         if($data)
             return response()->json(['data'=>$data]);
     }
+    
 
     /**
      * Show the form for editing the specified resource.

@@ -31,7 +31,13 @@
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/user/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/user/css/main.css')}}">
 	<script src="{{ URL::asset('public/js/jquerynew.min.js') }}"></script>
-
+	{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> --}}
+	
+	{{-- <script src="{{ URL::asset('public/showTable/jquery-ui.js') }}"></script>
+	<script src="{{ URL::asset('public/showTable/jq.schedule.js') }}"></script>
+	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/showTable/style.css')}}"> --}}
+	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/showTable/TimeTable.css')}}">
+	
 <!--===============================================================================================-->
 </head>
 <body class="animsition">
@@ -44,7 +50,7 @@
 				<div class="wrap_header trans-0-3">
 					<!-- Logo -->
 					<div class="logo">
-						<a href="index.html">
+					<a href="{{ route('index') }}">
 							<img src="{{ URL::asset('images/logo/logo2.png') }}" width=70px height = 80px alt="IMG-LOGO" data-logofixed="{{ URL::asset('images/logo/logo1.png') }}" alt="" / width=70px height = 80px>
 						</a>
 					</div>
@@ -407,9 +413,12 @@ $('.dropdown').on('hide.bs.dropdown', function(e){
 });
 
 </script>
-
+	
+	<script type="text/javascript" src="{{URL::asset('/public/showTable/createjs.min.js')}}"></script>
+	<script type="text/javascript" src="{{URL::asset('/public/showTable/TimeTable.js')}}"></script>
+	
 <!--===============================================================================================-->
-	<script type="text/javascript" src="{{URL::asset('/public/user/vendor/jquery/jquery-3.2.1.min.js')}}"></script>
+	{{-- <script type="text/javascript" src="{{URL::asset('/public/user/vendor/jquery/jquery-3.2.1.min.js')}}"></script> --}}
 <!--===============================================================================================-->
 	<script type="text/javascript" src="{{URL::asset('/public/user/vendor/animsition/js/animsition.min.js')}}"></script>
 <!--===============================================================================================-->
