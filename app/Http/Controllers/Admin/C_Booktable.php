@@ -52,21 +52,21 @@ class C_Booktable extends Controller
     public function store(B_BooktableAddRequest $request)
     {
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-       // $date = $request->Date;
-             
-            //$date = date('d/m/Y',strtotime('13/05/2019'));       
-        // if(strtotime($date) < strtotime(date('d/m/Y')))
-        //      return  strtotime($date)."---".strtotime(date('d/m/Y'));
+        $date2 =  strtotime(str_replace('/', '-', $request->Date));
+        $date3 = date('Y-m-d',$date2);
+        $date_now = date('Y-m-d',time());
+        if($date3 < $date_now)
+            return redirect()->back()->with('error','Ngày đặt nhỏ hơn ngày hiện tại');
         
         if($request->Time < date('H:i'))
          return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại'); 
         //$date_new = date_format($date,'m/d/Y'); 
             //$date = date('d/m/Y - H:i:s',strtotime($date));   
             
-       $query = DB::table('booktable')->where('number_seat','=',$request->Number_seat)->where('date','=',$request->Date)->where('time','=',$request->Time)->whereIn('status',['success','wait','using'])->get();
+       $query = DB::table('booktable')->where('number_seat','=',$request->Number_seat)->where('date','=',$date3)->where('time','=',$request->Time)->whereIn('status',['wait','using'])->get();
         if (count($query)<1) {
             $data = ['email'=>$request->input('Email'),'name' => $request->input('Name'),'phone' => $request->input('Phone')
-            ,'date'=>$request->Date,'number_seat'=>$request->Number_seat,'time' => $request->Time];    
+            ,'date'=>$date3,'number_seat'=>$request->Number_seat,'time' => $request->Time];    
              $test = DB::table('booktable')->insert($data);
           return redirect()->back()->with('success','Tạo đơn đặt bàn thành công');
         }
@@ -84,7 +84,7 @@ class C_Booktable extends Controller
      */
     public function show($id)
     {
-        $data = DB::table('booktable')->select('booktable_id','date','time','status')->where('booktable_id','=',$id)->get();
+        $data = DB::table('booktable')->select('booktable_id','date','time','status','email')->where('booktable_id','=',$id)->get();
         if($data)
             return response()->json(['data'=>$data]);
     }
@@ -121,9 +121,32 @@ class C_Booktable extends Controller
      */
     public function update(BookTableRequest $request, $id)
     {
+        $date2 =  strtotime(str_replace('/', '-', $request->input('Update_Date')));
+        $date3 = date('Y-m-d',$date2);
+        $date_now = date('Y-m-d',time());
+        if($date3 < $date_now)
+            return redirect()->back()->with('error','Ngày đặt nhỏ hơn ngày hiện tại');
+        if($request->input('Update_Time') < date('H:i'))
+            return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại');
+            
         if(count(DB::table('booktable')->where('booktable_id','=',$id)->get())>=1)
         {
-            $data = ['date'=>$request->input('Update_Date'),'time'=>$request->input('Update_Time'),'status'=>$request->input('Update_Status')];
+            $status = $request->input('Update_Status');
+            if ($status == 'success') {
+                // Tính số điểm mới
+                $data = DB::table('booktable_details')->select(DB::raw('sum(quantity*price) as total'))->where('booktable_id','=',$id)->value('total');
+                $point = (int)($data/50000);
+                // Lấy lại số điểm cũ và cộng thêm số điểm mới
+               if(count(DB::table('users')->where('email','=',$request->Update_User)->get()) >=1)
+               {
+                $point_old = DB::table('users')->select('point')->where('email','=',$request->Update_User)->value('point');
+                $point += $point_old;
+                // Update điểm 
+                DB::table('users')->where('email','=',$request->Update_User)->update(['point'=>$point]);
+               }
+   
+            }
+            $data = ['date'=>$date3,'time'=>$request->input('Update_Time'),'status'=>$request->input('Update_Status')];
             $result = DB::table('booktable')->where('booktable_id','=',$id)->update($data);
             return "Cập nhật thành công";
         }

@@ -3,11 +3,23 @@
 	Thực đơn
 @stop
 @section('body')
-	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url('./images/background/menu.jpg');">
-		<h2 class="tit6 t-center">
-			RogTeam Place
-		</h2>
-	</section>
+<section class="section-slide">
+	<div class="wrap-slick1">
+		<div class="slick1">
+			<div class="item-slick1 item1-slick1" style="background-image: url(images/background/menu.jpg);">
+				<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+					<span class="caption1-slide1 txt1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
+						RogTeam Place
+					</span>
+
+						<h2 style="color:gray" class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
+							Thực đơn
+						</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 
 	<!-- Main menu -->
@@ -126,18 +138,13 @@
 	<div class="section-signup bg1-pattern p-t-85 p-b-85">
 		<form class="flex-c-m flex-w flex-col-c-m-lg p-l-5 p-r-5">
 			<span class="txt5 m-10">
-				Specials Sign up
+				Liên hệ với chúng tôi !
 			</span>
 
-			<div class="wrap-input-signup size17 bo2 bo-rad-10 bgwhite pos-relative txt10 m-10">
-				<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="email-address" placeholder="Email Adrress">
-				<i class="fa fa-envelope ab-r-m m-r-18" aria-hidden="true"></i>
-			</div>
-
 			<!-- Button3 -->
-			<button type="submit" class="btn3 flex-c-m size18 txt11 trans-0-4 m-10">
-				Sign-up
-			</button>
+		<a href = "{{ route('contact') }}"><button type="button" class="btn3 flex-c-m size18 txt11 trans-0-4 m-10">
+			Contact
+		</button></a>
 		</form>
 	</div>
 

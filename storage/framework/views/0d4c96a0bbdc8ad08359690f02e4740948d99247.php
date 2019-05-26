@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="<?php echo e(csrf_token()); ?>" />
 	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="<?php echo e(URL::asset('/public/user/images/icons/favicon.png')); ?>"/>
+	<link rel="icon" type="image/png" href="<?php echo e(URL::asset('/images/logo/logo1.png')); ?>"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/user/vendor/bootstrap/css/bootstrap.min.css')); ?>">
 <!--===============================================================================================-->
@@ -35,6 +35,7 @@
 	
 	
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/showTable/TimeTable.css')); ?>">
+
 	
 <!--===============================================================================================-->
 </head>
@@ -87,6 +88,14 @@
 															<a href="<?php echo e(route('F_user.showAccount')); ?>">
 																Thông tin tài khoản
 															</a><br>
+														<?php elseif(Auth::check()&& Auth::user()->roles == 3): ?>
+															<a href="<?php echo e(route('B_booktable.index')); ?>">
+																Xử lý đơn
+															</a><br>
+														<?php elseif(Auth::check()&& Auth::user()->roles <=2): ?>
+														<a href="<?php echo e(route('B_user.index')); ?>">
+															Quản lý
+														</a><br>
 														<?php endif; ?>
 														<a href="<?php echo e(route('logout')); ?>"
 															onclick="event.preventDefault();
@@ -105,32 +114,42 @@
 										<?php endif; ?>
 									
 								</li>
-								<li>
+								<li class="dropdown">
+									<div class="contentCart">
 										<div class="social flex-w flex-l-m p-r-20">
 												<a data-toggle='dropdown' href="" class="dropdown">MÓN ĐÃ ĐẶT</a>
-												<div class="dropdown-menu dropup">
+												<div class="dropdown-menu" style="border-radius: 10px;width:200px;padding-left:10px">
 															  <span class="caret"></span>
 															  <ul class="media-list">
-																  <li class="media">							
-																	<div class="media-body contentCart">
+																 <?php if(Cart::count() != 0): ?>
+																 <li class="media">							
+																	<div class="media-body">
 																		  <?php $__currentLoopData = Gloudemans\Shoppingcart\Facades\Cart::content(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-																			 <?php echo e($item->name); ?> <br>
+																			 <br> - <?php echo e($item->name); ?> <br>
 																		<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 																	</div>
 																  </li>
-															</ul>
-														<a href="<?php echo e(route('F_menu.showCart')); ?>"><button class="btn btn-primary btn-sm">Xem giỏ hàng</button></a>
+																  <li><a href="<?php echo e(route('F_menu.showCart')); ?>"><button type="button" class="btn3 flex-c-m size13 txt11 trans-0-4" style="margin-left:10px;margin-top:15px">Xem giỏ hàng</button></a></li>						
+																  <?php else: ?>
+																  <li class="media"><b>Bạn chưa chọn sản phẩm nào</b></li>
+																 <?php endif; ?>
+																 	</ul>
+														
 												</div>
 												
 											</div>
+										</div>
 								</li>
 							</ul>
 						</nav>
 					</div>
 					<!-- Social -->
 					<div class="social flex-w flex-l-m p-r-20">
-						
+						<a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
+						<a href="#"><i class="fa fa-facebook m-l-21" aria-hidden="true"></i></a>
+						<a href="#"><i class="fa fa-twitter m-l-21" aria-hidden="true"></i></a>
 						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+
 					</div>
 				</div>
 			</div>

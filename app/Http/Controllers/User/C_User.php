@@ -15,10 +15,7 @@ class C_User extends Controller
     {
         $money = 0;
        // $data = DB::table('booktable')->join('booktable_details','booktable.booktable_id','=','booktable_details.booktable_id')->where('email','=',Auth::user()->email)->get();
-        $query = DB::table('booktable')->where('email','=',Auth::user()->email)->get();
-        foreach($query as $value)
-            $money += $value->total;
-        $point = (int)($money/50000);
+        $point = DB::table('users')->select('point')->where('email','=',Auth::user()->email)->value('point');
         return view('User.Account',compact('query','point'));
         
     }

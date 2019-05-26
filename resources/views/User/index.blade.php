@@ -12,9 +12,9 @@
 							Welcome to
 						</span>
 
-						<h2 class="caption2-slide1 tit1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
-							RogTeam Place
-						</h2>
+							<h2 class="caption2-slide1 tit1 t-center animated visible-false m-b-37" data-appear="fadeInUp">
+								RogTeam Place
+							</h2>
 
 						<div class="wrap-btn-slide1 animated visible-false" data-appear="zoomIn">
 							<!-- Button1 -->
@@ -134,7 +134,7 @@
 									Phasellus lorem enim, luctus ut velit eget, con-vallis egestas eros.
 								</p>
 
-								<a href="#" class="txt4">
+								<a href="{{ route('news') }}" class="txt4">
 									Learn More
 									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 								</a>
@@ -146,11 +146,11 @@
 						<!-- Block1 -->
 						<div class="blo1">
 							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom">
-								<a href="#"><img src="{{ URL::asset('images/background/slow4.jpg') }}" alt="IMG-INTRO"></a>
+								<a href="{{ route('news') }}"><img src="{{ URL::asset('images/background/slow4.jpg') }}" alt="IMG-INTRO"></a>
 							</div>
 
 							<div class="wrap-text-blo1 p-t-35">
-								<a href="#"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
+								<a href="{{ route('news') }}"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
 									Delicious Food
 								</h4></a>
 
@@ -158,7 +158,7 @@
 									Aliquam eget aliquam magna, quis posuere risus ac justo ipsum nibh urna
 								</p>
 
-								<a href="#" class="txt4">
+								<a href="{{ route('news') }}" class="txt4">
 									Learn More
 									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 								</a>
@@ -170,7 +170,7 @@
 						<!-- Block1 -->
 						<div class="blo1">
 							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom">
-								<a href="#"><img src="{{ URL::asset('images/background/love1.jpg') }}" alt="IMG-INTRO"></a> 
+								<a href=""><img src="{{ URL::asset('images/background/love1.jpg') }}" alt="IMG-INTRO"></a> 
 							</div>
 
 							<div class="wrap-text-blo1 p-t-35">
@@ -182,7 +182,7 @@
 									Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
 								</p>
 
-								<a href="#" class="txt4">
+								<a href="{{ route('news') }}" class="txt4">
 									Learn More
 									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 								</a>

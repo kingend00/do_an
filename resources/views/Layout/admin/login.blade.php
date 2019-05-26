@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
 		============================================ -->
-        <link rel="shortcut icon" type="./public/admin/image/x-icon" href="{{URL::asset('public/admin/img/favicon.ico')}}">
+        <link rel="shortcut icon" type="./public/admin/image/x-icon" href="{{URL::asset('/images/logo/logo1.png')}}">
     <!-- Google Fonts
 		============================================ -->
     <link href="{{URL::asset('public/css/font.css') }}" rel="stylesheet">
@@ -146,6 +146,6 @@
             <script src="{{URL::asset('public/admin/js/main.js')}}"></script>
             <script src="{{URL::asset('public/admin/js/data-table/jquery.dataTables.min.js')}}"></script>
             <script type="text/javascript">
-              $('div.alert').delay(2000).fadeOut(100);
+              $('div.alert').delay(3000).fadeOut(100);
           </script>
 </body>

@@ -195,7 +195,7 @@
 					$('#Update_Password').val(response.data[0].password);
 					$('#Update_Address').val(response.data[0].address);
 					$('#Update_Name').val(response.data[0].name);
-					$('#Update_Email').val(response.data[0].email);
+					$('#Email').val(response.data[0].email);
 					$('#Update_Phone').val(response.data[0].phone);
 					
 				},

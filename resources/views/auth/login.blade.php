@@ -14,12 +14,6 @@
                                 <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
                                 <div class="nk-int-st">
                                         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
-
-                                        @if ($errors->has('email'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('email') }}</strong>
-                                            </span>
-                                        @endif
                                 </div>
                             </div>
                             <div class="input-group mg-t-15{{ $errors->has('password') ? ' has-error' : '' }}">
@@ -27,16 +21,12 @@
                                 <div class="nk-int-st">
                                         <input id="password" type="password" class="form-control" name="password" required>
 
-                                        @if ($errors->has('password'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('password') }}</strong>
-                                            </span>
-                                        @endif
+                                        
                                 </div>
                             </div>
                             <div class="fm-checkbox">
                                 <label><input type="checkbox" class="i-checks"> <i></i> Keep me signed in</label>
-                                <button type="submit" >Đăng nhập</button>
+                                <button type="submit" class="btn btn-success notika-btn-success" >Đăng nhập</button>
                             </div>
 
                             <a href="#l-register" data-ma-action="nk-login-switch" data-ma-block="#l-register" class="btn btn-login btn-success btn-float"><i class="notika-icon notika-right-arrow right-arrow-ant"></i></a>

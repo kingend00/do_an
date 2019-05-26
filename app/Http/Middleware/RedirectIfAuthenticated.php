@@ -20,8 +20,11 @@ class RedirectIfAuthenticated
         if (Auth::guard($guard)->check()) {
             if(Auth::user()->roles<=2)
                 return redirect()->route('B_user.index');
+            elseif(Auth::user()->roles==3) {
+                return redirect()->route("B_booktable.index");
+            }
             else {
-                return redirect()->route("F_menu.index");
+                return redirect()->route("index");
             }
         }
 

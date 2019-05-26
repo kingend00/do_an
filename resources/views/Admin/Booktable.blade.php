@@ -7,23 +7,58 @@
 	<div class="row">
 
 
-
+		
+		<fieldset class="form-group">
+			<legend><b>Xem thời gian</b></legend>
+				<form action="" method="POST" id="form">
+						<div class="col-sm-2"></div>
+						<div class="col-sm-3">
+							<div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
+									
+								
+									<div class="input-group date nk-int-st">
+									<span class="input-group-addon"></span>
+								{!! Form::text('date','',['id' =>'date','class' => 'form-control Date','placeholder' => 'Chọn ngày', 'required' => 'true','data-date-format'=>'yyyy-mm-dd','readonly'=>true]) !!}
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-2"></div>
+						<div class="col-sm-3">
+								<div style="margin-bottom:20px">
+														
+										<select name="seat" id="seat" >
+																					
+											@if(isset($TypeSeat))
+											<option value ="">Chọn loại bàn</option>							
+												@foreach($TypeSeat as $seat)
+													<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
+												@endforeach
+											@else
+												<option>Không tồn tại loại nào</option>									
+											@endif						
+										</select>
+								</div>
+						</div>
+						<div class="col-sm-2"></div>
+					</form>
+		</fieldset>
+		<div id="test"></div><br><br>
 		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
 								<div class="breadcomb-wp">
 									<div class="breadcomb-icon">
 										<i class="notika-icon notika-windows"></i>
 									</div>
 									<div class="breadcomb-ctn">
-										<h2>Quản lý đơn đặt bàn <?php 
+										<h2>Đơn đặt bàn <?php 
 											date_default_timezone_set('Asia/Ho_Chi_Minh');
-											echo date('d/m/Y - H:i:s',time()); ?></h2>
+											echo date('Y-m-d - H:i:s',time()); ?></h2>
 										
 										<button type="button" class="btn btn-lightblue lightblue-icon-notika btn-add" data-toggle="modal" data-target="#ModalAdd" ><i class="notika-icon notika-checked"></i> Thêm</button>
 										
 									</div>
 								</div>
-							</div>
-						</div>
+		</div>
+	</div>
 	
 	<div class="table-responsive">
 			<table class="table table-striped" id="tbData" >
@@ -62,14 +97,16 @@
             <div class="modal-body">
             			<div class="form-group">
 							
+							
 							{!! Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
+							{!! Form::hidden('Update_User','',['id' =>'Update_User','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
 						</div>
 						<div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
 						
 								<div class="form-ic-cmp">Ngày đặt</div>
 									<div class="input-group date nk-int-st">
 									<span class="input-group-addon"></span>
-								{!! Form::text('Update_Date','',['id' =>'Update_Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true']) !!}
+								{!! Form::text('Update_Date','',['id' =>'Update_Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true','data-date-format'=>'yyyy-mm-dd','readonly'=>true]) !!}
 							</div>
 						</div>
 							
@@ -231,7 +268,7 @@
 						<div class="form-ic-cmp"><i class="notika-icon notika-calendar"></i></div>
 							<div class="input-group date nk-int-st" id="Picker">
 							<span class="input-group-addon"></span>
-						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true','data-date-format'=>'yy-mm-dd','readonly'=>true]) !!}
+						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true','data-date-format'=>'yyyy-mm-dd','readonly'=>true]) !!}
 					</div>
 				</div>
 				
@@ -268,6 +305,67 @@
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	    		    }
 			});
+			$('#seat').change(function(){
+				$.ajax({
+					type:"POST",
+					url : "{{ route('F_seat.showTime_Seat') }}",
+					data : $('#form').serialize(),
+					
+					success:function(data)
+					{
+
+						$('#test').html('');
+						console.log(data);
+						let shiftObj = JSON.parse(data);
+						console.log(shiftObj);
+
+
+
+						var instance = new TimeTable({
+
+							// Beginning Time
+							startTime: "10:00",
+
+							// Ending Time
+							endTime: "22:00",
+
+							// Time to divide(minute)
+							divTime: "30",
+
+							// Time Table
+							shift: shiftObj,
+
+							// Other options
+							option: {
+
+							// workTime include time not displaying
+							workTime: true,
+
+							// bg color
+							bgcolor: ["#00FFFF"],
+
+							// {index :  name, : index: name,,..}
+							// selectBox index and shift index should be same
+							// Give randome if shift index was not in selectBox index
+								
+							}
+
+							});
+							instance.init("#test");
+						
+					},
+					error:function(er)
+					{
+						console.log(er);
+					}
+
+				});
+
+			});
+
+
+
+
 
 			$('#tbData').DataTable({
 				processing: true,
@@ -286,7 +384,8 @@
 					{data:'btn-edit'},
 					{data:'btn-details'}
 				]
-			});
+			}).order( [ 0, 'desc' ] )
+   			 .draw();
 
 
 
@@ -304,6 +403,7 @@
 					$('#Update_Status').val(response.data[0].status);
 					$('#Update_Date').val(response.data[0].date);
 					$('#Update_Time').val(response.data[0].time);
+					$('#Update_User').val(response.data[0].email);
 					$('select').selectpicker('refresh');
 					
 					

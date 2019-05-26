@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}" />
 	<!--===============================================================================================-->
-	<link rel="icon" type="image/png" href="{{URL::asset('/public/user/images/icons/favicon.png')}}"/>
+	<link rel="icon" type="image/png" href="{{URL::asset('/images/logo/logo1.png')}}"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/user/vendor/bootstrap/css/bootstrap.min.css')}}">
 <!--===============================================================================================-->
@@ -37,6 +37,7 @@
 	<script src="{{ URL::asset('public/showTable/jq.schedule.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/showTable/style.css')}}"> --}}
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/showTable/TimeTable.css')}}">
+
 	
 <!--===============================================================================================-->
 </head>
@@ -89,6 +90,14 @@
 															<a href="{{ route('F_user.showAccount') }}">
 																Thông tin tài khoản
 															</a><br>
+														@elseif(Auth::check()&& Auth::user()->roles == 3)
+															<a href="{{ route('B_booktable.index') }}">
+																Xử lý đơn
+															</a><br>
+														@elseif(Auth::check()&& Auth::user()->roles <=2)
+														<a href="{{ route('B_user.index') }}">
+															Quản lý
+														</a><br>
 														@endif
 														<a href="{{ route('logout') }}"
 															onclick="event.preventDefault();
@@ -106,32 +115,42 @@
 										@endguest
 									
 								</li>
-								<li>
+								<li class="dropdown">
+									<div class="contentCart">
 										<div class="social flex-w flex-l-m p-r-20">
 												<a data-toggle='dropdown' href="" class="dropdown">MÓN ĐÃ ĐẶT</a>
-												<div class="dropdown-menu dropup">
+												<div class="dropdown-menu" style="border-radius: 10px;width:200px;padding-left:10px">
 															  <span class="caret"></span>
 															  <ul class="media-list">
-																  <li class="media">							
-																	<div class="media-body contentCart">
+																 @if (Cart::count() != 0)
+																 <li class="media">							
+																	<div class="media-body">
 																		  @foreach (Gloudemans\Shoppingcart\Facades\Cart::content() as $item)
-																			 {{$item->name}} <br>
+																			 <br> - {{$item->name}} <br>
 																		@endforeach
 																	</div>
 																  </li>
-															</ul>
-														<a href="{{ route('F_menu.showCart') }}"><button class="btn btn-primary btn-sm">Xem giỏ hàng</button></a>
+																  <li><a href="{{ route('F_menu.showCart') }}"><button type="button" class="btn3 flex-c-m size13 txt11 trans-0-4" style="margin-left:10px;margin-top:15px">Xem giỏ hàng</button></a></li>						
+																  @else
+																  <li class="media"><b>Bạn chưa chọn sản phẩm nào</b></li>
+																 @endif
+																 	</ul>
+														
 												</div>
 												
 											</div>
+										</div>
 								</li>
 							</ul>
 						</nav>
 					</div>
 					<!-- Social -->
 					<div class="social flex-w flex-l-m p-r-20">
-						
+						<a href="#"><i class="fa fa-tripadvisor" aria-hidden="true"></i></a>
+						<a href="#"><i class="fa fa-facebook m-l-21" aria-hidden="true"></i></a>
+						<a href="#"><i class="fa fa-twitter m-l-21" aria-hidden="true"></i></a>
 						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+
 					</div>
 				</div>
 			</div>

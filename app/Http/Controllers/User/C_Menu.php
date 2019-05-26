@@ -47,9 +47,16 @@ class C_Menu extends Controller
     public function addComboToCart($id)
     {
         $combo = DB::table('combo')->where('combo_id','=',$id)->get();
+        $combo_details = DB::table('combo_details')->select('menu.name as Name_menu','combo_details.quantity')->join('menu','menu.menu_id','=','combo_details.menu_id')->where('combo_id','=',$id)->get();
+        $html  = '';
+        foreach($combo_details as $item )
+        {
+            $html .= $item->Name_menu.' - Số lượng: '.$item->quantity.'/';
+        } 
+        
         if($combo)
         {
-                Cart::add(['id'=>$combo[0]->combo_id,'name'=>$combo[0]->name,'qty'=>1,'price'=>$combo[0]->price,'options'=>['image'=>$combo[0]->image,'type'=>$combo[0]->type]]);
+                Cart::add(['id'=>$combo[0]->combo_id,'name'=>$combo[0]->name,'qty'=>1,'price'=>$combo[0]->price,'options'=>['description'=> $html]]);
                 return "Bạn đã thêm thành công 1 combo";
         }
         return "Đã có lỗi xảy ra vui lòng thử lại";

@@ -15,7 +15,7 @@ class Denied_Cus_Emp
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::check()&&Auth::user()->roles<=2)
+        if(Auth::check()&&Auth::user()->roles<=3)
         return $next($request);
     else {
         

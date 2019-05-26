@@ -3,14 +3,28 @@
 	Đặt bàn
 @stop
 @section('body')
-	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image:url('./images/background/slide1.jpg');">
-		<h2 class="tit6 t-center" style="color: green">
-			Rogteam Place
-		</h2>
-	</section>
+<section class="section-slide">
+	<div class="wrap-slick1">
+		<div class="slick1">
+			<div class="item-slick1 item1-slick1" style="background-image: url(images/background/img6.jpg);">
+				<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+					<span class="caption1-slide1 txt1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
+						RogTeam Place
+					</span>
+
+						<h2 class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
+							Đặt bàn
+						</h2>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
 	<section class="section-reservation bg1-pattern p-t-100 p-b-113">
 		<div class="container">
+			<div id="toptable" style="margin-bottom:30px;height:80px"></div>
+
 			<div id="test"></div>
 
 			<div class="row">
@@ -25,6 +39,9 @@
 							ĐẶT BÀN
 						</h3>
 					</div>
+					<div id="error">
+						
+					</div> 
 
 				<form class="wrap-form-reservation size22 m-l-r-auto" method = "POST" action = "{{ route('F_seat.store') }}" id = "formTable">
 					{{ csrf_field() }}
@@ -158,9 +175,7 @@
 									Số bàn
 								</span>
 
-								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23" id = "number">
-
-								</div>
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23" id = "number" title="Hãy chọn loại bàn trước khi chọn số"></div>
 							</div>
 							
 
@@ -217,6 +232,33 @@
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
+			$(document).on('click','#number',function(){
+				var html = $('#number').html();
+				var element = document.getElementById("error");
+				if(html == 0)
+				{
+					
+					element.className = "alert alert-danger error-alert";
+					$('#error').html('Xin hãy chọn loại bàn trước !');
+					$('#error').delay(4000).fadeOut(100);
+					
+				}
+			});
+			$('#time').change(function(){
+				$.ajax({
+					type:"POST",
+					url : "{{ route('F_seat.checktime') }}",
+					data : $('#formTable').serialize(),
+					success:function(data){
+						//console.log(data);
+						if(data != 2)
+							alert(data);
+					},
+					error:function(er){
+						console.log(er);
+					}
+				});
+			});
 
 			$('#seat').change(function(){
 				var value = $(this).val();
@@ -268,80 +310,7 @@
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
-			let shiftObj = {
-					"1" : {
-						"Maria Anders": [
-							{"1" : "10:00-12:00"},
-							{"2" : "13:00-14:00"},
-							{"9" : "17:00-20:00"},
-						]
-					},
-					"2" : {
-						"Jason Paige": [
-							{"3" : "11:00-12:45"},
-							{"5" : "14:00-19:30"},
-						]
-					},
-					"500" : {
-						"Roland Mendel": [
-							{"8" : "13:00-19:00"}
-						]
-					},
-					"3" : {
-						"Helen Bennett": [
-							{"1" : "10:00-12:00"},
-							{"2" : "13:00-14:00"},
-							{"9" : "17:00-20:00"},
-						]
-					},
-					"4" : {
-						"Mrs.Smith": [
-							{"8" : "10:00-13:30"},
-							{"7" : "14:00-17:30"},
-						]
-					},
-					"5" : {
-						"Francisco Chang": [
-							{"1" : "12:00-15:30"}
-						]
-					},
-					"6" : {
-						"Yoshi Tannamuri": [
-							{"0" : "15:00-22:30"}
-						]
-					},
-					"7" : {
-						"Giovanni Rovelli": [
-							{"9" : "15:00-18:30"}
-						]
-					},
-					"8" : {
-						"John Doe": [
-							{"1" : "10:00-12:00"},
-							{"2" : "13:00-14:00"},
-							{"3" : "17:00-20:30"},
-						]
-					},
-					"9" : {
-						"MR.JSON": [
-							{"2" : "09:00-12:59"},
-							{"4" : "15:00-15:20"},
-							{"7" : "17:00-17:30"},
-						]
-					},
-				};
-				
 
-
-
-			function start_end(a,b)
-			{
-				if(b-a >= 2)
-				return [a,a+2];
-				else
-				return [a,a+1];
-			};
-			
 			$('#seat').change(function(){
 				$.ajax({
 					type:"POST",
@@ -350,49 +319,49 @@
 					
 					success:function(data)
 					{
+						$('#test').html(null);
+
+								console.log(data);
+								let shiftObj = JSON.parse(data);
+								console.log(shiftObj);
 
 
-						console.log(data);
-						let shiftObj = JSON.parse(data);
-						console.log(shiftObj);
 
+								var instance = new TimeTable({
 
+									// Beginning Time
+									startTime: "10:00",
 
-						var instance = new TimeTable({
+									// Ending Time
+									endTime: "22:00",
 
-							// Beginning Time
-							startTime: "09:00",
+									// Time to divide(minute)
+									divTime: "30",
 
-							// Ending Time
-							endTime: "20:00",
+									// Time Table
+									shift: shiftObj,
 
-							// Time to divide(minute)
-							divTime: "30",
+									// Other options
+									option: {
 
-							// Time Table
-							shift: shiftObj,
+									// workTime include time not displaying
+									workTime: true,
 
-							// Other options
-							option: {
+									// bg color
+									bgcolor: ["#00FFFF"],
 
-							// workTime include time not displaying
-							workTime: true,
+									// {index :  name, : index: name,,..}
+									// selectBox index and shift index should be same
+									// Give randome if shift index was not in selectBox index
+									
+									}
 
-							// bg color
-							bgcolor: ["#00FFFF"],
-
-							// {index :  name, : index: name,,..}
-							// selectBox index and shift index should be same
-							// Give randome if shift index was not in selectBox index
-							selectBox: {
-								"2" : "Jason Paige",
-								"3" : "Mr.Jason",
-								"25" : "Mrs.Jason"
-							}
-							}
-
-							});
-							instance.init("#test");
+									});
+									instance.init("#test");
+							$('html, body').animate({
+							scrollTop: $("#toptable").offset().top
+						}, 0);
+							
 						
 					},
 					error:function(er)
@@ -442,4 +411,5 @@
 	
 		});
 		</script>
+		
 @stop

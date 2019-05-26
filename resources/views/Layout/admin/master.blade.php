@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
 		============================================ -->
-    <link rel="shortcut icon" type="./public/admin/image/x-icon" href="{{URL::asset('public/admin/img/favicon.ico')}}">
+    <link rel="shortcut icon" type="./public/admin/image/x-icon" href="{{URL::asset('/images/logo/logo1.png')}}">
     <!-- Google Fonts
 		============================================ -->
     <link href="{{ URL::asset('public/css/font.css') }}" rel="stylesheet">
@@ -77,7 +77,7 @@
 		============================================ -->
     <script src="{{URL::asset('public/admin/js/vendor/modernizr-2.8.3.min.js')}}"></script>
     <script src="{{ URL::asset('public/js/jquerynew.min.js') }}"></script>
-   
+    <link rel="stylesheet" type="text/css" href="{{URL::asset('/public/showTable/TimeTable.css')}}">
     
 </head>
 <body>
@@ -97,36 +97,33 @@
                             <li class="nav-item">
                                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                                     <!-- Left Side Of Navbar -->
-                                    <ul class="nav navbar-nav">
-                                        &nbsp;
-                                    </ul>
                 
                                     <!-- Right Side Of Navbar -->
                                     <ul class="nav navbar-nav navbar-right">
                                         <!-- Authentication Links -->
                                         @guest
-                                            <li><a href="{{ route('login') }}">Login</a></li>
-                                            <li><a href="{{ route('register') }}">Register</a></li>
+                                            <li><a href="{{ route('login') }}">Đăng nhập</a></li>
+                                            <li><a href="{{ route('register') }}">Đăng kí</a></li>
                                         @else
                                             <li class="dropdown">
                                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
                                                     {{ Auth::user()->name }} <span class="caret"></span>
                                                 </a>
-                                                <ul class="dropdown-menu">
-                                                        <li>
+                                                <div class="dropdown-menu">
+                                                        
                                                          <div class="dropdown-trig-sgn">
                                                             <a href="{{ route('logout') }}"
                                                                 onclick="event.preventDefault();
                                                                          document.getElementById('logout-form').submit();">
-                                                            <button class="btn triger-fadeIn" >Logout</button>
+                                                            <button class="btn triger-fadeIn" >Đăng xuất</button>
                                                                 
                                                             </a>
                                                         </div> 
                                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                                                 {{ csrf_field() }}
                                                             </form>
-                                                        </li>
-                                                    </ul>                                            
+                                                        
+                                                    </div>                                            
                                             </li>
                                         @endguest
                                     </ul>
@@ -147,70 +144,58 @@
                     <div class="mobile-menu">
                         <nav id="dropdown">
                             <ul class="mobile-menu-nav">
-                                <li><a data-toggle="collapse" data-target="#Charts" href="#">Home</a>
+                                <li><a  href="{{ route('B_user.index') }}"><i class="notika-icon notika-house"></i> Trang chủ</a>
+                                </li>
+                                <li><a href="{{ route('B_booktable.index') }}"><i class="notika-icon notika-app"></i> Đơn đặt bàn</a>
                                 </li>
                                 <li><a data-toggle="collapse" data-target="#demoevent" href="#">Tài Khoản</a>
                                     <ul id="demoevent" class="collapse dropdown-header-top">
-                                        <li><a href="inbox.html">Nhân viên</a></li>
-                                        <li><a href="view-email.html">Khách hàng</a></li>
-                                        <li><a href="compose-email.html">Quản lý</a></li>
+                                        <li><a href="{{ route('B_user.showAccount',3) }}">Nhân viên</a>
+                                        </li>
+                                        <li><a href="{{ route('B_user.showAccount',4) }}">Khách hàng</a>
+                                        </li>
+                                    @if(Auth::check()&&Auth::user()->roles==1)
+                                        <li><a href="{{ route('B_user.showAccount',2) }}">Quản lý</a>
+                                        </li>
+                                    @endif
                                     </ul>
                                 </li>
-                                <li><a data-toggle="collapse" data-target="#democrou" href="#">Cập nhật bàn</a>
-                                   <!--  <ul id="democrou" class="collapse dropdown-header-top">
-                                       <li><a href="animations.html">Animations</a></li>
-                                       <li><a href="google-map.html">Google Map</a></li>
-                                       <li><a href="data-map.html">Data Maps</a></li>
-                                       <li><a href="code-editor.html">Code Editor</a></li>
-                                       <li><a href="image-cropper.html">Images Cropper</a></li>
-                                       <li><a href="wizard.html">Wizard</a></li>
-                                   </ul> -->
+                                <li><a data-toggle="tab" href="#democrou"><i class="notika-icon notika-edit"></i> Bàn</a>
+                                    
+                                   <ul id="democrou" class="collapse dropdown-header-top">
+                                    @foreach (\App\Model\M_Seat::select('type')->distinct('type')->orderBy('type','DESC')->get() as $item)
+                                    <li><a href = "{{ route('B_seat.showType',$item->type) }}">Loại {{ $item->type }}</a></li>
+                                        @endforeach
+                                    <li><a href = "{{ route('B_seat.showType',"All") }}">Hiện tất cả</a></li>
+                                   </ul>
+                               
                                 </li>
                                 <li><a data-toggle="collapse" data-target="#demolibra" href="#">Thực đơn</a>
-                                   <!--  <ul id="demolibra" class="collapse dropdown-header-top">
-                                       <li><a href="flot-charts.html">Flot Charts</a></li>
-                                       <li><a href="bar-charts.html">Bar Charts</a></li>
-                                       <li><a href="line-charts.html">Line Charts</a></li>
-                                       <li><a href="area-charts.html">Area Charts</a></li>
-                                   </ul> -->
+                                    <ul id="demolibra" class="collapse dropdown-header-top">
+                                        @if(isset($nameMenushareAll))
+                                        @foreach($nameMenushareAll as $value)
+                                        <li><a href = "{{ route('B_menu.showMenu',$value->category_id) }}">{{ $value->name }}</a></li>
+                                        @endforeach
+                                    @endif
+                                    <li><a href = "{{ route('B_combo.index') }}">combo</a></li>
+                                   </ul>
                                 </li>
                                 <li><a data-toggle="collapse" data-target="#demodepart" href="#">Thống kê</a>
                                     <ul id="demodepart" class="collapse dropdown-header-top">
-                                        <li><a href="normal-table.html">Theo ngày</a></li>
-                                        <li><a href="data-table.html">Theo khoảng thời gian</a></li>
+                                        <li><a href="{{ route('B_statistic.index2') }}">Theo loại bàn</a>
+                                        </li>
+                                    <li><a href="{{ route('B_statistic.index') }}">Theo sản phẩm</a>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li><a data-toggle="collapse" data-target="#demo" href="#">Xem thông tin</a>
+                                <li><a data-toggle="collapse" data-target="#demo" href="#">Khác</a>
                                     <ul id="demo" class="collapse dropdown-header-top">
-                                        <li><a href="form-elements.html">khách vãng lai</a></li>
-                                        <li><a href="form-components.html">Phản hồi</a></li>
+                                        <li><a href="{{ route('B_contact.index') }}">Phản hồi</a></li>
+                                        <li><a href="{{ route('B_news.index') }}">Sự kiện</a></li>
                                         <!-- <li><a href="form-examples.html">Form Examples</a></li> -->
                                     </ul>
                                 </li>
-                                <li><a data-toggle="collapse" data-target="#Miscellaneousmob" href="#">Đơn đặt bàn</a>
-                                    <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
-                                        <li><a href="notification.html">Notifications</a>
-                                        </li>
-                                        <li><a href="alert.html">Alerts</a>
-                                        </li>
-                                        <li><a href="modals.html">Modals</a>
-                                        </li>
-                                        <li><a href="buttons.html">Buttons</a>
-                                        </li>
-                                        <li><a href="tabs.html">Tabs</a>
-                                        </li>
-                                        <li><a href="accordion.html">Accordion</a>
-                                        </li>
-                                        <li><a href="dialog.html">Dialogs</a>
-                                        </li>
-                                        <li><a href="popovers.html">Popovers</a>
-                                        </li>
-                                        <li><a href="tooltips.html">Tooltips</a>
-                                        </li>
-                                        <li><a href="dropdown.html">Dropdowns</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                               
                                 <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages</a>
                                     <ul id="Pagemob" class="collapse dropdown-header-top">
                                         <li><a href="contact.html">Contact</a>
@@ -241,22 +226,26 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                     <ul class="nav nav-tabs notika-menu-wrap menu-it-icon-pro">
-                        <li><a  href=""><i class="notika-icon notika-house"></i> Home</a>
-                        </li>
-                        <li><a data-toggle="tab" href="#mailbox"><i class="notika-icon notika-mail"></i> Tài khoản</a>
-                        </li>
-                    <li><a data-toggle="tab" href="#Home"><i class="notika-icon notika-edit"></i> Bàn</a>
-                        </li>
-                        <li><a data-toggle="tab" href="#Charts"><i class="notika-icon notika-bar-chart"></i> Thực đơn</a>
+                    <li><a  href="{{ route('B_user.index') }}"><i class="notika-icon notika-house"></i> Trang chủ</a>
                         </li>
                         <li><a href="{{ route('B_booktable.index') }}"><i class="notika-icon notika-app"></i> Đơn đặt bàn</a>
                         </li>
+
+                        @if (Auth::check()&& Auth::user()->roles <=2)
+                        <li><a data-toggle="tab" href="#mailbox"><i class="notika-icon notika-mail"></i> Tài khoản</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Home"><i class="notika-icon notika-edit"></i> Bàn</a>
+                        </li>
+                        <li><a data-toggle="tab" href="#Charts"><i class="notika-icon notika-bar-chart"></i> Thực đơn</a>
+                        </li>                       
                         <li><a data-toggle="tab" href="#Tables"><i class="notika-icon notika-windows"></i> Thống kê</a>
                         </li>
                         <li><a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Khác </a>
                         </li>               
                         <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Pages</a>
                         </li>
+                            
+                        @endif
                     </ul>
                     <div class="tab-content custom-menu-content">
                         <div id="Home" class="tab-pane notika-tab-menu-bg animated flipInX">
@@ -295,9 +284,9 @@
                         </div>
                         <div id="Tables" class="tab-pane notika-tab-menu-bg animated flipInX">
                             <ul class="notika-main-menu-dropdown">
-                                <li><a href="normal-table.html">Theo ngày</a>
+                                <li><a href="{{ route('B_statistic.index2') }}">Theo loại bàn</a>
                                 </li>
-                            <li><a href="{{ route('B_statistic.index') }}">Theo khoảng thời gian</a>
+                            <li><a href="{{ route('B_statistic.index') }}">Theo sản phẩm</a>
                                 </li>
                             </ul>
                         </div>
@@ -357,7 +346,7 @@
     <!-- Main Menu area End-->
 
     
-        @if(count($errors) > 0)
+        @if(isset($errors) && count($errors) > 0)
          <div class="alert alert-danger error-alert">           
                         <h2>Đã có lỗi xảy ra </h2>
                         <ul>
@@ -401,7 +390,8 @@
     <!-- jquery
         ============================================ -->
        
-
+    <script type="text/javascript" src="{{URL::asset('/public/showTable/createjs.min.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('/public/showTable/TimeTable.js')}}"></script>
     <script src="{{URL::asset('public/admin/js/vendor/jquery-1.12.4.min.js')}}"></script>
     <!-- bootstrap JS
 		============================================ -->
@@ -441,7 +431,11 @@
     <!-- sparkline JS
 		============================================ -->
     <script src="{{URL::asset('public/admin/js/flot/jquery.flot.js')}}"></script>
-    <script src="{{URL::asset('public/admin/js/flot/jquery.flot.resize.js')}}"></script>
+    
+    {{-- Kiểm tra xem có lỗi hay k  --}}
+
+    {{-- <script src="{{URL::asset('public/admin/js/flot/jquery.flot.resize.js')}}"></script> --}} 
+   
     <script src="{{URL::asset('public/admin/js/flot/curvedLines.js')}}"></script>
     <script src="{{URL::asset('public/admin/js/flot/flot-active.js')}}"></script>
     <!-- knob JS
@@ -485,6 +479,7 @@
    <script type="text/javascript">
        $('div.alert').delay(3000).fadeOut(100);
    </script>
+  
     
 </body>
 </html>

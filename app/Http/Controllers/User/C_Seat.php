@@ -49,14 +49,16 @@ class C_Seat extends Controller
         $date2 =  strtotime(str_replace('/', '-', $date));
         $date3 = date('Y-m-d',$date2);
         $data_seat = DB::table('seat')->select('number_seat')->where('type',$seat)->get();
-        $data = array();
-        $datanew = array();
         
+        
+        $new = array();
         for($i = 0;$i < count($data_seat);$i++)
         {
+            $datanew = array();
+            $data = array();
             $value = array();
-            $row = DB::table('booktable')->select('time')->where('date',$date3)->where('number_seat',$data_seat[$i]->number_seat)->get();
-           if(count($row) != 0)
+            $row = DB::table('booktable')->select('time')->where('date',$date3)->where('number_seat',$data_seat[$i]->number_seat)->whereIn('status',['wait','using'])->get();
+           if(count($row) > 0)
            {
             for($j=0;$j<count($row);$j++)
             {
@@ -73,36 +75,21 @@ class C_Seat extends Controller
                 }
 
                 $data[$data_seat[$i]->number_seat] = $datanew;
+                $new[$i] = $data;
            }
+           else {
+                $data[$data_seat[$i]->number_seat] = array([1=>"00:00-00:00"]);
+                $new[$i] = $data;
+           }
+
+           
            
            
         }
-         $new['12'] = $data;
+         
 
         return json_encode($new);
-        // $hihi = 1;
-        // $html = "{";
-        //     foreach($data as $key=>$value)
-        //     {
-               
-        //         $html .= "'".$hihi."' :{";
-        //         $html .= "title: '".$key."',";
-        //         $html .= "schedule :[";
-        //         for($i = 0 ; $i < count($value)-1;$i++)
-        //         {
-        //             $data2 = $this->start_end($value[$i],$value[$i+1]);
-        //             $html .= "{start: '".$data2[0].":00',";
-        //             $html .= "end: '".$data2[1].":00',},";
-        //         } 
-        //         $html .= "]";
-        //         $html .= "},";
-        //         $hihi++;   
-        //     }
-        // $html .= "}";
-        // session()->put(['hihi'=>$html]);
-        // return $html;
-
-        
+     
     }
     public function start_end($a,$b)
     {
@@ -117,6 +104,27 @@ class C_Seat extends Controller
             return $result;
         }
     }
+    public function checkTime(Request $request)
+    {
+        $time_checked = explode(':',$request->time)[0];
+        $date = $request->input('date');
+        $date2 =  strtotime(str_replace('/', '-', $date));
+        $date3 = date('Y-m-d',$date2);
+        $data = DB::table('booktable')->select('time')->where('date','=',$date3)->whereIn('status',['wait','using'])->get();
+        $mang = array();
+        foreach($data as $item)
+        {
+            $item = explode(':',$item->time); 
+            $mang[] = (int)$item[0];
+        }
+            sort($mang);
+        for($i =0; $i < count($mang);$i++)
+        {
+            if($mang[$i]-$time_checked == 1)
+            return "Đã có người đặt sau thời gian này 1h, hoặc thời gian này đã có người đặt, Quý khách nên cân nhắc !";
+        }
+        return 2;
+    }
 
     /**
      * Store a newly created resource in storage.
@@ -126,18 +134,21 @@ class C_Seat extends Controller
      */
     public function store(AddBooktableRequest $request)
     {
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
         $date2 =  strtotime(str_replace('/', '-', $request->input('date')));
         $date3 = date('Y-m-d',$date2);
         $date_now = date('Y-m-d',time());
+        $time = date('H:i',strtotime($request->time));
+        
         if($date3 < $date_now)
             return redirect()->back()->with('error','Ngày đặt nhỏ hơn ngày hiện tại');
         elseif($date3 == $date_now)
         {
-            if($request->time < date('H:i'))
+            if($time < date('H:i'))
             return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại');
         }
         
-        $query = DB::table('booktable')->where('number_seat','=',$request->number_seat)->where('date','=',$request->input('date'))->where('time','=',$request->time)->whereIn('status',['success','wait','using'])->get();
+        $query = DB::table('booktable')->where('number_seat','=',$request->number_seat)->where('date','=',$date3)->where('time','=',$request->time)->whereIn('status',['wait','using'])->get();
         if(count($query)<1)
         {
             $date = $request->input('date');

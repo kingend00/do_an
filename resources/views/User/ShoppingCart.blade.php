@@ -11,7 +11,7 @@
 
 	<div class="container2">
 		@include('Layout.user.error')
-		@if(isset($cart))
+		@if(Cart::count() != 0)
 	<form method="POST" action="{{ route('editCart') }}">
 		{{ csrf_field() }}
 			<table class="table table-hover" id="tbData">
@@ -28,19 +28,22 @@
 					<td>{{ $item->name }}</td>
 					<input type = "hidden" id="Price" value="{{ $item->price }}">
 					<td id="price{{ $item->id }}" value = "{{ $item->price }}">{{ $item->price }}</td>
-					<td>{{ $item->options->description }}</td>
+					<td>{{ nl2br($item->options->description) }}</td>
 					<input type="hidden" name="rowId[]" id="rowId" class="rowId" value="{{ $item->rowId }}">
 					<td><input type="number" value="{{ $item->qty }}" data = "{{ $item->id }}" class="qty" id="qty" name="qty[]" min ="1" max="100" step="1" style='width:100%'></td>
 					<td class="dongtien"><input class="subtotal" type="text" id="total{{$item->id}}" value="{{ $item->qty*$item->price }}" readonly></td>
-					<td><button type="button" class = "btn btn-default delete" name = "delete" data-url = "{{ route("F_menu.destroy",$item->rowId) }}" style="background-color:green">Xóa</button></td>
+					<td><button type="button" class="btn3 flex-c-m size16 txt11 trans-0-4 m-10 delete" name = "delete" data-url = "{{ route("F_menu.destroy",$item->rowId) }}" style = "width:80px;height:40px" >Xóa</button></td>
 				</tr>
 				@endforeach
 				<tr><td colspan="4"><h2>Tổng tất cả</h2></td><td id="Fulltotal"></td></tr>
-				<tr><td><button type="submit" class="btn btn-default" style="background-color:green">Chọn bàn</button></td><td><a href="{{ route('F_menu.index') }}"><button type = "button" class="btn btn-default" style="background-color:green"> Chọn thêm ...</button></a></td></tr>
+				<tr><td><button type="submit" class="btn3 flex-c-m size18 txt11 trans-0-4 m-10">Chọn bàn</button></td><td><a href="{{ route('F_menu.index') }}"><button type = "button" class="btn3 flex-c-m size18 txt11 trans-0-4 m-10"> Thêm sản phẩm...</button></a></td></tr>
 				
 			</table>
 		
-	</form>		
+	</form>	
+	@else
+		<h1>Bạn chưa chọn trước sản phẩm nào !</h1>
+		<a href="{{ route('F_menu.index') }}"><button type = "button" class="btn3 flex-c-m size18 txt11 trans-0-4 m-10"> Chọn sản phẩm</button></a>	
 		@endif
 	
 	</div>
@@ -59,7 +62,8 @@
 						type:'DELETE',
 						url:url,
 						success:function(response){
-							$('.container2').load(' .container2');
+							location.reload();
+							//$('.container2').load(' .container2');
 						},
 						error:function(er){
 							console.log(er);
