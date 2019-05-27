@@ -19,7 +19,7 @@
         <link rel="stylesheet" href="{{URL::asset('public/admin/css/wave/button.css')}}">
     <!-- font awesome CSS font-awesome.min
 		============================================ -->
-    <link rel="stylesheet" href="href="{{ URL::asset('public/admin/css/font-awesome.min.css')}}">
+    <link rel="stylesheet" href="{{ URL::asset('public/admin/css/font-awesome.min.css')}}">
     <!-- owl.carousel CSS
     ============================================ -->
     <link rel="stylesheet" href="{{URL::asset('public/admin/css/jquery.dataTables.min.css')}}">

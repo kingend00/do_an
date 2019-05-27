@@ -27,16 +27,19 @@
     23 => 'Barryvdh\\Debugbar\\ServiceProvider',
     24 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
     25 => 'Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider',
-    26 => 'Laravel\\Tinker\\TinkerServiceProvider',
-    27 => 'Carbon\\Laravel\\ServiceProvider',
-    28 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    29 => 'Barryvdh\\Debugbar\\ServiceProvider',
-    30 => 'Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider',
-    31 => 'Yajra\\DataTables\\DataTablesServiceProvider',
-    32 => 'App\\Providers\\AppServiceProvider',
-    33 => 'App\\Providers\\AuthServiceProvider',
-    34 => 'App\\Providers\\EventServiceProvider',
-    35 => 'App\\Providers\\RouteServiceProvider',
+    26 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    27 => 'Laravel\\Tinker\\TinkerServiceProvider',
+    28 => 'Carbon\\Laravel\\ServiceProvider',
+    29 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    30 => 'Barryvdh\\Debugbar\\ServiceProvider',
+    31 => 'Gloudemans\\Shoppingcart\\ShoppingcartServiceProvider',
+    32 => 'Yajra\\DataTables\\DataTablesServiceProvider',
+    33 => 'Laravel\\Socialite\\SocialiteServiceProvider',
+    34 => 'App\\Providers\\AppServiceProvider',
+    35 => 'App\\Providers\\AuthServiceProvider',
+    36 => 'App\\Providers\\BroadcastServiceProvider',
+    37 => 'App\\Providers\\EventServiceProvider',
+    38 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -60,8 +63,9 @@
     17 => 'Yajra\\DataTables\\DataTablesServiceProvider',
     18 => 'App\\Providers\\AppServiceProvider',
     19 => 'App\\Providers\\AuthServiceProvider',
-    20 => 'App\\Providers\\EventServiceProvider',
-    21 => 'App\\Providers\\RouteServiceProvider',
+    20 => 'App\\Providers\\BroadcastServiceProvider',
+    21 => 'App\\Providers\\EventServiceProvider',
+    22 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (
@@ -163,6 +167,7 @@
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'html' => 'Illuminate\\Html\\HtmlServiceProvider',
     'form' => 'Illuminate\\Html\\HtmlServiceProvider',
+    'Laravel\\Socialite\\Contracts\\Factory' => 'Laravel\\Socialite\\SocialiteServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
   ),
   'when' => 
@@ -204,6 +209,9 @@
     array (
     ),
     'Illuminate\\Html\\HtmlServiceProvider' => 
+    array (
+    ),
+    'Laravel\\Socialite\\SocialiteServiceProvider' => 
     array (
     ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 

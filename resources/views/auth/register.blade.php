@@ -13,7 +13,7 @@
                                 <div class="input-group mg-t-15{{ $errors->has('email') ? ' has-error' : '' }}">
                                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
                                         <div class="nk-int-st">
-                                                <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" placeholder='Email' requiredfocus >
+                                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder='Email' requiredfocus >
         
                                                 @if ($errors->has('email'))
                                                     <span class="help-block">
@@ -68,15 +68,15 @@
                                 
                                 <div class="fm-checkbox">
                 
-                                    <button type="submit" >Đăng kí</button>
+                                    <button class="btn btn-success notika-btn-success" type="submit" >Đăng kí</button>
                                 </div>
     
                                 <a href="#l-register" data-ma-action="nk-login-switch" data-ma-block="#l-register" class="btn btn-login btn-success btn-float"><i class="notika-icon notika-right-arrow right-arrow-ant"></i></a>
                             </div>
                 
                             <div class="nk-navigation nk-lg-ic">
-                                <a href="{{ route('login') }}" data-ma-action="nk-login-switch" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Sign In</span></a>
-                                <a href="#" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Forgot Password</span></a>
+                                <a href="{{ route('login') }}" data-ma-action="nk-login-switch" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Đăng nhập</span></a>
+                                <a href="{{ route('password.request')}}" data-ma-action="nk-login-switch" data-ma-block="#l-forget-password"><i>?</i> <span>Quên mật khẩu</span></a>
                             </div>
                 </form>
             </div>

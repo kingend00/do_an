@@ -10,7 +10,9 @@
         "gloudemans/shoppingcart": "^2.6",
         "illuminate/html": "^5.0",
         "laravel/framework": "5.5.*",
+        "laravel/socialite": "^3.3",
         "laravel/tinker": "~1.0",
+        "pusher/pusher-php-server": "^3.4",
         "yajra/laravel-datatables-oracle": "8.*"
     },
     "require-dev": {

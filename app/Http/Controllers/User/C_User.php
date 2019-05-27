@@ -5,6 +5,7 @@ use DB;
 use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Events\PusherEvent;
 
 class C_User extends Controller
 {
@@ -17,6 +18,13 @@ class C_User extends Controller
        // $data = DB::table('booktable')->join('booktable_details','booktable.booktable_id','=','booktable_details.booktable_id')->where('email','=',Auth::user()->email)->get();
         $point = DB::table('users')->select('point')->where('email','=',Auth::user()->email)->value('point');
         return view('User.Account',compact('query','point'));
+        
+    }
+    public function demoPusher1(){
+        return view("demo-pusher");
+    }
+    public function demoPusher2(){
+        event(new PusherEvent("Hi, I'm Hoàng X. hihi!"));
         
     }
     public function update(Request $request)

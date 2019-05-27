@@ -167,7 +167,7 @@ return [
         Barryvdh\Debugbar\ServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
-
+        Laravel\Socialite\SocialiteServiceProvider::class,
         /*
          * Package Service Providers...
          */
@@ -177,7 +177,7 @@ return [
          */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
+        App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
@@ -234,6 +234,8 @@ return [
         'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        'Pusher' => Pusher\Pusher::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
 
     ],

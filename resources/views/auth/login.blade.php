@@ -10,7 +10,7 @@
                     {{ csrf_field() }}
                    
                     <div class="nk-form">
-                            <div class="input-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <div class="input-group mg-t-15{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
                                 <div class="nk-int-st">
                                         <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
@@ -28,14 +28,18 @@
                                 <label><input type="checkbox" class="i-checks"> <i></i> Keep me signed in</label>
                                 <button type="submit" class="btn btn-success notika-btn-success" >Đăng nhập</button>
                             </div>
+                            <div class="fm-checkbox">
+                                 <a href="{{ route('loginFb','facebook') }}" > Đăng nhập bằng <u>Facebook</u> <i class="fa fa-facebook"></i></a>
+
+                            </div>
 
                             <a href="#l-register" data-ma-action="nk-login-switch" data-ma-block="#l-register" class="btn btn-login btn-success btn-float"><i class="notika-icon notika-right-arrow right-arrow-ant"></i></a>
                         </div>
             
                         <div class="nk-navigation nk-lg-ic">
-                            <a href="{{ route('register') }}" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Register</span></a>
+                            <a href="{{ route('register') }}" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Đăng kí</span></a>
                            
-                             <a href="{{ route('password.request')}}" data-ma-block="#l-forget-password"><i>?</i><span>Forgot Password</span></a>
+                             <a href="{{ route('password.request')}}" data-ma-block="#l-forget-password"><i>?</i><span>Quên mật khẩu</span></a>
                             
                          </div>
             </form>

@@ -37,10 +37,14 @@ Route::get('/test12',function(){
     $ha = date('H:i');
     echo ($hi > $ha);
 });
+Route::get('/redirect/{social}', 'SocialAuth@redirect')->name('loginFb');
+Route::get('/callback/{social}', 'SocialAuth@callback')->name('Fb-redirect');
 
 Route::group(['prefix' => 'F_user'],function(){
     Route::get('/showAccount','User\C_User@showAccount')->name('F_user.showAccount');
     Route::post('/update','User\C_User@update')->name('F_user.update');
+    Route::get('demoPusher1','User\C_User@demoPusher1')->name('pusher1');
+    Route::get('demoPusher2','User\C_User@demoPusher2')->name('pusher2');
 });
 Route::group(['prefix' => 'F_menu'],function(){
     Route::get('/addtoCart/{id}','User\C_Menu@addtoCart')->name('F_menu.addtoCart');
