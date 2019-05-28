@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="logo-area">
-                <a href="{{ route('index') }}"><img src="{{ URL::asset('/public/admin/img/logo/logo.png') }}" alt="" /></a>
+                <a href="{{ route('index') }}"><img src="{{URL::asset('/images/logo/logo1.png')}}" alt="" width="200" height="200" /></a>
                 </div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -78,13 +78,6 @@
                                <div class="nk-int-st">
                                {!! Form::text('Email',Auth::user()->email,['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true','readonly'=>'true']) !!}
                                </div>
-                   </div>
-                   
-                   <div class="form-group ic-cmp-int">
-                           <div class="form-ic-cmp">{!! Form::label('Email','Mật khẩu',['class' => 'control-label']) !!}</div>
-                                   <div class="nk-int-st">
-                                   <input type="password" id="Password" name="Password" value="" class="form-control" placeholder="Muốn cập nhật mật khẩu hãy nhập !!"> 
-                                    </div>
                    </div>
                    
                    <div class="form-group ic-cmp-int">

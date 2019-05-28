@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Events\PusherEvent;
+use Hash;
 
 class C_User extends Controller
 {
@@ -27,6 +28,28 @@ class C_User extends Controller
         event(new PusherEvent("Hi, I'm Hoàng X. hihi!"));
         
     }
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            're_new_pass' => 'required|min:8|same:new_pass',
+            'new_pass' => 'required|min:8',
+            'old_pass' => 'required',
+            'email' => 'required|email'
+
+        ],[],
+        ['re_new_pass'=>'Mật khẩu nhập lại','new_pass'=>'Mật khẩu mới','old_pass' => 'Mật khẩu cũ']);
+        $old_pass = bcrypt($request->input('old_pass'));
+        $user = DB::table('users')->select('password')->where('email','=',$request->email)->value('password');
+        if(!(Hash::check($request->input('old_pass'), $user)))
+        {
+            return "Đéo đúng pass , bấm vớ va vớ vẩn @@";
+        }
+        else {
+            $update = DB::table('users')->where('email','=',$request->email)->update(['password'=>bcrypt($request->input('new_pass'))]);
+            return " Đổi mật khẩu thành công, thằng l";
+        }
+
+    }
     public function update(Request $request)
     {
         $request->validate([
@@ -38,23 +61,11 @@ class C_User extends Controller
         ]);
        if(DB::table('users')->where('user_id','=',$request->Update_Id)->get())
        {
-            if($request->Password == '' || $request->Password == null)
-            {
-                    
                 $data = [
                     'name' => $request->Name,
-                    'address' => $request->Address,
-                    'phone' => $request->Phone
-
-                ];
-            }
-            else {
-                $data = [
-                    'name' => $request->Name,
-                    'password' => bcrypt($request->Password),
                     'address' => $request->Address,
                     'phone' => $request->Phone];
-            }
+            
             $update = DB::table('users')->where('user_id','=',$request->Update_Id)->update($data);
             return redirect()->back()->with('success','Cập nhật tài khoản thành công');
        }

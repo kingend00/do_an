@@ -10,6 +10,7 @@ use Illuminate\Support\Str;
 
 class SocialAccountService
 {
+    public static $check = 0;
     public static function createOrGetUser(ProviderUser $providerUser, $social)
     {
         $account = SocialAccount::whereProvider($social)
@@ -40,9 +41,10 @@ class SocialAccountService
             $account->user()->associate($user);
             $account->save();
             
+            //kiểm tra nếu đăng nhập fb lần đầu , hiện thông báo : đã gửi mật khẩu lần đầu !
+            self::$check = 1;
 
             Mail::send('auth.sendFirstPass', [ 'content' => 'Email : ' . $email.',Mật khẩu lần đầu: '.$random ], function ($message) use ($email) {
-              //  $message->from('hieucaicu@rog.vn', 'Trung Hieu');
                 $message->to($email);
             });
             return $user;

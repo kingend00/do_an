@@ -71,6 +71,7 @@
 	<!-- Welcome -->
 	<section class="section-welcome bg1-pattern p-t-120 p-b-105">
 		<div class="container">
+			<?php echo $__env->make('Layout.user.error', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 			<div class="row">
 				<div class="col-md-6 p-t-45 p-b-30">
 					<div class="wrap-text-welcome t-center">
@@ -126,7 +127,7 @@
 
 							<div class="wrap-text-blo1 p-t-35">
 								<a href="#"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-									Kings of the Party
+									Vua của những bữa tiệc
 								</h4></a>
 
 								<p class="m-b-20">
@@ -134,7 +135,7 @@
 								</p>
 
 								<a href="<?php echo e(route('news')); ?>" class="txt4">
-									Learn More
+									Xem thêm...
 									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 								</a>
 							</div>
@@ -150,7 +151,7 @@
 
 							<div class="wrap-text-blo1 p-t-35">
 								<a href="<?php echo e(route('news')); ?>"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-									Delicious Food
+									Thực đơn mới lạ
 								</h4></a>
 
 								<p class="m-b-20">
@@ -158,7 +159,7 @@
 								</p>
 
 								<a href="<?php echo e(route('news')); ?>" class="txt4">
-									Learn More
+									Xem thêm
 									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 								</a>
 							</div>
@@ -174,7 +175,7 @@
 
 							<div class="wrap-text-blo1 p-t-35">
 								<a href="#"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
-									Red Wines You Love
+									Lãng mạn, đầy màu sắc
 								</h4></a>
 
 								<p class="m-b-20">
@@ -182,7 +183,7 @@
 								</p>
 
 								<a href="<?php echo e(route('news')); ?>" class="txt4">
-									Learn More
+									Xem thêm
 									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 								</a>
 							</div>
@@ -217,7 +218,7 @@
 
 								<!-- Button2 -->
 							<a href="<?php echo e(route('F_menu.index')); ?>/#lunch" class="btn2 flex-c-m txt5 ab-c-m size4">
-									Lunch
+									Bữa trưa
 								</a>
 							</div>
 
@@ -239,7 +240,7 @@
 
 								<!-- Button2 -->
 								<a href="<?php echo e(route('F_menu.index')); ?>/#dinner" class="btn2 flex-c-m txt5 ab-c-m size5">
-									Dinner
+									Bữa tối
 								</a>
 							</div>
 							<div class="col-12">
@@ -248,8 +249,8 @@
 								<img src="<?php echo e(URL::asset('images/background/low1.jpg')); ?>" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="<?php echo e(route('F_menu.index')); ?>/#dessert" class="btn2 flex-c-m txt5 ab-c-m size5">
-									Dessert
+								<a href="<?php echo e(route('F_menu.index')); ?>/#dessert" class="btn2 flex-c-m txt5 ab-c-m size2" style="text-align:center">
+									Tráng miệng
 								</a>
 							</div>
 						</div>
@@ -266,8 +267,8 @@
 								<img src="<?php echo e(URL::asset('images/background/low6.jpg')); ?>" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="<?php echo e(route('F_menu.index')); ?>/#drink" class="btn2 flex-c-m txt5 ab-c-m size7" >
-									Drink
+								<a href="<?php echo e(route('F_menu.index')); ?>/#drink" class="btn2 flex-c-m txt5 ab-c-m size5" style="text-align:center" >
+									Thức uống
 								</a>
 							</div>
 						</div>
@@ -279,7 +280,7 @@
 
 								<!-- Button2 -->
 								<a href="<?php echo e(route('F_menu.index')); ?>/#starters" class="btn2 flex-c-m txt5 ab-c-m size8">
-									Starters
+									Khai vị
 								</a>
 							</div>
 						</div>					
@@ -300,7 +301,7 @@
 							<!-- - -->
 							<div class="title-event t-center m-b-52">
 								<span class="tit2 p-l-15 p-r-15">
-									Upcomming
+									Sản phẩm sắp ra mắt
 								</span>
 
 								<h3 class="tit6 t-center p-l-15 p-r-15 p-t-3">
@@ -314,7 +315,7 @@
 							<a href="<?php echo e(route('news')); ?>" class="wrap-pic-blo2 bg1-blo2" style="background-image: url(./images/background/220.jpg);">
 									<div class="time-event size10 txt6 effect1">
 										<span class="txt-effect1 flex-c-m t-center">
-											08:00 PM Tuesday - 21 November 2018
+											08:00 tối thứ 2 - 21 November 2020
 										</span>
 									</div>
 								</a>
@@ -372,7 +373,7 @@
 									</div>
 
 									<a href="#" class="txt4 m-t-40">
-										View Details
+										Chi tiết
 										<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 									</a>
 								</div>
@@ -387,7 +388,7 @@
 							<!-- - -->
 							<div class="title-event t-center m-b-52">
 								<span class="tit2 p-l-15 p-r-15">
-									Upcomming
+									Sản phẩm sắp ra mắt
 								</span>
 
 								<h3 class="tit6 t-center p-l-15 p-r-15 p-t-3">
@@ -401,7 +402,7 @@
 								<a href="<?php echo e(route('news')); ?>" class="wrap-pic-blo2 bg2-blo2" style="background-image: url(images/event-06.jpg);">
 									<div class="time-event size10 txt6 effect1">
 										<span class="txt-effect1 flex-c-m">
-											08:00 PM Tuesday - 21 November 2018
+											10:00 sáng thứ 7  - 21 November 2019
 										</span>
 									</div>
 								</a>
@@ -459,7 +460,7 @@
 									</div>
 
 									<a href="#" class="txt4 m-t-40">
-										View Details
+										Chi tiết
 										<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 									</a>
 								</div>
@@ -474,7 +475,7 @@
 							<!-- - -->
 							<div class="title-event t-center m-b-52">
 								<span class="tit2 p-l-15 p-r-15">
-									Upcomming
+									Sản phẩm sắp ra mắt
 								</span>
 
 								<h3 class="tit6 t-center p-l-15 p-r-15 p-t-3">
@@ -488,7 +489,7 @@
 								<a href="<?php echo e(route('news')); ?>" class="wrap-pic-blo2 bg3-blo2" style="background-image: url(images/event-01.jpg);">
 									<div class="time-event size10 txt6 effect1">
 										<span class="txt-effect1 flex-c-m">
-											08:00 PM Tuesday - 21 November 2018
+											08:00 tối chủ nhật - 21 November 2020
 										</span>
 									</div>
 								</a>
@@ -546,7 +547,7 @@
 									</div>
 
 									<a href="#" class="txt4 m-t-40">
-										View Details
+										Chi tiết
 										<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 									</a>
 								</div>
@@ -598,7 +599,7 @@
 		<!-- - -->
 		<div class="title-review t-center m-b-2">
 			<span class="tit2 p-l-15 p-r-15">
-				Customers Say
+				Nhận xét của thực khách
 			</span>
 
 			<h3 class="tit8 t-center p-l-20 p-r-15 p-t-3">
@@ -708,7 +709,7 @@
 				</span>
 
 				<h3 class="tit5 t-center m-t-2">
-					The Blog
+					Tin mới
 				</h3>
 			</div>
 
@@ -737,7 +738,7 @@
 							</p>
 
 						<a href="<?php echo e(route('news')); ?>/#<?php echo e($item->news_id); ?>" class="txt4">
-								Continue Reading
+								Đọc thêm
 								<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
 							</a>
 						</div>

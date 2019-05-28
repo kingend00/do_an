@@ -28,7 +28,7 @@
 					<td>{{ $item->name }}</td>
 					<input type = "hidden" id="Price" value="{{ $item->price }}">
 					<td id="price{{ $item->id }}" value = "{{ $item->price }}">{{ $item->price }}</td>
-					<td>{{ nl2br($item->options->description) }}</td>
+					<td>{!! nl2br($item->options->description) !!}</td>
 					<input type="hidden" name="rowId[]" id="rowId" class="rowId" value="{{ $item->rowId }}">
 					<td><input type="number" value="{{ $item->qty }}" data = "{{ $item->id }}" class="qty" id="qty" name="qty[]" min ="1" max="100" step="1" style='width:100%'></td>
 					<td class="dongtien"><input class="subtotal" type="text" id="total{{$item->id}}" value="{{ $item->qty*$item->price }}" readonly></td>

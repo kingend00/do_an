@@ -15,7 +15,12 @@ use Yajra\DataTables\Facades\DataTables;
 Route::get('/', function () {
     return view('User.index');
 })->name('index');
-
+Route::get('/hihi22',function(){
+    $user = DB::table('users')->select('password')->where('email','=','admin@gmail.com')->value('password');
+    $pass = Hash::check('admin1',$user);
+    
+    echo $pass;
+});
 Route::get('/reset',function(){
     return view('auth.passwords.reset');
 });
@@ -23,9 +28,7 @@ Route::get('flush',function(){
     $data = DB::table('booktable')->select('time')->where('date','=','2019-05-26')->whereIn('status',['wait','using'])->get();
     dd($data);
 });
-Route::get('/hihi123',function(){
-    return view('User.testTable');
-});
+
 Route::get('/hihi',function(){
     $date_now = date('Y-m-d',time());
     $date_pick = '2019-05-20';
@@ -43,8 +46,12 @@ Route::get('/callback/{social}', 'SocialAuth@callback')->name('Fb-redirect');
 Route::group(['prefix' => 'F_user'],function(){
     Route::get('/showAccount','User\C_User@showAccount')->name('F_user.showAccount');
     Route::post('/update','User\C_User@update')->name('F_user.update');
+    Route::post('/resetPass','User\C_User@resetPassword')->name('F_user.reset')->middleware('auth');
     Route::get('demoPusher1','User\C_User@demoPusher1')->name('pusher1');
     Route::get('demoPusher2','User\C_User@demoPusher2')->name('pusher2');
+    Route::get('/resetPassword',function(){
+        return view('User.resetPass');
+    })->name('F_user.resetPass')->middleware('auth');
 });
 Route::group(['prefix' => 'F_menu'],function(){
     Route::get('/addtoCart/{id}','User\C_Menu@addtoCart')->name('F_menu.addtoCart');

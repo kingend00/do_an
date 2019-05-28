@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
 		============================================ -->
-        <link rel="shortcut icon" type="./public/admin/image/x-icon" href="{{URL::asset('/images/logo/logo1.png')}}">
+        <link rel="shortcut icon" type="./public/admin/image/x-icon" href="{{URL::asset('/images/logo/logo2.png')}}">
     <!-- Google Fonts
 		============================================ -->
     <link href="{{URL::asset('public/css/font.css') }}" rel="stylesheet">

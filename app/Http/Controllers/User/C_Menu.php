@@ -51,7 +51,7 @@ class C_Menu extends Controller
         $html  = '';
         foreach($combo_details as $item )
         {
-            $html .= $item->Name_menu.' - Số lượng: '.$item->quantity.'/';
+            $html .= $item->Name_menu.' - Số lượng: '.$item->quantity.'<br/>';
         } 
         
         if($combo)

@@ -88,6 +88,9 @@
 															<a href="<?php echo e(route('F_user.showAccount')); ?>">
 																Thông tin tài khoản
 															</a><br>
+															<a href="<?php echo e(route('F_user.resetPass')); ?>">
+																	Đổi mật khẩu
+															</a><br>
 														<?php elseif(Auth::check()&& Auth::user()->roles == 3): ?>
 															<a href="<?php echo e(route('B_booktable.index')); ?>">
 																Xử lý đơn

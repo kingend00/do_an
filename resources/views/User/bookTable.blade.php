@@ -3,6 +3,11 @@
 	Đặt bàn
 @stop
 @section('body')
+<style>
+	.erShow {
+		display:block;
+	}
+</style>
 <section class="section-slide">
 	<div class="wrap-slick1">
 		<div class="slick1">
@@ -39,8 +44,8 @@
 							ĐẶT BÀN
 						</h3>
 					</div>
-					<div id="error">
-						
+					<div id="error" style="display:none;">
+						Xin hãy chọn loại bàn
 					</div> 
 
 				<form class="wrap-form-reservation size22 m-l-r-auto" method = "POST" action = "{{ route('F_seat.store') }}" id = "formTable">
@@ -239,8 +244,10 @@
 				{
 					
 					element.className = "alert alert-danger error-alert";
-					$('#error').html('Xin hãy chọn loại bàn trước !');
-					$('#error').delay(4000).fadeOut(100);
+					$('#error').css('display','block');
+					setTimeout(function(){ 
+						$('#error').css('display','none');
+						}, 3000);
 					
 				}
 			});
