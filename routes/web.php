@@ -75,7 +75,7 @@ Route::get('/About',function(){
     return view('User.About');
 })->name('about');
 
-Route::resources(['F_menu'=>'User\C_Menu','F_seat'=>'User\C_Seat','F_contact'=>'Admin\C_Contact']);
+Route::resources(['F_menu'=>'User\C_Menu','F_seat'=>'User\C_Seat']);
 
 
 Route::group(['middleware'=>['auth','denied_cus_emp']],function(){
@@ -90,6 +90,10 @@ Route::group(['middleware'=>['auth','denied_cus_emp']],function(){
     Route::group(['prefix => B_user'],function(){
         Route::get('/showAccountUser/{role}',['as'=>'B_user.showAccount','uses'=>'Admin\C_User@showAccount']);
         Route::get('/getDataUser/{roles}','Admin\C_User@getData')->name('B_user.getData');
+    });
+    Route::group(['prefix => B_contact'],function(){
+        Route::get('/getDataContact',['as'=>'B_contact.getDataContact','uses'=>'Admin\C_Contact@getDataContact']);
+        
     });
     Route::group(['prefix => B_news'],function(){
         Route::post('/UpdateNews',['as'=>'B_news.UpdateNews','uses'=>'Admin\C_News@UpdateNews']);

@@ -93,7 +93,30 @@
                 <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
                     <div class="header-top-menu">
                         <ul class="nav navbar-nav notika-top-nav">
-                           
+                            <li class="nav-item nc-al"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-alarm"></i></span></a>
+                                <div role="menu" class="dropdown-menu message-dd notification-dd animated zoomIn">
+                                    <div class="hd-mg-tt">
+                                        <h2>Notification</h2>
+                                    </div>
+                                    <div class="hd-message-info">
+                                        <a href="#">
+                                            <div class="hd-message-sn">
+                                                <div class="hd-message-img">
+                                                    <img src="img/post/1.jpg" alt="" />
+                                                </div>
+                                                <div class="hd-mg-ctn">
+                                                    <h3>David Belle</h3>
+                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
+                                                </div>
+                                                
+                                            </div>
+                                        </a> 
+                                                                          
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item"><div class="spinner4 spinner-4" ></div><div class="ntd-ctn" style="color:white"><span class="hihi">2</span></div>
+                            </li>
                             <li class="nav-item">
                                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                                     <!-- Left Side Of Navbar -->
@@ -392,7 +415,7 @@
     <!-- End Footer area-->
     <!-- jquery
         ============================================ -->
-       
+    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>   
     <script type="text/javascript" src="<?php echo e(URL::asset('/public/showTable/createjs.min.js')); ?>"></script>
     <script type="text/javascript" src="<?php echo e(URL::asset('/public/showTable/TimeTable.js')); ?>"></script>
     <script src="<?php echo e(URL::asset('public/admin/js/vendor/jquery-1.12.4.min.js')); ?>"></script>
@@ -481,6 +504,44 @@
 		============================================ -->
    <script type="text/javascript">
        $('div.alert').delay(3000).fadeOut(100);
+   </script>
+   <script>
+      
+        $.ajaxSetup({
+				headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    		    }
+			});
+
+
+        var pusher = new Pusher('4009c42e7cd6daccc27a', {
+                    cluster: 'ap1',
+                    encrypted: true
+                });
+				var notifi = '';
+				var count = 0;
+				$('.hd-message-info').html(localStorage.getItem('notifi'));
+			    $('.hihi').html(localStorage.getItem('count'));
+                //Đăng ký với kênh chanel-demo-real-time mà ta đã tạo trong file DemoPusherEvent.php
+        	var channel = pusher.subscribe('Hoang-channel');
+			channel.bind('App\\Events\\PusherEvent',function(data){
+				$('#tbData').DataTable().ajax.reload();
+				var liTag = "<li class='list-group-item'>"+data.message+"</li>";
+                notifi += liTag;
+                localStorage.setItem('notifi',notifi);
+                $('.hd-message-info').html(localStorage.getItem('notifi'));
+                count = $('.hd-message-info li').length;	               
+                localStorage.setItem('count',count);               
+			    $('.hihi').html(localStorage.getItem('count'));			    							
+                console.log($('.hd-message-info li').length);
+				console.log(data);
+			});
+            
+                
+            
+			
+       
+   
    </script>
   
     

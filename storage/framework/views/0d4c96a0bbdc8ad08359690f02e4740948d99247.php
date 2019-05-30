@@ -30,11 +30,13 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/user/css/util.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/user/css/main.css')); ?>">
+	
 	<script src="<?php echo e(URL::asset('public/js/jquerynew.min.js')); ?>"></script>
 	
 	
 	
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/showTable/TimeTable.css')); ?>">
+	<link rel="stylesheet" href="<?php echo e(URL::asset('public/admin/css/notification/notification.css')); ?>">
 
 	
 <!--===============================================================================================-->
@@ -439,6 +441,8 @@ $('.dropdown').on('hide.bs.dropdown', function(e){
 	<script type="text/javascript" src="<?php echo e(URL::asset('/public/showTable/createjs.min.js')); ?>"></script>
 	<script type="text/javascript" src="<?php echo e(URL::asset('/public/showTable/TimeTable.js')); ?>"></script>
 	
+	<script src="<?php echo e(URL::asset('public/admin/js/notification/bootstrap-growl.min.js')); ?>"></script>
+    <script src="<?php echo e(URL::asset('public/admin/js/notification/notification-active.js')); ?>"></script>
 <!--===============================================================================================-->
 	
 <!--===============================================================================================-->

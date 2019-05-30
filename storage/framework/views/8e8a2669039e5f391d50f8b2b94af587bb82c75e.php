@@ -72,6 +72,9 @@
 	<section class="section-welcome bg1-pattern p-t-120 p-b-105">
 		<div class="container">
 			<?php echo $__env->make('Layout.user.error', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+			<div class="notification-demo">
+				<button type="button" class="btn btn-info waves-effect" data-type="inverse" data-from="top" data-align="center">Top Center</button>
+			</div>
 			<div class="row">
 				<div class="col-md-6 p-t-45 p-b-30">
 					<div class="wrap-text-welcome t-center">
@@ -134,10 +137,7 @@
 									Phasellus lorem enim, luctus ut velit eget, con-vallis egestas eros.
 								</p>
 
-								<a href="<?php echo e(route('news')); ?>" class="txt4">
-									Xem thêm...
-									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-								</a>
+								
 							</div>
 						</div>
 					</div>
@@ -158,10 +158,7 @@
 									Aliquam eget aliquam magna, quis posuere risus ac justo ipsum nibh urna
 								</p>
 
-								<a href="<?php echo e(route('news')); ?>" class="txt4">
-									Xem thêm
-									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-								</a>
+								
 							</div>
 						</div>
 					</div>
@@ -182,10 +179,7 @@
 									Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
 								</p>
 
-								<a href="<?php echo e(route('news')); ?>" class="txt4">
-									Xem thêm
-									<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-								</a>
+								
 							</div>
 						</div>
 					</div>
@@ -218,7 +212,7 @@
 
 								<!-- Button2 -->
 							<a href="<?php echo e(route('F_menu.index')); ?>/#lunch" class="btn2 flex-c-m txt5 ab-c-m size4">
-									Bữa trưa
+									Lunch
 								</a>
 							</div>
 
@@ -240,7 +234,7 @@
 
 								<!-- Button2 -->
 								<a href="<?php echo e(route('F_menu.index')); ?>/#dinner" class="btn2 flex-c-m txt5 ab-c-m size5">
-									Bữa tối
+									Dinner
 								</a>
 							</div>
 							<div class="col-12">
@@ -249,8 +243,8 @@
 								<img src="<?php echo e(URL::asset('images/background/low1.jpg')); ?>" alt="IMG-MENU">
 
 								<!-- Button2 -->
-								<a href="<?php echo e(route('F_menu.index')); ?>/#dessert" class="btn2 flex-c-m txt5 ab-c-m size2" style="text-align:center">
-									Tráng miệng
+								<a href="<?php echo e(route('F_menu.index')); ?>/#dessert" class="btn2 flex-c-m txt5 ab-c-m size5" style="text-align:center">
+									Dessert
 								</a>
 							</div>
 						</div>
@@ -268,7 +262,7 @@
 
 								<!-- Button2 -->
 								<a href="<?php echo e(route('F_menu.index')); ?>/#drink" class="btn2 flex-c-m txt5 ab-c-m size5" style="text-align:center" >
-									Thức uống
+									Drink
 								</a>
 							</div>
 						</div>
@@ -280,7 +274,7 @@
 
 								<!-- Button2 -->
 								<a href="<?php echo e(route('F_menu.index')); ?>/#starters" class="btn2 flex-c-m txt5 ab-c-m size8">
-									Khai vị
+									Starters
 								</a>
 							</div>
 						</div>					

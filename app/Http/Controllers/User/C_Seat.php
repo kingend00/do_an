@@ -9,6 +9,7 @@ use App\Model\M_Seat_Status;
 use Illuminate\Http\Request;
 use App\Http\Requests\AddBooktableRequest;
 use App\Http\Controllers\Controller;
+use App\Events\PusherEvent;
 
 class C_Seat extends Controller
 {
@@ -183,6 +184,8 @@ class C_Seat extends Controller
                 }
             }
             Cart::destroy();
+            $notification = "Đã có hóa đơn bàn ".$request->number_seat;
+            event(new PusherEvent($notification));
             return redirect()->back()->with('success','Đã gửi đi đơn đặt bàn , Quý khách vui lòng chờ trong giây lát... ');
         }
         return redirect()->back()->with('error','Đã có người đặt đơn này , Quý khách vui lòng chọn lại thời gian khác !');

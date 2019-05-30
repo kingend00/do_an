@@ -239,7 +239,7 @@
 					console.log(eror);
 				}
 				});
-				$('#tbData').load(' #tbData');
+				
 			}
 		});
 

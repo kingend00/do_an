@@ -25,7 +25,7 @@ class C_User extends Controller
         return view("demo-pusher");
     }
     public function demoPusher2(){
-        event(new PusherEvent("Hi, I'm Hoàng X. hihi!"));
+        event(new PusherEvent());
         
     }
     public function resetPassword(Request $request)

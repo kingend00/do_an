@@ -19,6 +19,15 @@ class C_Contact extends Controller
         $data = DB::table('feedback')->get();
         return view('Admin.Contact',compact('data'));
     }
+    public function getDataContact()
+    {
+        $contact = DB::table('feedback')->orderBy('type','DESC')->get();
+        return Datatables::of($contact)->addColumn('btn-edit',function($contact){
+            return '<button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalShow" data-url="'.route('B_contact.show',$contact->feedback_id).'"><i class = "glyphicon glyphicon-cog"></i> Xem</button>';
+        })->addColumn('btn-destroy',function($contact){
+            return '<button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="'.route('B_contact.destroy',$contact->feedback_id).'"><i class="notika-icon notika-close"></i> Xóa</button>';
+        })->rawColumns(['btn-edit','btn-destroy'])->make(true);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -44,7 +53,9 @@ class C_Contact extends Controller
             'name'=>'required|string',
             'phone' => 'required|numeric',
             'message' =>'required|max:255'
-        ]);
+        ],
+        [],
+        ['name'=>'Tên khách hàng','phone'=>'Số điện thoại','message' => 'Nội dung']);
         $data = [
             'name' => $request->name,
             'phone' => $request->phone,

@@ -20,9 +20,9 @@ class PusherEvent implements ShouldBroadcast
      * @return void
      */
     public $message;
-    public function __construct($message)
+    public function __construct($mes)
     {
-        $this->message = $message;
+        $this->message = $mes;
     }
 
     /**

@@ -58,6 +58,8 @@
 									</div>
 								</div>
 		</div>
+
+		<button type = "button" id="btnhi">Click</button>
 	</div>
 	
 	<div class="table-responsive">
@@ -304,7 +306,7 @@
 				headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 	    		    }
-			});
+			});		
 			$('#seat').change(function(){
 				$.ajax({
 					type:"POST",

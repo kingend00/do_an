@@ -30,6 +30,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/user/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/user/css/main.css')}}">
+	
 	<script src="{{ URL::asset('public/js/jquerynew.min.js') }}"></script>
 	{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> --}}
 	
@@ -37,6 +38,7 @@
 	<script src="{{ URL::asset('public/showTable/jq.schedule.js') }}"></script>
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/showTable/style.css')}}"> --}}
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/showTable/TimeTable.css')}}">
+	<link rel="stylesheet" href="{{URL::asset('public/admin/css/notification/notification.css')}}">
 
 	
 <!--===============================================================================================-->
@@ -439,6 +441,8 @@ $('.dropdown').on('hide.bs.dropdown', function(e){
 	<script type="text/javascript" src="{{URL::asset('/public/showTable/createjs.min.js')}}"></script>
 	<script type="text/javascript" src="{{URL::asset('/public/showTable/TimeTable.js')}}"></script>
 	
+	<script src="{{URL::asset('public/admin/js/notification/bootstrap-growl.min.js')}}"></script>
+    <script src="{{URL::asset('public/admin/js/notification/notification-active.js')}}"></script>
 <!--===============================================================================================-->
 	{{-- <script type="text/javascript" src="{{URL::asset('/public/user/vendor/jquery/jquery-3.2.1.min.js')}}"></script> --}}
 <!--===============================================================================================-->

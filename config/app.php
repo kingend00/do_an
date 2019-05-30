@@ -168,6 +168,7 @@ return [
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
+        //App\Providers\BroadcastServiceProvider::class,
         /*
          * Package Service Providers...
          */

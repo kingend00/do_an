@@ -9,6 +9,7 @@ use App\Http\Requests\BookTableRequest;
 use App\Http\Requests\B_BooktableAddRequest;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use App\Events\PusherEvent;
 
 class C_Booktable extends Controller
 {
@@ -87,6 +88,10 @@ class C_Booktable extends Controller
         $data = DB::table('booktable')->select('booktable_id','date','time','status','email')->where('booktable_id','=',$id)->get();
         if($data)
             return response()->json(['data'=>$data]);
+    }
+    public function Pusher()
+    {
+        event(new PusherEvent());
     }
     
 

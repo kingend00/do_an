@@ -19,7 +19,7 @@
 </head>
 <body>
         <div class="notification-demo">
-        <a href="" class="btn btn-info waves-effect" data-type="inverse" data-from="top" data-align="center">Top Center</a>
+        <button type="button" class="btn btn-info waves-effect" data-type="inverse" data-from="top" data-align="center">Top Center</button>
         </div>
         <script src="{{URL::asset('public/admin/js/notification/bootstrap-growl.min.js')}}"></script>
         <script src="{{URL::asset('public/admin/js/notification/notification-active.js')}}"></script>

@@ -25,7 +25,7 @@
 				Hãy gửi phản hồi cho chúng tôi !
 			</h3>
 			
-			{!! Form::open(['class' => 'wrap-form-reservation size22 m-l-r-auto','id'=>'form_update','method'=>'POST','route'=>'F_contact.store'])!!}
+			{!! Form::open(['class' => 'wrap-form-reservation size22 m-l-r-auto','id'=>'form_update','method'=>'POST','route'=>'B_contact.store'])!!}
 				<div class="row">
 					<div class="col-md-4">
 						<!-- Name -->
