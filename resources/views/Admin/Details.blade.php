@@ -8,7 +8,7 @@
     <li>
         <?php $data = \App\Model\M_Booktable_Details::where('menu_id',$value->menu_id)->where('booktable_id',$value->booktable_id)->first(); ?>
         Tên món : {{($data->menu[0]->name)}}
-    <li>
+    </li>
     @else
     <li>
         <?php $data = \App\Model\M_Booktable_Details::where('combo_id',$value->combo_id)->where('booktable_id',$value->booktable_id)->first(); ?>

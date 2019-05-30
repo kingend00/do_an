@@ -85,15 +85,10 @@ class C_Booktable extends Controller
      */
     public function show($id)
     {
-        $data = DB::table('booktable')->select('booktable_id','date','time','status','email')->where('booktable_id','=',$id)->get();
+        $data = DB::table('booktable')->select('booktable_id','date','time','status','email','number_seat')->where('booktable_id','=',$id)->get();
         if($data)
             return response()->json(['data'=>$data]);
     }
-    public function Pusher()
-    {
-        event(new PusherEvent());
-    }
-    
 
     /**
      * Show the form for editing the specified resource.
@@ -126,16 +121,26 @@ class C_Booktable extends Controller
      */
     public function update(BookTableRequest $request, $id)
     {
-        $date2 =  strtotime(str_replace('/', '-', $request->input('Update_Date')));
-        $date3 = date('Y-m-d',$date2);
+        
+        $date = date('Y-m-d',strtotime($request->input('Update_Date')));
         $date_now = date('Y-m-d',time());
-        if($date3 < $date_now)
+        if($date < $date_now)
             return redirect()->back()->with('error','Ngày đặt nhỏ hơn ngày hiện tại');
         if($request->input('Update_Time') < date('H:i'))
             return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại');
-            
-        if(count(DB::table('booktable')->where('booktable_id','=',$id)->get())>=1)
+
+
+      
+        if($request->Update_Time != $request->Time_Check)
         {
+            $query = DB::table('booktable')->where('number_seat','=',$request->input('Update_Number_Seat'))->where('date','=',$date)->where('time','=',$request->Time_Check)->whereIn('status',['wait','using'])->get();
+            if(count($query) != 0)
+                return "Thời gian đã bị trùng";
+        }   
+
+        if(count(DB::table('booktable')->where('booktable_id','=',$id)->get())!=0)
+        {           
+             
             $status = $request->input('Update_Status');
             if ($status == 'success') {
                 // Tính số điểm mới
@@ -151,9 +156,9 @@ class C_Booktable extends Controller
                }
    
             }
-            $data = ['date'=>$date3,'time'=>$request->input('Update_Time'),'status'=>$request->input('Update_Status')];
+            $data = ['date'=>$date,'time'=>$request->input('Update_Time'),'status'=>$request->input('Update_Status')];
             $result = DB::table('booktable')->where('booktable_id','=',$id)->update($data);
-            return "Cập nhật thành công";
+            return "true";
         }
         return "Cập nhật thất bại";
         

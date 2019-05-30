@@ -1,6 +1,6 @@
 @if(count($errors) > 0)
-	<div class="notification-demo">
-		<textarea class="alert alert-danger error-alert hihi" data-type="inverse" data-from="top" data-align="center">           
+	<div class="alert alert-danger error-alert">
+		           
 			<h2>Đã có lỗi xảy ra </h2>
 			<ul>
 				@foreach($errors->all() as $error)
@@ -8,7 +8,7 @@
 				@endforeach
 			</ul>
 		  
-		</textarea>
+		
 	</div>
    @endif
 

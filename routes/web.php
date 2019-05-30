@@ -16,10 +16,9 @@ Route::get('/', function () {
     return view('User.index');
 })->name('index');
 Route::get('/hihi22',function(){
-    $user = DB::table('users')->select('password')->where('email','=','admin@gmail.com')->value('password');
-    $pass = Hash::check('admin1',$user);
-    
-    echo $pass;
+    $query = DB::table('booktable')->where('email','=','djbaynocnha69@gmail.com')->orderBy('booktable_id','DESC')->get();
+    dd($query[0]);
+    //return view('User.sendBooktable',compact('data'));
 });
 Route::get('/reset',function(){
     return view('auth.passwords.reset');

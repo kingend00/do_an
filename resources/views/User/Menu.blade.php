@@ -158,7 +158,7 @@
 					type:'GET',
 					url : url,
 					success:function(data){
-						alert(data);
+						Mynotify(data,'info');
 						$('.contentCart').load(' .contentCart');
 					},
 					error:function(error){

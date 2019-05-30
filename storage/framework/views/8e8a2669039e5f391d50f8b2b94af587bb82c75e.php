@@ -72,9 +72,9 @@
 	<section class="section-welcome bg1-pattern p-t-120 p-b-105">
 		<div class="container">
 			<?php echo $__env->make('Layout.user.error', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-			<div class="notification-demo">
-				<button type="button" class="btn btn-info waves-effect" data-type="inverse" data-from="top" data-align="center">Top Center</button>
-			</div>
+			
+				<button type="button" class="btn btn-info waves-effect click" data-type="inverse" data-from="top" data-align="center">Top Center</button>
+			
 			<div class="row">
 				<div class="col-md-6 p-t-45 p-b-30">
 					<div class="wrap-text-welcome t-center">
@@ -757,5 +757,12 @@
 		</button></a>
 		</form>
 	</div>
+	<script>
+		$(document).ready(function(){
+			$('.click').click(function(){
+				Mynotify('hihi đây là notify của tuiii !','success');
+			})
+		});
+	</script>
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('Layout.user.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

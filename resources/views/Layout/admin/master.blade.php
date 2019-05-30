@@ -96,26 +96,17 @@
                             <li class="nav-item nc-al"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><span><i class="notika-icon notika-alarm"></i></span></a>
                                 <div role="menu" class="dropdown-menu message-dd notification-dd animated zoomIn">
                                     <div class="hd-mg-tt">
-                                        <h2>Notification</h2>
+                                        <h2>Thông báo</h2>
                                     </div>
                                     <div class="hd-message-info">
-                                        <a href="#">
-                                            <div class="hd-message-sn">
-                                                <div class="hd-message-img">
-                                                    <img src="img/post/1.jpg" alt="" />
-                                                </div>
-                                                <div class="hd-mg-ctn">
-                                                    <h3>David Belle</h3>
-                                                    <p>Cum sociis natoque penatibus et magnis dis parturient montes</p>
-                                                </div>
-                                                
-                                            </div>
-                                        </a> 
-                                                                          
+                                            <h3>Không có thông báo mới</h3>                    
+                                    </div>
+                                    <div class="hd-mg-va">
+                                            <a href="#" style="font-size:30px" id="seen">Đã xem</a>
                                     </div>
                                 </div>
                             </li>
-                            <li class="nav-item"><div class="spinner4 spinner-4" ></div><div class="ntd-ctn" style="color:white"><span class="hihi">2</span></div>
+                            <li class="nav-item"><div class="spinner4 spinner-4" ></div><div class="ntd-ctn" style="color:white"><span class="hihi">0</span></div>
                             </li>
                             <li class="nav-item">
                                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -496,6 +487,7 @@
     <!-- main JS
 		============================================ -->
     <script src="{{URL::asset('public/admin/js/main.js')}}"></script>
+    <script type="text/javascript" src="{{URL::asset('/public/js/myjs.js')}}"></script>
     
 	<!-- tawk chat JS
 		============================================ -->
@@ -515,27 +507,36 @@
                     cluster: 'ap1',
                     encrypted: true
                 });
-				var notifi = '';
-				var count = 0;
-				$('.hd-message-info').html(localStorage.getItem('notifi'));
-			    $('.hihi').html(localStorage.getItem('count'));
+				
+				
                 //Đăng ký với kênh chanel-demo-real-time mà ta đã tạo trong file DemoPusherEvent.php
         	var channel = pusher.subscribe('Hoang-channel');
 			channel.bind('App\\Events\\PusherEvent',function(data){
-				$('#tbData').DataTable().ajax.reload();
-				var liTag = "<li class='list-group-item'>"+data.message+"</li>";
+                $('#tbData').DataTable().ajax.reload();
+                var notifi = '';
+				var count = 0;
+                var liTag = "<li class='list-group-item'>"+data.message+"</li>";
+                var old_value = (localStorage.getItem('notifi') != null) ? localStorage.getItem('notifi') : '';
                 notifi += liTag;
+                notifi += old_value;            
                 localStorage.setItem('notifi',notifi);
                 $('.hd-message-info').html(localStorage.getItem('notifi'));
                 count = $('.hd-message-info li').length;	               
                 localStorage.setItem('count',count);               
 			    $('.hihi').html(localStorage.getItem('count'));			    							
-                console.log($('.hd-message-info li').length);
-				console.log(data);
+                $('#seen').css('display','block');
 			});
-            
+            $('.hd-message-info').html(localStorage.getItem('notifi'));
+			$('.hihi').html(localStorage.getItem('count'));
                 
-            
+
+            $('#seen').click(function(){
+                localStorage.setItem('count',0); 
+                localStorage.setItem('notifi','');
+                $('.hd-message-info').html('');
+                $('.hihi').html(0);	
+                $('#seen').css('display','none');
+            });
 			
        
    

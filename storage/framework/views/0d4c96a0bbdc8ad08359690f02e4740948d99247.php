@@ -472,5 +472,6 @@ $('.dropdown').on('hide.bs.dropdown', function(e){
 	<script type="text/javascript">
 		$('div.alert').delay(4500).fadeOut(100);
 	</script>
+	<script type="text/javascript" src="<?php echo e(URL::asset('/public/js/myjs.js')); ?>"></script>
 </body>
 </html>

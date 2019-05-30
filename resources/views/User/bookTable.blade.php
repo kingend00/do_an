@@ -48,7 +48,7 @@
 						Xin hãy chọn loại bàn
 					</div> 
 
-				<form class="wrap-form-reservation size22 m-l-r-auto" method = "POST" action = "{{ route('F_seat.store') }}" id = "formTable">
+				<form class="wrap-form-reservation size22 m-l-r-auto" method = "POST" id = "formTable" action="{{ route('F_seat.store') }}">
 					{{ csrf_field() }}
 						<div class="row">
 							<div class="col-md-4">
@@ -180,7 +180,7 @@
 									Số bàn
 								</span>
 
-								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23" id = "number" title="Hãy chọn loại bàn trước khi chọn số"></div>
+								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23" id = "number"  title="Hãy chọn loại bàn trước khi chọn số"></div>
 							</div>
 							
 
@@ -252,6 +252,10 @@
 				}
 			});
 			$('#time').change(function(){
+				ajaxCall();
+			});
+
+			function ajaxCall(){
 				$.ajax({
 					type:"POST",
 					url : "{{ route('F_seat.checktime') }}",
@@ -265,7 +269,7 @@
 						console.log(er);
 					}
 				});
-			});
+			}
 
 			$('#seat').change(function(){
 				var value = $(this).val();
@@ -317,6 +321,32 @@
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
+			
+				
+			// $('#formTable').on('submit',function(e){
+			// 	e.preventDefault();
+			// 	$.ajax({
+			// 		type:'POST',
+			// 		url : "{{ route('F_seat.store') }}",
+			// 		data : $('#formTable').serialize(),
+			// 		success:function(data)
+			// 		{
+			// 			@if(Session::has('error'))
+			// 				Mynotify(data,'danger');
+			// 			@endif
+						
+			// 		},
+			// 		error:function(er)
+			// 		{
+			// 			var error = '';
+			// 			$.each(er,function(key,value){
+			// 				error += key;
+			// 			});
+			// 			Mynotify(er.message,'danger');
+			// 			console.log(er);
+			// 		}
+			// 	});
+			// });
 
 			$('#seat').change(function(){
 				$.ajax({

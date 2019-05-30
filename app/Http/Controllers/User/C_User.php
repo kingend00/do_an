@@ -42,11 +42,11 @@ class C_User extends Controller
         $user = DB::table('users')->select('password')->where('email','=',$request->email)->value('password');
         if(!(Hash::check($request->input('old_pass'), $user)))
         {
-            return "Đéo đúng pass , bấm vớ va vớ vẩn @@";
+            return "Mật khẩu không đúng";
         }
         else {
             $update = DB::table('users')->where('email','=',$request->email)->update(['password'=>bcrypt($request->input('new_pass'))]);
-            return " Đổi mật khẩu thành công, thằng l";
+            return " Đổi mật khẩu thành công";
         }
 
     }

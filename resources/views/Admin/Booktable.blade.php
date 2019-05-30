@@ -59,7 +59,7 @@
 								</div>
 		</div>
 
-		<button type = "button" id="btnhi">Click</button>
+		
 	</div>
 	
 	<div class="table-responsive">
@@ -102,6 +102,10 @@
 							
 							{!! Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
 							{!! Form::hidden('Update_User','',['id' =>'Update_User','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
+							{!! Form::hidden('Update_Number_Seat','',['id' =>'Update_Number_Seat','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
+							{!! Form::hidden('Time_Check','',['id' =>'Time_Check','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
+					
+						
 						</div>
 						<div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
 						
@@ -406,6 +410,8 @@
 					$('#Update_Date').val(response.data[0].date);
 					$('#Update_Time').val(response.data[0].time);
 					$('#Update_User').val(response.data[0].email);
+					$('#Update_Number_Seat').val(response.data[0].number_seat);
+					$('#Time_Check').val(response.data[0].time);
 					$('select').selectpicker('refresh');
 					
 					
@@ -444,9 +450,14 @@
 				url:url,
 				data:$('#form_update').serialize(),							
 				success:function(data){
-					alert('Update thành công');
+					if(data == "true")
+						Mynotify('Cập nhật thành công','success',1800);
+					else
+						Mynotify(data,'danger');
+
 					$('#ModalUpdate').modal('hide');
 					$('#tbData').DataTable().ajax.reload();	
+					console.log(data);
 					
 
 				},

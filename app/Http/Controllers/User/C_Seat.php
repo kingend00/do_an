@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\AddBooktableRequest;
 use App\Http\Controllers\Controller;
 use App\Events\PusherEvent;
+use Mail;
 
 class C_Seat extends Controller
 {
@@ -108,9 +109,7 @@ class C_Seat extends Controller
     public function checkTime(Request $request)
     {
         $time_checked = explode(':',$request->time)[0];
-        $date = $request->input('date');
-        $date2 =  strtotime(str_replace('/', '-', $date));
-        $date3 = date('Y-m-d',$date2);
+        $date3 = date('Y-m-d',strtotime(str_replace('/', '-', $request->input('date'))));
         $data = DB::table('booktable')->select('time')->where('date','=',$date3)->whereIn('status',['wait','using'])->get();
         $mang = array();
         foreach($data as $item)
@@ -140,6 +139,7 @@ class C_Seat extends Controller
         $date3 = date('Y-m-d',$date2);
         $date_now = date('Y-m-d',time());
         $time = date('H:i',strtotime($request->time));
+        $email = $request->input('email');
         
         if($date3 < $date_now)
             return redirect()->back()->with('error','Ngày đặt nhỏ hơn ngày hiện tại');
@@ -186,6 +186,11 @@ class C_Seat extends Controller
             Cart::destroy();
             $notification = "Đã có hóa đơn bàn ".$request->number_seat;
             event(new PusherEvent($notification));
+            $query = DB::table('booktable')->where('email','=',$request->email)->orderBy('booktable_id','DESC')->first();
+
+            Mail::send('User.sendBooktable',['data'=>$query], function ($message) use ($email) {
+                $message->to($email);
+            });
             return redirect()->back()->with('success','Đã gửi đi đơn đặt bàn , Quý khách vui lòng chờ trong giây lát... ');
         }
         return redirect()->back()->with('error','Đã có người đặt đơn này , Quý khách vui lòng chọn lại thời gian khác !');
