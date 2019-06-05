@@ -4,28 +4,15 @@
 @stop
 @section('body')
 	<!-- Title Page -->
-	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/bg-title-page-03.jpg);">
+	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/background/11.jpg);">
 		<h2 class="tit6 t-center">
-			Blog
+			Event
 		</h2>
 	</section>
 
 
 	<!-- Content page -->
 	<section>
-		<div class="bread-crumb bo5-b p-t-17 p-b-17">
-			<div class="container">
-				<a href="index.html" class="txt27">
-					Home
-				</a>
-
-				<span class="txt29 m-l-10 m-r-10">/</span>
-
-				<span class="txt29">
-					News
-				</span>
-			</div>
-		</div>
 		
 		<div class="container">
 			<div class="row">
@@ -136,104 +123,7 @@
 							</ul>
 						</div>
 
-						<!-- Most Popular -->
-						<div class="popular">
-							<h4 class="txt33 p-b-35 p-t-58">
-								Most popular
-							</h4>
-
-							<ul>
-								<li class="flex-w m-b-25">
-									<div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
-										<a href="#">
-											<img src="images/blog-11.jpg" alt="IMG-BLOG">
-										</a>
-									</div>
-
-									<div class="size28">
-										<a href="#" class="dis-block txt28 m-b-8">
-											Best Places for Wine
-										</a>
-
-										<span class="txt14">
-											3 days ago
-										</span>
-									</div>
-								</li>
-
-								<li class="flex-w m-b-25">
-									<div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
-										<a href="#">
-											<img src="images/blog-12.jpg" alt="IMG-BLOG">
-										</a>
-									</div>
-
-									<div class="size28">
-										<a href="#" class="dis-block txt28 m-b-8">
-											Eggs and Cheese
-										</a>
-
-										<span class="txt14">
-											July 2, 2017
-										</span>
-									</div>
-								</li>
-
-								<li class="flex-w m-b-25">
-									<div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
-										<a href="#">
-											<img src="images/blog-13.jpg" alt="IMG-BLOG">
-										</a>
-									</div>
-
-									<div class="size28">
-										<a href="#" class="dis-block txt28 m-b-8">
-											Style the Wedding Party
-										</a>
-
-										<span class="txt14">
-											May 28, 2017
-										</span>
-									</div>
-								</li>
-
-								<li class="flex-w m-b-25">
-									<div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
-										<a href="#">
-											<img src="images/blog-14.jpg" alt="IMG-BLOG">
-										</a>
-									</div>
-
-									<div class="size28">
-										<a href="#" class="dis-block txt28 m-b-8">
-											Cooking recipe Delicious
-										</a>
-
-										<span class="txt14">
-											May 25, 2017
-										</span>
-									</div>
-								</li>
-
-								<li class="flex-w m-b-25">
-									<div class="size16 bo-rad-10 wrap-pic-w of-hidden m-r-18">
-										<a href="#">
-											<img src="images/blog-15.jpg" alt="IMG-BLOG">
-										</a>
-									</div>
-
-									<div class="size28">
-										<a href="#" class="dis-block txt28 m-b-8">
-											Pizza is prepared fresh
-										</a>
-
-										<span class="txt14">
-											May 2, 2017
-										</span>
-									</div>
-								</li>
-							</ul>
-						</div>
+						
 
 
 						<!-- Archive -->

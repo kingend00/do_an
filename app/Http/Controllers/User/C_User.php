@@ -42,11 +42,11 @@ class C_User extends Controller
         $user = DB::table('users')->select('password')->where('email','=',$request->email)->value('password');
         if(!(Hash::check($request->input('old_pass'), $user)))
         {
-            return "Mật khẩu không đúng";
+            return redirect()->back()->with('error','Mật khẩu không đúng');
         }
         else {
             $update = DB::table('users')->where('email','=',$request->email)->update(['password'=>bcrypt($request->input('new_pass'))]);
-            return " Đổi mật khẩu thành công";
+            return redirect()->back()->with('success','Đổi mật khẩu thành công');
         }
 
     }
@@ -59,7 +59,7 @@ class C_User extends Controller
             'Email' => 'required|email'
 
         ]);
-       if(DB::table('users')->where('user_id','=',$request->Update_Id)->get())
+       if(count(DB::table('users')->where('user_id','=',$request->Update_Id)->get()) != 0)
        {
                 $data = [
                     'name' => $request->Name,

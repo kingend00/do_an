@@ -16,8 +16,8 @@ Route::get('/', function () {
     return view('User.index');
 })->name('index');
 Route::get('/hihi22',function(){
-    $query = DB::table('booktable')->where('email','=','djbaynocnha69@gmail.com')->orderBy('booktable_id','DESC')->get();
-    dd($query[0]);
+    $data = DB::table('booktable')->select('time')->where('date','=','2019-05-31')->where('number_seat','=','41')->whereIn('status',['wait','using'])->get();
+    dd($data);
     //return view('User.sendBooktable',compact('data'));
 });
 Route::get('/reset',function(){

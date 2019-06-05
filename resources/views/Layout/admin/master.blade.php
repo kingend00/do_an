@@ -403,7 +403,7 @@
     <!-- End Footer area-->
     <!-- jquery
         ============================================ -->
-    <script src="https://js.pusher.com/4.1/pusher.min.js"></script>   
+    <script src="{{URL::asset('/public/js/pusher.min.js')}}"></script>   
     <script type="text/javascript" src="{{URL::asset('/public/showTable/createjs.min.js')}}"></script>
     <script type="text/javascript" src="{{URL::asset('/public/showTable/TimeTable.js')}}"></script>
     <script src="{{URL::asset('public/admin/js/vendor/jquery-1.12.4.min.js')}}"></script>

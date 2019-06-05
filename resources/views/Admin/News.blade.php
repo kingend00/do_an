@@ -184,7 +184,7 @@
 				//data:{id:id},
 				
 				success:function(response){
-					alert(response);
+					Mynotify(response,'success');
 					$('#tbData').DataTable().ajax.reload();	
 
 				},

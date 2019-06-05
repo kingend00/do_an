@@ -30,7 +30,7 @@
 			<th>Loại món</th>
 			<th>Ảnh hiển thị</th>
 			<th>Sửa</th>
-			<th>Xóa</th>
+			
 		</tr>
 		</thead>
 		
@@ -191,7 +191,7 @@
 					{data:'category_name'},
 					{data:'image'},
 					{data:'btn-edit'},
-					{data:'btn-destroy'}
+					
 					
 				]
 			});
@@ -231,7 +231,7 @@
 				//data:{id:id},
 				dataType:'html',
 				success:function(response){
-					alert(response);
+					Mynotify(response,'success');
 					$('#tbData').DataTable().ajax.reload();	
 
 				},

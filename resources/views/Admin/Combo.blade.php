@@ -308,7 +308,7 @@
 				//data:{id:id},
 				dataType:'html',
 				success:function(response){
-					alert(response);
+					Mynotify(response,'success');
 					$('#tbData').DataTable().ajax.reload();	
 
 				},

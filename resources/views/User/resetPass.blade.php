@@ -62,6 +62,7 @@
     </div>
 <div class="login-content" style="margin-top:-100px;padding-right:200px">
     <div class="nk-block toggled" id="l-login">
+        @include('user.error')
             <form  method="POST" action="{{ route('F_user.reset') }}">
                     {{ csrf_field() }}
                     <div class="nk-form">

@@ -943,7 +943,7 @@ class TimeTable{    // eslint-disable-line no-unused-vars
         // id for find
         const INDEX = this.c.getIndex(this.v.shiftTime);
         // Column of Header
-        base.find("#theader").prepend("<th>NAME</th>");
+        base.find("#theader").prepend("<th>Số bàn - Thời gian</th>");
         // Column of Data
         for(let i = 0; i < NAMES.length; i ++){
             let td = base.find(`#${INDEX[i]}`);
@@ -995,7 +995,7 @@ class TimeTable{    // eslint-disable-line no-unused-vars
     setWorkTimeColumn(){
         let header = this.table.find("#theader");
         $(this.v.selector).append(this.table);
-        header.append("<th>Total</th>");
+        header.append("<th>Số giờ</th>");
         let tbody = this.table.find(".js-tdata");
         tbody.each((i,elem)=>{
             let target = "";

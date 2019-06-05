@@ -12,8 +12,8 @@
 						RogTeam Place
 					</span>
 
-						<h2 style="color:gray" class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
-							Thực đơn
+						<h2 style="color:yellow" class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
+							Menu
 						</h2>
 				</div>
 			</div>
@@ -44,9 +44,15 @@
 							@foreach ($value as $element)
 								<div class="col-md-6">
 								<div class="blo3 flex-w flex-col-l-sm m-b-30">
-									<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-										<a href="#"><img src="{{ URL::asset('images/food/'.$element->image)}}" alt="IMG-MENU"></a>
-									</div>
+									@if($key == "drink")
+										<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
+											<a href="#"><img src="{{ URL::asset('images/Drink/'.$element->image)}}" alt="IMG-MENU"></a>
+										</div>
+									@else
+										<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28" style="line-height:100px">
+											<a href="#"><img src="{{ URL::asset('images/food/'.$element->image)}}" alt="IMG-MENU"></a>
+										</div>
+									@endif
 
 									<div class="text-blo3 size21 flex-col-l-m">
 										<a href="#" class="txt21 m-b-3">
@@ -64,7 +70,7 @@
 									</div>
 									
 									<div class="text-blo3 size21 flex-col-l-m">
-									<button class="btn3 flex-c-m size18 txt11 trans-0-4 m-10 btnChecked" data-url="{{ route('F_menu.addtoCart',$element->menu_id) }}"> Checked</button>
+									<button class="btn3 flex-c-m size18 txt11 trans-0-4 m-10 btnChecked" data-url="{{ route('F_menu.addtoCart',$element->menu_id) }}"> Chọn</button>
 									</div>
 									
 								</div>
@@ -87,8 +93,8 @@
 					@foreach (\App\Model\M_Combo::all() as $element)										
 						<div class="col-md-6">
 						<div class="blo3 flex-w flex-col-l-sm m-b-30">
-							<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28">
-								<a href="#"><img src="{{ URL::asset('images/background/'.$element->image)}}" alt="IMG-MENU"></a>
+							<div class="pic-blo3 size20 bo-rad-10 hov-img-zoom m-r-28" style="line-height:100px">
+								<a href="#"><img src="{{ URL::asset('images/Combo/'.$element->image)}}" alt="IMG-MENU"></a>
 							</div>
 
 							<div class="text-blo3 size21 flex-col-l-m">
@@ -119,7 +125,7 @@
 							</div>
 							
 							<div class="text-blo3 size21 flex-col-l-m">
-							<button class="btn3 flex-c-m size18 txt11 trans-0-4 m-10 btnChecked" data-url="{{ route('F_menu.addComboToCart',$element->combo_id) }}"> Checked</button>
+							<button class="btn3 flex-c-m size18 txt11 trans-0-4 m-10 btnChecked" data-url="{{ route('F_menu.addComboToCart',$element->combo_id) }}"> Chọn</button>
 							</div>
 							
 						</div>

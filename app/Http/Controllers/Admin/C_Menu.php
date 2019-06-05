@@ -38,8 +38,6 @@ class C_Menu extends Controller
             $menu = DB::table('menu')->join('category','menu.category_id','=','category.category_id')->select('menu.*','category.name as category_name')->where('menu.category_id','=',$category_id)->get();
             return Datatables::of($menu)->addColumn('btn-edit',function($menu){
                 return '<button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalUpdate" data-url="'.route('B_menu.show',$menu->menu_id).'"><i class = "glyphicon glyphicon-cog"></i> Sửa</button>';
-            })->addColumn('btn-destroy',function($menu){
-                return '<button type="button" class="btn btn-danger danger-icon-notika btn-destroy" data-url="'.route('B_menu.destroy',$menu->menu_id).'"><i class="notika-icon notika-close"></i> Xóa</button>';
             })->addColumn('image',function($menu){
                     return '<img src="../images/food/'.$menu->image.'" width = 70px height = 70px >';})
                         

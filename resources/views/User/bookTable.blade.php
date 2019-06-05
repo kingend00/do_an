@@ -18,7 +18,7 @@
 					</span>
 
 						<h2 class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
-							Đặt bàn
+							Book Bàn
 						</h2>
 				</div>
 			</div>
@@ -41,14 +41,14 @@
 						</span>
 
 						<h3 class="tit3 t-center m-b-35 m-t-2">
-							ĐẶT BÀN
+							Book Bàn
 						</h3>
 					</div>
 					<div id="error" style="display:none;">
 						Xin hãy chọn loại bàn
 					</div> 
 
-				<form class="wrap-form-reservation size22 m-l-r-auto" method = "POST" id = "formTable" action="{{ route('F_seat.store') }}">
+				<form class="wrap-form-reservation size22 m-l-r-auto" method = "POST" id = "formTable">
 					{{ csrf_field() }}
 						<div class="row">
 							<div class="col-md-4">
@@ -58,7 +58,7 @@
 								</span>
 
 								<div class="wrap-inputdate pos-relative txt10 size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<input class="my-calendar bo-rad-10 sizefull txt10 p-l-20" type="text" name="date" data-date-format = 'yy-mm-dd'>
+									<input class="my-calendar bo-rad-10 sizefull txt10 p-l-20" type="text" id="date" name="date" data-date-format = 'yy-mm-dd' readonly>
 									<i class="btn-calendar fa fa-calendar ab-r-m hov-pointer m-r-18" aria-hidden="true"></i>
 								</div>
 							</div>
@@ -72,28 +72,29 @@
 								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<!-- Select2 -->
 									<select class="selection-1" name="time" id="time" class="time">
-										<option>10:00</option>
+										<option id ="10">Chọn giờ</option>
+										<option id ="10">10:00</option>
 										
-										<option>11:00</option>
+										<option id ="11">11:00</option>
 										
-										<option>12:00</option>
+										<option id ="12">12:00</option>
 										
-										<option>13:00</option>
+										<option id ="13">13:00</option>
 										
-										<option>14:00</option>
+										<option id ="14">14:00</option>
 										
-										<option>15:00</option>
+										<option id ="15">15:00</option>
 										
-										<option>16:00</option>
+										<option id ="16">16:00</option>
 										
-										<option>17:00</option>
+										<option id ="17">17:00</option>
 										
-										<option>18:00</option>
+										<option id ="18">18:00</option>
 										
-										<option>19:00</option>
+										<option id ="19">19:00</option>
 
-										<option>20:00</option>
-
+										<option id ="20">20:00</option>
+										<option id ="21">21:00</option>
 									</select>
 								</div>
 							</div>
@@ -109,7 +110,7 @@
 									<select class="selection-1" name="seat" id="seat">
 										
 										@if(isset($val))
-											<option>Chọn loại bàn</option>
+											<option value = "false">Chọn loại bàn</option>
 											@foreach($val as $seat)
 												<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
 											@endforeach
@@ -186,9 +187,9 @@
 
 						</div>
 
-						<div class="wrap-btn-booking flex-c-m m-t-6">
+						<div class="wrap-btn-booking flex-c-m m-t-6" id="divSubmit">
 							<!-- Button3 -->
-							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4">
+							<button type="submit" class="btn3 flex-c-m size13 txt11 trans-0-4" id="btnSubmit">
 								Đặt bàn
 							</button>
 						</div>
@@ -199,28 +200,25 @@
 			<div class="info-reservation flex-w p-t-80">
 				<div class="size23 w-full-md p-t-40 p-r-30 p-r-0-md">
 					<h4 class="txt5 m-b-18">
-						Reserve by Phone
+						Liên hệ chúng tôi nếu có thắc mắc
 					</h4>
 
 					<p class="size25">
-						Donec quis euismod purus. Donec feugiat ligula rhoncus, varius nisl sed, tincidunt lectus.
-						<span class="txt25">Nulla vulputate</span>
-						, lectus vel volutpat efficitur, orci
-						<span class="txt25">lacus sodales</span>
-						 sem, sit amet quam:
-						<span class="txt24">(001) 345 6889</span>
+						Giải đáp bất cứ thắc mắc nào của quý khách, chỉ cần gọi cho chúng tôi
+						
+						<span class="txt24">+84 233 345 6889</span>
 					</p>
 				</div>
 
 				<div class="size24 w-full-md p-t-40">
 					<h4 class="txt5 m-b-18">
-						For Event Booking
+						Đối với việc đặt sự kiện
 					</h4>
 
 					<p class="size26">
-						Donec feugiat ligula rhoncus:
-						<span class="txt24">(001) 345 6889</span>
-						, varius nisl sed, tinci-dunt lectus sodales sem.
+						Liên hệ theo số điện thoại này
+						<span class="txt24">+84 233 345 6889</span>
+						, chúng tôi sẽ phản hồi lại 
 					</p>
 				</div>
 
@@ -237,6 +235,23 @@
 			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 				}
 			});
+			
+			
+			DisableTime();
+			function DisableTime()
+			{
+				var value = $('#seat').val();
+				if(value == 'false')
+				document.getElementById('time').disabled = true;
+				
+				
+				
+			};
+
+		//	document.getElementById('#divSubmit').disabled = true;
+
+
+			
 			$(document).on('click','#number',function(){
 				var html = $('#number').html();
 				var element = document.getElementById("error");
@@ -251,10 +266,38 @@
 					
 				}
 			});
-			$('#time').change(function(){
+			$('#time').click(function(){				
+					//Mynotify('Mời quý khách chọn loại bàn trước khi chọn giờ !','info');
+					alert('hihi');				
+			});
+			$(document).on('change','#time',function(){
+				
+				ajaxCall();
+				// var currentDate = new Date();
+				// var date = currentDate.getHours();
+				// var hi = $(this).val();
+				// var value = hi.split(':')[0];
+				// $('#time option').each(function(key,value){
+				// 	var hihi = value.value.split(':')[0];
+					
+				// 		hihi = String(hihi);
+				// 		document.getElementById(hihi).disabled = true;
+					
+						
+				// });
+				
+				//if(date < '10:00')
+					//alert(value);
+				var value2 = $('#time').val();
+				if(value2 == "21:00")
+					Mynotify('Nhà hàng chỉ mở cửa đến 22h, nếu vẫn muốn đặt, hãy tiếp tục !','warning',4200);
+
+			});
+			$(document).on('change','#number_seat',function(){
 				ajaxCall();
 			});
 
+			// Kiểm tra tính hợp lệ của thời gian
 			function ajaxCall(){
 				$.ajax({
 					type:"POST",
@@ -273,7 +316,10 @@
 
 			$('#seat').change(function(){
 				var value = $(this).val();
-				
+				if(value != 'false')
+					document.getElementById('time').disabled = false;
+				else
+					document.getElementById('time').disabled = true;
 				$.ajax({
 					type:"GET",
 					url:'F_seat/'+value,
@@ -281,6 +327,7 @@
 					success:function(res){
 						var html = '';
 						html += "<select name = 'number_seat' id = 'number_seat' class = 'number_seat'>";
+						html += "<option>Chọn số bàn </option>";
 						$.each(res,function(key,value){
 							$.each(value,function(number2,type){
 								$.each(type,function(key2,value2){
@@ -323,32 +370,45 @@
 			});
 			
 				
-			// $('#formTable').on('submit',function(e){
-			// 	e.preventDefault();
-			// 	$.ajax({
-			// 		type:'POST',
-			// 		url : "{{ route('F_seat.store') }}",
-			// 		data : $('#formTable').serialize(),
-			// 		success:function(data)
-			// 		{
-			// 			@if(Session::has('error'))
-			// 				Mynotify(data,'danger');
-			// 			@endif
-						
-			// 		},
-			// 		error:function(er)
-			// 		{
-			// 			var error = '';
-			// 			$.each(er,function(key,value){
-			// 				error += key;
-			// 			});
-			// 			Mynotify(er.message,'danger');
-			// 			console.log(er);
-			// 		}
-			// 	});
-			// });
+			$('#formTable').on('submit',function(e){
+				e.preventDefault();
+				$.ajax({
+					type:'POST',
+					url : "{{ route('F_seat.store') }}",
+					data : $('#formTable').serialize(),
+					success:function(data)
+					{
+						if(data != "true")
+							Mynotify('Quý khách đã đặt bàn thành công, xin hãy đợi trong giây lát, chúng tôi phản hồi lại','success',3000);
+						else
+							Mynotify(data,'danger',4200);
+					},
+					error:function(er)
+					{
+						var errors = er.responseJSON;
+						var errorShow = '';
+						$.each(errors.errors,function(key,value){
+							errorShow += value+"<br>";
+						});
+						Mynotify(errorShow,'danger',4200);
+						console.log(errorShow);
+					}
+				});
+			});
 
 			$('#seat').change(function(){
+				ajaxLoadTable();
+
+			});
+			$('#date').change(function(){
+				var value  = $('#seat').val();
+				if(value != "false")
+					ajaxLoadTable();
+			});
+
+			// kiểm tra dữ liệu đầu vào cho việc show Bàn bận
+			function ajaxLoadTable()
+			{
 				$.ajax({
 					type:"POST",
 					url : "{{ route('F_seat.showTime_Seat') }}",
@@ -358,46 +418,55 @@
 					{
 						$('#test').html(null);
 
-								console.log(data);
-								let shiftObj = JSON.parse(data);
-								console.log(shiftObj);
+								//console.log(data);
+								if(data == "false")
+									Mynotify('Hãy chọn loại bàn','danger');
+								else
+								{
+											let shiftObj = JSON.parse(data);
+										//console.log(shiftObj);
 
 
 
-								var instance = new TimeTable({
+										var instance = new TimeTable({
 
-									// Beginning Time
-									startTime: "10:00",
+											// Beginning Time
+											startTime: "10:00",
 
-									// Ending Time
-									endTime: "22:00",
+											// Ending Time
+											endTime: "22:00",
 
-									// Time to divide(minute)
-									divTime: "30",
+											// Time to divide(minute)
+											divTime: "30",
 
-									// Time Table
-									shift: shiftObj,
+											// Time Table
+											shift: shiftObj,
+											addFirstColumn: "HIHI",
 
-									// Other options
-									option: {
+											// Other options
+											option: {
+											
 
-									// workTime include time not displaying
-									workTime: true,
+											// workTime include time not displaying
+											workTime: true,
 
-									// bg color
-									bgcolor: ["#00FFFF"],
+											// bg color
+											bgcolor: ["#00FFFF"],
+											//useBootstrap: true,
+											
+											//{index :  name, : index: name,,..}
+											// selectBox index and shift index should be same
+											// Give randome if shift index was not in selectBox index
+											
+											}
 
-									// {index :  name, : index: name,,..}
-									// selectBox index and shift index should be same
-									// Give randome if shift index was not in selectBox index
-									
-									}
-
-									});
-									instance.init("#test");
-							$('html, body').animate({
-							scrollTop: $("#toptable").offset().top
-						}, 0);
+											});
+											instance.init("#test");
+										$('html, body').animate({
+										scrollTop: $("#toptable").offset().top
+										}, 0);
+								}
+								
 							
 						
 					},
@@ -407,8 +476,7 @@
 					}
 
 				});
-
-			});
+			}
 							
 				// jQuery("#schedule").timeSchedule({
 				// 			rows : {

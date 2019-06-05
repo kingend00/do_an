@@ -182,7 +182,7 @@
 				success:function(data){
 
 						$('#ModalUpdate').modal('hide');
-						alert('Reset Password thành công');
+						Mynotify('Reset Password thành công','success');
 						$('#tbData').DataTable().ajax.reload();	
 				},
 				error:function(er){

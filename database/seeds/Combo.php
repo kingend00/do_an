@@ -15,10 +15,10 @@ class Combo extends Seeder
         DB::table('combo')->truncate();
         DB::table('combo_details')->truncate();
         $combos = [
-            ['gói mùa hè',10,'20 người','slow6.jpg',2500000],
-            ['gói mùa đông',8,'18 người','slow7.jpg',2000000],
-            ['gói mùa hạ',10,'20 người','slow5.jpg',1800000],
-            ['gói mùa xuân',12,'22 người','slow8.jpg',5500000]
+            ['gói mùa hè',10,'20 người','c.jpeg',2500000],
+            ['gói mùa đông',8,'18 người','1323.png',2000000],
+            ['gói mùa hạ',10,'20 người','hiuhi123.jpg',1800000],
+            ['gói mùa xuân',12,'22 người','c.jpg',5500000]
 
 
         ];

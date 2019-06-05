@@ -26,7 +26,7 @@ function Mynotify(message ='',type,delay=2500){
                     exit: 'animated bounceOutLeft',
             },
             icon_type: 'class',
-            template: '<div data-growl="container" class="alert" role="alert" style = "color:black;height:100px;line-height:100px;font-size:17px">' +
+            template: '<div data-growl="container" class="alert set_height_important" role="alert" style = "line-height: 100px; color:black;font-size:17px">' +
                             '<button type="button" class="close" data-growl="dismiss">' +
                                 '<span aria-hidden="true">&times;</span>' +
                                 '<span class="sr-only">Close</span>' +

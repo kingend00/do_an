@@ -9,7 +9,7 @@
 
 		
 		<fieldset class="form-group">
-			<legend><b>Xem thời gian</b></legend>
+			<legend  style="width:auto;border:1px" ><b>Xem các bàn đã được đặt</b></legend>
 				<form action="" method="POST" id="form">
 						<div class="col-sm-2"></div>
 						<div class="col-sm-3">
@@ -119,6 +119,7 @@
 								{!! Form::label('hihi','Thời gian đặt',['class' => 'control-label']) !!}
 								
                                     <select id = "Update_Time" name = "Update_Time">
+											<option>Chọn giờ</option>
 											<option>10:00</option>
 										
 											<option>11:00</option>
@@ -244,6 +245,7 @@
 										<option>19:00</option>
 
 										<option>20:00</option>
+										<option>21:00</option>
 
 										
 						</select>		
@@ -391,7 +393,14 @@
 					{data:'btn-details'}
 				]
 			}).order( [ 0, 'desc' ] )
-   			 .draw();
+				.draw();
+			
+				$(document).on('change','#Time',function(){
+					var value2 = $('#Time').val();
+				if(value2 == "21:00")
+					alert('Cửa hàng chỉ mở cửa đến 22h, Chú ý duyệt bàn !');
+
+				});
 
 
 
@@ -439,6 +448,7 @@
 			});
 			
 		});
+
 
 		//var url2 = $('.btn-edit').attr('data-url');
 		$('#form_update').on('submit',function(e){

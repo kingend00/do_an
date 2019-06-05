@@ -215,7 +215,7 @@
 				//data:{id:id},
 				dataType:'html',
 				success:function(response){
-					alert(response);
+					Mynotify(response,'success');
 					$('#tbData').DataTable().ajax.reload();	
 
 				},
@@ -239,9 +239,9 @@
 				
 				success:function(data){
 					console.log(data);
-
+					Mynotify('Cập nhật thành công','success');
 					$('#ModalUpdate').modal('hide');
-					alert('Thành công');
+					
 					$('#tbData').DataTable().ajax.reload();	
 					//
 					

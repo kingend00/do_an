@@ -51,7 +51,8 @@ class C_Seat extends Controller
         $date2 =  strtotime(str_replace('/', '-', $date));
         $date3 = date('Y-m-d',$date2);
         $data_seat = DB::table('seat')->select('number_seat')->where('type',$seat)->get();
-        
+        if(count($data_seat) < 1)
+            return "false";
         
         $new = array();
         for($i = 0;$i < count($data_seat);$i++)
@@ -76,17 +77,13 @@ class C_Seat extends Controller
                     
                 }
 
-                $data[$data_seat[$i]->number_seat] = $datanew;
+                $data["Bàn ".$data_seat[$i]->number_seat] = $datanew;
                 $new[$i] = $data;
            }
            else {
-                $data[$data_seat[$i]->number_seat] = array([1=>"00:00-00:00"]);
+                $data["Bàn ".$data_seat[$i]->number_seat] = array([1=>"00:00-00:00"]);
                 $new[$i] = $data;
-           }
-
-           
-           
-           
+           }          
         }
          
 
@@ -110,7 +107,7 @@ class C_Seat extends Controller
     {
         $time_checked = explode(':',$request->time)[0];
         $date3 = date('Y-m-d',strtotime(str_replace('/', '-', $request->input('date'))));
-        $data = DB::table('booktable')->select('time')->where('date','=',$date3)->whereIn('status',['wait','using'])->get();
+        $data = DB::table('booktable')->select('time')->where('date','=',$date3)->where('number_seat','=',$request->number_seat)->whereIn('status',['wait','using'])->get();
         $mang = array();
         foreach($data as $item)
         {
@@ -142,13 +139,22 @@ class C_Seat extends Controller
         $email = $request->input('email');
         
         if($date3 < $date_now)
-            return redirect()->back()->with('error','Ngày đặt nhỏ hơn ngày hiện tại');
+            return 'Ngày đặt nhỏ hơn ngày hiện tại';
         elseif($date3 == $date_now)
         {
             if($time < date('H:i'))
-            return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại');
+            return 'Thời gian đặt nhỏ hơn thời gian hiện tại';
         }
-        
+
+        $time_time = explode(':',$request->time)[0];
+        $time_time = (int)$time_time;
+        $time_time1 = ($time_time-1).":00";
+        //$time_time2 = ($time_time+2).":00";
+
+        if(count( DB::table('booktable')->where('date',$date3)->where('number_seat',$request->number_seat)->where('time',$time_time1)->whereIn('status',['wait','using'])->get()) != 0)
+        {
+            return 'Thời gian đặt bị trùng ,quý khách vui lòng xem lại biểu đồ thời gian';
+        }
         $query = DB::table('booktable')->where('number_seat','=',$request->number_seat)->where('date','=',$date3)->where('time','=',$request->time)->whereIn('status',['wait','using'])->get();
         if(count($query)<1)
         {
@@ -191,9 +197,9 @@ class C_Seat extends Controller
             Mail::send('User.sendBooktable',['data'=>$query], function ($message) use ($email) {
                 $message->to($email);
             });
-            return redirect()->back()->with('success','Đã gửi đi đơn đặt bàn , Quý khách vui lòng chờ trong giây lát... ');
+            return 'true';
         }
-        return redirect()->back()->with('error','Đã có người đặt đơn này , Quý khách vui lòng chọn lại thời gian khác !');
+        return 'Đã có người đặt đơn này , Quý khách vui lòng chọn lại thời gian khác !';
 
 
     }
@@ -209,7 +215,7 @@ class C_Seat extends Controller
     public function show($id)
     {
         $data = DB::table('seat')->select('number_seat')->where('type','=',$id)->get();
-        if ($data) {
+        if (count($data) != 0) {
             return response()->json(['data'=>$data]);
         }
     }
