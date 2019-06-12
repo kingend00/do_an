@@ -78,6 +78,7 @@
     <script src="{{URL::asset('public/admin/js/vendor/modernizr-2.8.3.min.js')}}"></script>
     <script src="{{ URL::asset('public/js/jquerynew.min.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{URL::asset('/public/showTable/TimeTable.css')}}">
+    <script src="{{URL::asset('/public/js/pusher.min.js')}}"></script>   
     
 </head>
 <body>
@@ -210,22 +211,7 @@
                                     </ul>
                                 </li>
                                
-                                <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages</a>
-                                    <ul id="Pagemob" class="collapse dropdown-header-top">
-                                        <li><a href="contact.html">Contact</a>
-                                        </li>
-                                        <li><a href="invoice.html">Invoice</a>
-                                        </li>
-                                        <li><a href="typography.html">Typography</a>
-                                        </li>
-                                        <li><a href="color.html">Color</a>
-                                        </li>
-                                        <li><a href="login-register.html">Login Register</a>
-                                        </li>
-                                        <li><a href="404.html">404 Page</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                               
                             </ul>
                         </nav>
                     </div>
@@ -256,8 +242,7 @@
                         </li>
                         <li><a data-toggle="tab" href="#Forms"><i class="notika-icon notika-form"></i> Khác </a>
                         </li>               
-                        <li><a data-toggle="tab" href="#Page"><i class="notika-icon notika-support"></i> Pages</a>
-                        </li>
+                        
                             
                         @endif
                     </ul>
@@ -403,7 +388,7 @@
     <!-- End Footer area-->
     <!-- jquery
         ============================================ -->
-    <script src="{{URL::asset('/public/js/pusher.min.js')}}"></script>   
+    
     <script type="text/javascript" src="{{URL::asset('/public/showTable/createjs.min.js')}}"></script>
     <script type="text/javascript" src="{{URL::asset('/public/showTable/TimeTable.js')}}"></script>
     <script src="{{URL::asset('public/admin/js/vendor/jquery-1.12.4.min.js')}}"></script>
@@ -513,18 +498,22 @@
         	var channel = pusher.subscribe('Hoang-channel');
 			channel.bind('App\\Events\\PusherEvent',function(data){
                 $('#tbData').DataTable().ajax.reload();
-                var notifi = '';
-				var count = 0;
-                var liTag = "<li class='list-group-item'>"+data.message+"</li>";
-                var old_value = (localStorage.getItem('notifi') != null) ? localStorage.getItem('notifi') : '';
-                notifi += liTag;
-                notifi += old_value;            
-                localStorage.setItem('notifi',notifi);
-                $('.hd-message-info').html(localStorage.getItem('notifi'));
-                count = $('.hd-message-info li').length;	               
-                localStorage.setItem('count',count);               
-			    $('.hihi').html(localStorage.getItem('count'));			    							
-                $('#seen').css('display','block');
+                ajaxLoadTable();
+                if(data.message != 'false')
+                {
+                    var notifi = '';
+                    var count = 0;
+                    var liTag = "<li class='list-group-item'>"+data.message+"</li>";
+                    var old_value = (localStorage.getItem('notifi') != null) ? localStorage.getItem('notifi') : '';
+                    notifi += liTag;
+                    notifi += old_value;            
+                    localStorage.setItem('notifi',notifi);
+                    $('.hd-message-info').html(localStorage.getItem('notifi'));
+                    count = $('.hd-message-info li').length;	               
+                    localStorage.setItem('count',count);               
+                    $('.hihi').html(localStorage.getItem('count'));			    							
+                    $('#seen').css('display','block');
+                }
 			});
             $('.hd-message-info').html(localStorage.getItem('notifi'));
 			$('.hihi').html(localStorage.getItem('count'));

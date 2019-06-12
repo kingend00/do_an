@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="logo-area">
-                <a href="{{ route('index') }}"><img src="{{URL::asset('/images/logo/logo1.png')}}" alt="" width="200" height="200" /></a>
+                <a href="{{ route('index') }}"><img src="{{URL::asset('/images/logo/logo1.png')}}" alt="" width="80" height="80" /></a>
                 </div>
             </div>
             <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
@@ -65,7 +65,7 @@
     @if(Auth::check())
 <div class="container">
     <div class="row">
-        <div class="col-lg-5" id="formData">
+        <div class="col-lg-5" id="formData" style="margin-top:30px">
             {!! Form::open(['id'=>'form_update','route'=>'F_user.update','method'=>'POST'])!!}                     
                 <fieldset>
                     <legend><h2>Thông tin tài khoản</h2></legend>
@@ -112,10 +112,8 @@
         <div class="col-lg-2">
 
         </div>
-        <div class="col-lg-5" style="margin-top:50px">
-              @if (isset($point))
-            <h2> Điểm thành viên (50.000/1) :</h2> <h1>{{ $point }} điểm</h1>
-              @endif
+        <div class="col-lg-5">
+             
         </div>
 
     </div>
@@ -144,7 +142,9 @@
                             @endforeach 
                         </tbody>      
                     </table>
-                </div> 
+                </div>
+                @else
+                    <h3>Quý khách chưa đặt đơn nào tại cửa hàng chúng tôi !</h3> 
                 @endif
         </div>
     </div>

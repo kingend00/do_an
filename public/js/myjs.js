@@ -1,4 +1,4 @@
-function Mynotify(message ='',type,delay=2500){
+function Mynotify(message ='',type,delay=10000){
     $.growl({
         title: 'Thông báo :',
         message: message+" ",

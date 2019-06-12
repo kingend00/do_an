@@ -30,6 +30,7 @@ class AddBooktableRequest extends FormRequest
             'time' =>'required',
             'number_seat' => 'required',
             'phone' => 'required|numeric',
+            'email' => 'required|email',
 
         ];
     }
@@ -40,7 +41,8 @@ class AddBooktableRequest extends FormRequest
             'date' => 'Ngày tháng',
             'time' => 'Thời gian',
             'number_seat' => 'Số bàn',
-            'phone' => 'Số điện thoại'
+            'phone' => 'Số điện thoại',
+            'email' => "Email"
         ];
 
     }

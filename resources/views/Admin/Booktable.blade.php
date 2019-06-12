@@ -18,7 +18,7 @@
 								
 									<div class="input-group date nk-int-st">
 									<span class="input-group-addon"></span>
-								{!! Form::text('date','',['id' =>'date','class' => 'form-control Date','placeholder' => 'Chọn ngày', 'required' => 'true','data-date-format'=>'yyyy-mm-dd','readonly'=>true]) !!}
+								{!! Form::text('date',date('Y-m-d',time()),['id' =>'date','class' => 'form-control Date','placeholder' => 'Chọn ngày', 'required' => 'true','data-date-format'=>'yyyy-mm-dd','readonly'=>true]) !!}
 								</div>
 							</div>
 						</div>
@@ -29,7 +29,7 @@
 										<select name="seat" id="seat" >
 																					
 											@if(isset($TypeSeat))
-											<option value ="">Chọn loại bàn</option>							
+											<option value ="false">Chọn loại bàn</option>							
 												@foreach($TypeSeat as $seat)
 													<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
 												@endforeach
@@ -76,7 +76,7 @@
             <th>Trạng thái</th>
             <th>Tổng tiền </th>
 			<th>Sửa</th>
-			<th>Xóa</th>
+			<th>Chi tiết</th>
 		</tr>
 		</thead>
 		
@@ -97,15 +97,11 @@
              
              {{ method_field('PUT') }}
             <div class="modal-body">
-            			<div class="form-group">
-							
-							
+            			<div class="form-group">						
 							{!! Form::hidden('Update_Id','',['id' =>'Update_Id','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
 							{!! Form::hidden('Update_User','',['id' =>'Update_User','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
 							{!! Form::hidden('Update_Number_Seat','',['id' =>'Update_Number_Seat','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
-							{!! Form::hidden('Time_Check','',['id' =>'Time_Check','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}
-					
-						
+							{!! Form::hidden('Time_Check','',['id' =>'Time_Check','class' => 'form-control', 'required' => 'true','readonly' => 'true']) !!}											
 						</div>
 						<div class="form-group nk-datapk-ctm form-elet-mg" id="data_1">
 						
@@ -299,7 +295,32 @@
 
 
 <script type="text/javascript">
-	
+	var url = null;
+		// show thông tin tài khoản
+		$(document).on('click','.btn-edit',function(){
+			 url = $(this).attr('data-url');
+
+			$.ajax({
+				type:'GET',
+				//dataType:'json',
+				url : url,
+				success:function(response){
+					$('#Update_Id').val(response.data[0].booktable_id);
+					$('#Update_Status').val(response.data[0].status);
+					$('#Update_Date').val(response.data[0].date);
+					$('#Update_Time').val(response.data[0].time);
+					$('#Update_User').val(response.data[0].email);
+					$('#Update_Number_Seat').val(response.data[0].number_seat);
+					$('#Time_Check').val(response.data[0].time);
+					$('select').selectpicker('refresh');
+					
+					
+				},
+				error:function(eror){
+					console.log(eror);
+				}
+			});
+		});
 	$(document).ready(function(){
 		//$(".Date").datepicker("option", "dateFormat", "yy-mm-dd");
 		 //$('#Picker').datepicker({format: 'dd/mm/yyyy'});
@@ -314,6 +335,26 @@
 	    		    }
 			});		
 			$('#seat').change(function(){
+				ajaxLoadTable();
+
+			});
+			$('#date').change(function(){
+				let type = $('#seat').val();
+				if(type != 'false')
+					ajaxLoadTable();
+
+			});
+			var pusher = new Pusher('4009c42e7cd6daccc27a', {
+                    cluster: 'ap1',
+                    encrypted: true
+                });
+			var channel = pusher.subscribe('RealtimeTable');
+			channel.bind('App\\Events\\PusherEvent',function(data){
+				ajaxLoadTable();
+			});
+
+			function ajaxLoadTable(){
+
 				$.ajax({
 					type:"POST",
 					url : "{{ route('F_seat.showTime_Seat') }}",
@@ -368,10 +409,7 @@
 					}
 
 				});
-
-			});
-
-
+			};
 
 
 
@@ -404,32 +442,7 @@
 
 
 
-			var url = null;
-		// show thông tin tài khoản
-		$(document).on('click','.btn-edit',function(){
-			 url = $(this).attr('data-url');
-
-			$.ajax({
-				type:'GET',
-				//dataType:'json',
-				url : url,
-				success:function(response){
-					$('#Update_Id').val(response.data[0].booktable_id);
-					$('#Update_Status').val(response.data[0].status);
-					$('#Update_Date').val(response.data[0].date);
-					$('#Update_Time').val(response.data[0].time);
-					$('#Update_User').val(response.data[0].email);
-					$('#Update_Number_Seat').val(response.data[0].number_seat);
-					$('#Time_Check').val(response.data[0].time);
-					$('select').selectpicker('refresh');
-					
-					
-				},
-				error:function(eror){
-					console.log(eror);
-				}
-			});
-		});
+			
 		$(document).on('click','.btn-details',function(){
 			var url = $(this).attr('data-url');
 
@@ -455,6 +468,7 @@
 			e.preventDefault();
 			//var url = document.getElementById('id');
 			var id = $('#Update_Id').val();
+			
 			$.ajax({
 				type:'PUT',
 				url:url,
@@ -477,6 +491,14 @@
 
 			});
 		});
+		var pusher = new Pusher('4009c42e7cd6daccc27a', {
+                    cluster: 'ap1',
+                    encrypted: true
+                });
+				
+				
+                //Đăng ký với kênh chanel-demo-real-time mà ta đã tạo trong file DemoPusherEvent.php
+        	
 		$('#Type_seat').change(function(){
 				var value = $(this).val();
 				

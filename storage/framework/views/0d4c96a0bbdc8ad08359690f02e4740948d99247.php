@@ -30,6 +30,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/user/css/util.css')); ?>">
 	<link rel="stylesheet" type="text/css" href="<?php echo e(URL::asset('/public/user/css/main.css')); ?>">
+	<script src="<?php echo e(URL::asset('/public/js/pusher.min.js')); ?>"></script> 
 	
 	<script src="<?php echo e(URL::asset('public/js/jquerynew.min.js')); ?>"></script>
 	

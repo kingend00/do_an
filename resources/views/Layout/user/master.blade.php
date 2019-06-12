@@ -30,6 +30,7 @@
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/user/css/util.css')}}">
 	<link rel="stylesheet" type="text/css" href="{{URL::asset('/public/user/css/main.css')}}">
+	<script src="{{URL::asset('/public/js/pusher.min.js')}}"></script> 
 	
 	<script src="{{ URL::asset('public/js/jquerynew.min.js') }}"></script>
 	{{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script> --}}

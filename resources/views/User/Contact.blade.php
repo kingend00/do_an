@@ -4,7 +4,7 @@
 @stop
 @section('body')
 	<!-- Title Page -->
-	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/bg-title-page-02.jpg);">
+	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/background/contac2.jpg);">
 		<h2 class="tit6 t-center">
 			LIÊN HỆ
 		</h2>
@@ -14,16 +14,12 @@
 	<!-- Contact form -->
 	<section class="section-contact bg1-pattern p-t-90 p-b-113">
 		<!-- Map -->
-		<div class="container">
-			<div class="map bo8 bo-rad-10 of-hidden">
-				<div class="contact-map size37" id="google_map" data-map-x="40.704644" data-map-y="-74.011987" data-pin="images/icons/icon-position-map.png" data-scrollwhell="0" data-draggable="1"></div>
-			</div>
-		</div>
+	
 		@include('Layout.user.error')
 		<div class="container">
-			<h3 class="tit7 t-center p-b-62 p-t-105">
-				Hãy gửi phản hồi cho chúng tôi !
-			</h3>
+			<h1 class="tit7 t-center p-b-62 p-t-105">
+				Nếu có, hãy gửi phản hồi cho chúng tôi !
+			</h1>
 			
 			{!! Form::open(['class' => 'wrap-form-reservation size22 m-l-r-auto','id'=>'form_update','method'=>'POST','route'=>'B_contact.store'])!!}
 				<div class="row">
@@ -81,7 +77,7 @@
 				<div class="col-sm-8 col-md-4 col-lg-4 m-l-r-auto p-t-30">
 					<div class="dis-flex m-l-23">
 						<div class="p-r-40 p-t-6">
-							<img src="images/icons/map-icon.png" alt="IMG-ICON">
+							<img src="images/background/address2.png" alt="IMG-ICON" width = 80 height = 60>
 						</div>
 
 						<div class="flex-col-l">
@@ -99,7 +95,7 @@
 				<div class="col-sm-8 col-md-3 col-lg-4 m-l-r-auto p-t-30">
 					<div class="dis-flex m-l-23">
 						<div class="p-r-40 p-t-6">
-							<img src="images/icons/phone-icon.png" alt="IMG-ICON">
+							<img src="images/background/phone12.png" alt="IMG-ICON" width = 80 height = 60>
 						</div>
 
 
@@ -118,7 +114,7 @@
 				<div class="col-sm-8 col-md-5 col-lg-4 m-l-r-auto p-t-30">
 					<div class="dis-flex m-l-23">
 						<div class="p-r-40 p-t-6">
-							<img src="images/icons/clock-icon.png" alt="IMG-ICON">
+							<img src="images/background/time2.png" alt="IMG-ICON" width = 80 height = 60>
 						</div>
 
 

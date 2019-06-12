@@ -29,8 +29,8 @@
 					<input type = "hidden" id="Price" value="{{ $item->price }}">
 					<td id="price{{ $item->id }}" value = "{{ $item->price }}">{{ $item->price }}</td>
 					<td>{!! nl2br($item->options->description) !!}</td>
-					<input type="hidden" name="rowId[]" id="rowId" class="rowId" value="{{ $item->rowId }}">
-					<td><input type="number" value="{{ $item->qty }}" data = "{{ $item->id }}" class="qty" id="qty" name="qty[]" min ="1" max="100" step="1" style='width:100%'></td>
+					<input type="hidden" name="rowId[]" id="rowId" class="rowId" value="{{ $item->rowId }}" >
+					<td><input type="number" value="{{ $item->qty }}" data = "{{ $item->id }}" data-rowId ="{{ $item->rowId }}" class="qty" id="qty" name="qty[]" min ="1" max="50" step="1" style='width:100%'></td>
 					<td class="dongtien"><input class="subtotal" type="text" id="total{{$item->id}}" value="{{ $item->qty*$item->price }}" readonly></td>
 					<td><button type="button" class="btn3 flex-c-m size16 txt11 trans-0-4 m-10 delete" name = "delete" data-url = "{{ route("F_menu.destroy",$item->rowId) }}" style = "width:80px;height:40px" >Xóa</button></td>
 				</tr>
@@ -92,14 +92,26 @@
 					}
 					$('#Fulltotal').html(money+"  VNĐ");
 				});
+				$('.qty').click(function(){
 
-				// $('#qty').click(function(){
-				// 	var price = Number($('#Price').val());
-				// 	var amount = Number($('.qty').val());
-				// 	$('.total').html(price*amount);
-					
-
-				// });
+					// Tìm tới đúng phần tử class muốn lấy giá trị
+					let parent = $(this).parent().find('.qty');
+					let qty = parseInt(parent.val());
+				//	let qty = $(this).val();ass
+					let rowId = $(this).attr('data-rowId');
+					$.ajax({
+						type:"POST",
+						url : '{{ route('realTimeCart') }}',
+						data : {qty:qty,rowId:rowId},
+						success:function(data)
+						{
+							console.log(data);
+						},
+						error:function(er){
+							console.log(er);
+						}
+					})
+				})
 			});
 		</script>
 	

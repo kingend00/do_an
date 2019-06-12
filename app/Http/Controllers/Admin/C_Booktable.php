@@ -125,9 +125,12 @@ class C_Booktable extends Controller
         $date = date('Y-m-d',strtotime($request->input('Update_Date')));
         $date_now = date('Y-m-d',time());
         if($date < $date_now)
-            return redirect()->back()->with('error','Ngày đặt nhỏ hơn ngày hiện tại');
-        if($request->input('Update_Time') < date('H:i'))
-            return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại');
+            return 'Ngày đặt nhỏ hơn ngày hiện tại';
+        if($date == $date_now)
+        {
+            if($request->input('Update_Time') < date('H:i'))
+            return 'Thời gian đặt nhỏ hơn thời gian hiện tại';
+        }
 
 
       
@@ -158,6 +161,7 @@ class C_Booktable extends Controller
             }
             $data = ['date'=>$date,'time'=>$request->input('Update_Time'),'status'=>$request->input('Update_Status')];
             $result = DB::table('booktable')->where('booktable_id','=',$id)->update($data);
+           event(new PusherEvent('false'));
             return "true";
         }
         return "Cập nhật thất bại";

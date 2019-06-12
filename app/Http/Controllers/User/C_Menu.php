@@ -86,7 +86,7 @@ class C_Menu extends Controller
      */
     public function store(Request $request)
     {
-        return "hihi";
+        return "Store_C_Menu";
     }
 
     /**
@@ -101,6 +101,16 @@ class C_Menu extends Controller
         $menu = DB::table('menu')->where('type','=',$id)->get();
         if($menu)
         return view('Admin.Menu',compact('menu'));
+    }
+    public function realTimeCart(Request $request)
+    {
+        if($request->qty <= 0)
+            return 0;
+        else 
+            Cart::update($request->rowId,$request->qty);
+        
+
+
     }
     /**
      * Show the form for editing the specified resource.
@@ -129,6 +139,8 @@ class C_Menu extends Controller
         $qty = $request->input('qty');
         $number = count($rowId);
         for ($i=0; $i < $number; $i++) { 
+            if($qty[$i] <= 0)
+                $qty[$i] = 1;
             Cart::update($rowId[$i],$qty[$i]);
         }
         return redirect()->route('F_seat.index');

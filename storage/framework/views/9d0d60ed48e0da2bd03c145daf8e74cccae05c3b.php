@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                             <div class="fm-checkbox">
-                                <label><input type="checkbox" class="i-checks"> <i></i> Keep me signed in</label>
+                                
                                 <button type="submit" class="btn btn-success notika-btn-success" >Đăng nhập</button>
                             </div>
                             <div class="fm-checkbox">

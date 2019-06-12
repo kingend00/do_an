@@ -54,7 +54,7 @@
 							<div class="col-md-4">
 								<!-- Date -->
 								<span class="txt9">
-									Ngày
+									Ngày (*)
 								</span>
 
 								<div class="wrap-inputdate pos-relative txt10 size12 bo2 bo-rad-10 m-t-3 m-b-23">
@@ -66,43 +66,45 @@
 							<div class="col-md-4">
 								<!-- Time -->
 								<span class="txt9">
-									Thời gian
+									Thời gian (*)
 								</span>
 
 								<div class="wrap-inputtime size12 bo2 bo-rad-10 m-t-3 m-b-23">
 									<!-- Select2 -->
-									<select class="selection-1" name="time" id="time" class="time">
-										<option id ="10">Chọn giờ</option>
-										<option id ="10">10:00</option>
-										
-										<option id ="11">11:00</option>
-										
-										<option id ="12">12:00</option>
-										
-										<option id ="13">13:00</option>
-										
-										<option id ="14">14:00</option>
-										
-										<option id ="15">15:00</option>
-										
-										<option id ="16">16:00</option>
-										
-										<option id ="17">17:00</option>
-										
-										<option id ="18">18:00</option>
-										
-										<option id ="19">19:00</option>
-
-										<option id ="20">20:00</option>
-										<option id ="21">21:00</option>
-									</select>
+									<div class="click">
+										<select class="selection-1" name="time" id="time" class="time">
+											<option value="none">Chọn giờ</option>
+											<option id ="">10:00</option>
+											
+											<option id ="11">11:00</option>
+											
+											<option id ="12">12:00</option>
+											
+											<option id ="13">13:00</option>
+											
+											<option id ="14">14:00</option>
+											
+											<option id ="15">15:00</option>
+											
+											<option id ="16">16:00</option>
+											
+											<option id ="17">17:00</option>
+											
+											<option id ="18">18:00</option>
+											
+											<option id ="19">19:00</option>
+	
+											<option id ="20">20:00</option>
+											<option id ="21">21:00</option>
+										</select>
+									</div>
 								</div>
 							</div>
 
 							<div class="col-md-4">
 								<!-- People -->
 								<span class="txt9">
-									Số người
+									Loại bàn (*)
 								</span>
 
 								<div class="wrap-inputpeople size12 bo2 bo-rad-10 m-t-3 m-b-23">
@@ -127,7 +129,7 @@
 							<div class="col-md-4">
 								<!-- Name -->
 								<span class="txt9">
-									Tên khách hàng
+									Tên khách hàng (*)
 								</span>
 								<div class="wrap-inputname size12 bo2 bo-rad-10 m-t-3 m-b-23">
 								<input class="bo-rad-10 sizefull txt10 p-l-20" type="text" name="name" placeholder="Name" value="{{ (Auth::check()!= null) ? Auth::user()->name : "" }}">
@@ -137,7 +139,7 @@
 							<div class="col-md-4">
 								<!-- Phone -->
 								<span class="txt9">
-									Số điện thoại
+									Số điện thoại (*)
 								</span>
 
 								<div class="wrap-inputphone size12 bo2 bo-rad-10 m-t-3 m-b-23">
@@ -148,7 +150,7 @@
 							<div class="col-md-4">
 								<!-- Email -->
 								<span class="txt9">
-									Email
+									Email (*)
 								</span>
 
 								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23">
@@ -178,7 +180,7 @@
 							<div class="col-md-4">
 								<!-- Email -->
 								<span class="txt9">
-									Số bàn
+									Số bàn (*)
 								</span>
 
 								<div class="wrap-inputemail size12 bo2 bo-rad-10 m-t-3 m-b-23" id = "number"  title="Hãy chọn loại bàn trước khi chọn số"></div>
@@ -258,18 +260,11 @@
 				if(html == 0)
 				{
 					
-					element.className = "alert alert-danger error-alert";
-					$('#error').css('display','block');
-					setTimeout(function(){ 
-						$('#error').css('display','none');
-						}, 3000);
+					Mynotify('Xin hãy chọn loại bàn','danger');
 					
 				}
 			});
-			$('#time').click(function(){				
-					//Mynotify('Mời quý khách chọn loại bàn trước khi chọn giờ !','info');
-					alert('hihi');				
-			});
+			
 			$(document).on('change','#time',function(){
 				
 				ajaxCall();
@@ -290,7 +285,7 @@
 					//alert(value);
 				var value2 = $('#time').val();
 				if(value2 == "21:00")
-					Mynotify('Nhà hàng chỉ mở cửa đến 22h, nếu vẫn muốn đặt, hãy tiếp tục !','warning',4200);
+					Mynotify('Nhà hàng chỉ mở cửa đến 22h, nếu vẫn muốn đặt, hãy tiếp tục !','warning');
 
 			});
 			$(document).on('change','#number_seat',function(){
@@ -312,7 +307,16 @@
 						console.log(er);
 					}
 				});
-			}
+			};
+			$('.click').click(function(){
+				let value = $(this).val();
+				//if(value == "chọn giờ giờ")
+				let hi = document.getElementById('time');
+				if(hi.disabled == true)
+					Mynotify('Hãy chọn loại bàn và ngày trước khi chọn giờ !','danger');
+				
+				
+			});
 
 			$('#seat').change(function(){
 				var value = $(this).val();
@@ -327,7 +331,7 @@
 					success:function(res){
 						var html = '';
 						html += "<select name = 'number_seat' id = 'number_seat' class = 'number_seat'>";
-						html += "<option>Chọn số bàn </option>";
+						html += "<option value = 'false'>Chọn số bàn </option>";
 						$.each(res,function(key,value){
 							$.each(value,function(number2,type){
 								$.each(type,function(key2,value2){
@@ -378,19 +382,20 @@
 					data : $('#formTable').serialize(),
 					success:function(data)
 					{
-						if(data != "true")
-							Mynotify('Quý khách đã đặt bàn thành công, xin hãy đợi trong giây lát, chúng tôi phản hồi lại','success',3000);
+						if(data == "true")
+							Mynotify('Quý khách đã đặt bàn thành công, xin hãy đợi trong giây lát, chúng tôi phản hồi lại','success');
 						else
-							Mynotify(data,'danger',4200);
+							Mynotify(data,'danger');
 					},
 					error:function(er)
 					{
+						console.log(er);
 						var errors = er.responseJSON;
 						var errorShow = '';
 						$.each(errors.errors,function(key,value){
 							errorShow += value+"<br>";
 						});
-						Mynotify(errorShow,'danger',4200);
+						Mynotify(errorShow,'danger');
 						console.log(errorShow);
 					}
 				});
@@ -404,6 +409,10 @@
 				var value  = $('#seat').val();
 				if(value != "false")
 					ajaxLoadTable();
+			});
+			$('#seat').click(function(){
+				ajaxLoadTable();
+
 			});
 
 			// kiểm tra dữ liệu đầu vào cho việc show Bàn bận
@@ -476,7 +485,80 @@
 					}
 
 				});
-			}
+			};
+			var pusher = new Pusher('4009c42e7cd6daccc27a', {
+                    cluster: 'ap1',
+                    encrypted: true
+                });
+			var channel = pusher.subscribe('RealtimeTable');
+			channel.bind('App\\Events\\PusherEvent',function(data){
+				$.ajax({
+					type:"POST",
+					url : "{{ route('F_seat.showTime_Seat') }}",
+					data : $('#formTable').serialize(),
+					
+					success:function(data)
+					{
+						$('#test').html(null);
+
+								//console.log(data);
+								if(data == "false")
+									Mynotify('Hãy chọn loại bàn','danger');
+								else
+								{
+											let shiftObj = JSON.parse(data);
+										//console.log(shiftObj);
+
+
+
+										var instance = new TimeTable({
+
+											// Beginning Time
+											startTime: "10:00",
+
+											// Ending Time
+											endTime: "22:00",
+
+											// Time to divide(minute)
+											divTime: "30",
+
+											// Time Table
+											shift: shiftObj,
+											addFirstColumn: "HIHI",
+
+											// Other options
+											option: {
+											
+
+											// workTime include time not displaying
+											workTime: true,
+
+											// bg color
+											bgcolor: ["#00FFFF"],
+											//useBootstrap: true,
+											
+											//{index :  name, : index: name,,..}
+											// selectBox index and shift index should be same
+											// Give randome if shift index was not in selectBox index
+											
+											}
+
+											});
+											instance.init("#test");
+										
+								}
+								
+							
+						
+					},
+					error:function(er)
+					{
+						console.log(er);
+					}
+
+				});
+			});
+			
 							
 				// jQuery("#schedule").timeSchedule({
 				// 			rows : {

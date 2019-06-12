@@ -131,13 +131,18 @@ class C_Seat extends Controller
      */
     public function store(AddBooktableRequest $request)
     {
+        
         date_default_timezone_set('Asia/Ho_Chi_Minh');
         $date2 =  strtotime(str_replace('/', '-', $request->input('date')));
         $date3 = date('Y-m-d',$date2);
         $date_now = date('Y-m-d',time());
         $time = date('H:i',strtotime($request->time));
         $email = $request->input('email');
-        
+
+        if($request->number_seat == 'false')
+            return "Xin hãy chọn bàn trước khi đặt";
+        if($request->time =="none")
+            return " Xin hãy chọn giờ trước khi đặt";
         if($date3 < $date_now)
             return 'Ngày đặt nhỏ hơn ngày hiện tại';
         elseif($date3 == $date_now)
@@ -150,6 +155,9 @@ class C_Seat extends Controller
         $time_time = (int)$time_time;
         $time_time1 = ($time_time-1).":00";
         //$time_time2 = ($time_time+2).":00";
+        
+        
+       
 
         if(count( DB::table('booktable')->where('date',$date3)->where('number_seat',$request->number_seat)->where('time',$time_time1)->whereIn('status',['wait','using'])->get()) != 0)
         {
@@ -190,7 +198,7 @@ class C_Seat extends Controller
                 }
             }
             Cart::destroy();
-            $notification = "Đã có hóa đơn bàn ".$request->number_seat;
+            $notification = "Đã có hóa đơn bàn ".$request->number_seat." ".$request->time." giờ";
             event(new PusherEvent($notification));
             $query = DB::table('booktable')->where('email','=',$request->email)->orderBy('booktable_id','DESC')->first();
 

@@ -221,7 +221,7 @@
 					
 				},
 				error:function(eror){
-					alert('Đã có lỗi xảy ra !!!');
+					Mynotify('Đã có lỗi xảy ra !!!','danger');
 				}
 			});
 		});
@@ -236,7 +236,7 @@
 				type:'DELETE',
 				url:url,
 				success:function(response){					
-					alert(response);					
+					Mynotify(response,'success');					
 					$('#tbData').DataTable().ajax.reload();	
 
 				},
@@ -257,7 +257,7 @@
 				url:url,
 				data:$('#form_update').serialize(),							
 				success:function(data){
-					alert(data);
+					Mynotify(data,'success');
 					$('#ModalUpdate').modal('hide');
 					$('#tbData').DataTable().ajax.reload();						
 				},

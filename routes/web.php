@@ -57,6 +57,7 @@ Route::group(['prefix' => 'F_menu'],function(){
     Route::get('/addComboToCart/{id}','User\C_Menu@addComboToCart')->name('F_menu.addComboToCart');
     Route::get('/showCart','User\C_Menu@showCart')->name('F_menu.showCart');
     Route::post('/editCart','User\C_Menu@EditCart')->name('editCart');
+    Route::post('/realtimeCart','User\C_Menu@realTimeCart')->name('realTimeCart');
 });
 Route::group(['prefix' => 'F_seat'],function(){
     Route::post('/showTime_Seat','User\C_Seat@showTime_Seat')->name('F_seat.showTime_Seat');
@@ -75,6 +76,7 @@ Route::get('/About',function(){
 })->name('about');
 
 Route::resources(['F_menu'=>'User\C_Menu','F_seat'=>'User\C_Seat']);
+
 
 
 Route::group(['middleware'=>['auth','denied_cus_emp']],function(){

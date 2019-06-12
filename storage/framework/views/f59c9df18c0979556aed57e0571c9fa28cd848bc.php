@@ -185,7 +185,7 @@
 				success:function(data){
 					//console.log(data);
 					$('#ModalUpdate').modal('hide');
-					alert('Cập nhật thành công');
+					Mynotify('Cập nhật thành công','success');
 					$('#tbData').DataTable().ajax.reload();				
 				},
 				error:function(er){
@@ -205,7 +205,7 @@
 				//data:{id:id},
 				
 				success:function(response){
-					alert(response);
+					Mynotify(response,'success');
 					$('#tbData').DataTable().ajax.reload();	
 
 				},

@@ -652,7 +652,7 @@
 					<!-- Block1 -->
 					<div class="blo1">
 						<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom pos-relative">
-							<a href="blog-detail.html"><img src="{{ URL::asset('images/background/'.$item->image)}}" width=100px height = 200px alt="IMG-INTRO"></a>
+							<a href="{{route('news')}}/#{{$item->news_id}}"><img src="{{ URL::asset('images/background/'.$item->image)}}" width=100px height = 200px alt="IMG-INTRO"></a>
 
 							<div class="time-blog">
 								12 Dec 2017

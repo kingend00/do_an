@@ -20,7 +20,7 @@ class PusherEvent implements ShouldBroadcast
      * @return void
      */
     public $message;
-    public function __construct($mes)
+    public function __construct($mes = null)
     {
         $this->message = $mes;
     }
@@ -32,6 +32,7 @@ class PusherEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('Hoang-channel');
+          return  [new Channel('Hoang-channel'),new Channel('RealtimeTable')];
+         
     }
 }
