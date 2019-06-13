@@ -477,7 +477,7 @@
 	<!-- tawk chat JS
 		============================================ -->
    <script type="text/javascript">
-       $('div.alert').delay(3000).fadeOut(100);
+       $('div.alert').delay(12000).fadeOut(100);
    </script>
    <script>
       

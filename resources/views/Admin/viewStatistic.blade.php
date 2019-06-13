@@ -1,23 +1,13 @@
 @if(isset($menu) && count($menu) != 0)
-<div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Tên sản phẩm</h2>
-        </div>
-    </div>
-    <div class = "col-sm-5" style="text-align: center"><h2>Khoảng thời gian</h2></div>
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Số lượng được bán ra</h2>
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="invoice-sp" style="font-size:50px;">
             <table class="table table-hover" style="font-size:50px;" >
+                <thead>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng được bán ra</th>
+                </thead>
                 <tbody style="font-size:50px;">
                     @foreach ($menu as $item)
                         <tr>
@@ -30,28 +20,20 @@
         </div>
     </div>
 </div>
+
+    
 @endif
 
 @if(isset($combo) && count($combo) != 0)
-<div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Tên Combo</h2>
-        </div>
-    </div>
-    <div class = "col-sm-5" style="text-align: center"><h2>Khoảng thời gian</h2></div>
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Số lượng được bán ra</h2>
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="invoice-sp" style="font-size:50px;">
             <table class="table table-hover" style="font-size:50px;" >
+                <thead>
+                    <th>Tên Combo</th>
+                    <th>Số lượng được bán ra</th>
+                </thead>
                 <tbody style="font-size:50px;">
                     @foreach ($combo as $item)
                         <tr>
@@ -64,27 +46,19 @@
         </div>
     </div>
 </div>
+
+    
 @endif
 @if(isset($into_menu) && count($into_menu) != 0)
-<div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Tên sản phẩm</h2>
-        </div>
-    </div>
-    <div class = "col-sm-5" style="text-align: center"><h2>Trong ngày</h2></div>
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Số lượng được bán ra</h2>
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="invoice-sp" style="font-size:50px;">
             <table class="table table-hover" style="font-size:50px;" >
+                <thead>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng được bán ra</th>
+                </thead>
                 <tbody style="font-size:50px;">
                     @foreach ($into_menu as $item)
                         <tr>
@@ -97,28 +71,21 @@
         </div>
     </div>
 </div>
+    @elseif(isset($into_menu) && count($into_menu) <=0)
+        <h2>Không có sản phẩm nào được bán trong ngày</h2>
+    
 @endif
 
 @if(isset($into_combo) && count($into_combo) != 0)
-<div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Tên Combo</h2>
-        </div>
-    </div>
-    <div class = "col-sm-5" style="text-align: center"><h2>Trong ngày</h2></div>
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Số lượng được bán ra</h2>
-        </div>
-    </div>
-</div>
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="invoice-sp" style="font-size:50px;">
             <table class="table table-hover" style="font-size:50px;" >
+                <thead>
+                    <th>Tên Combo</th>
+                    <th>Số lượng được bán ra</th>
+                </thead>
                 <tbody style="font-size:50px;">
                     @foreach ($into_combo as $item)
                         <tr>
@@ -131,32 +98,26 @@
         </div>
     </div>
 </div>
+@elseif(isset($into_combo) && count($into_combo) <= 0)
+        <h2>Không có combo nào được bán trong ngày</h2>
+    
 @endif
-@if(isset($data) && count($data) != 0)
-<div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Loại bàn</h2>
-        </div>
-    </div>
-    <div class = "col-sm-1" style="text-align: center"></div>
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
-        <div class="invoice-hs">
-            
-            <h2>Số lần được chọn đặt </h2>
-        </div>
-    </div>
-</div>
+
+@if(isset($data) && count($data) > 0)
+
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
         <div class="invoice-sp" style="font-size:50px;">
             <table class="table table-hover" style="font-size:50px;" >
+                <thead>
+                    <th>Loại bàn được đặt</th>
+                    <th>Số lần được đặt</th>
+                </thead>
                 <tbody style="font-size:50px;">
                     @foreach ($data as $key=>$value)
                         <tr>
                         <td>{{ $key }}</td>
-                        <td>{{ $value }}</td>
+                        <td>{{ $value }}  lần</td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -164,4 +125,7 @@
         </div>
     </div>
 </div>
+@elseif(isset($data) && count($data) <= 0)
+        <h2>Không có bàn nào </h2>
+    
 @endif

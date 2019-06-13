@@ -86,15 +86,16 @@
 						</div>
 					</div>
 				</div>
-			<section class="section-slide" style="margin-bottom:70px">
+			<section class="section-slide" style="margin-bottom:100px">
 					<div class="wrap-slick3">
-							<div class="slick3" style="width:1200px;padding-left:140px">
+						
+							<div class="slick3 col-sm-12">
 								@foreach(\App\Model\M_News::all() as $item)
 								
 										<div class="item-slick1 item1-slick1" style="background-image: url({{'images/background/'.$item->image}});height:300px;width:400px;border-radius:10px" >
 											<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 						
-													<h1 style="color:white">
+													<h1 style="color:white;font-size:40px">
 														{{$item->title}}
 													</h1>
 													<br>
@@ -152,7 +153,7 @@
 	<section class="section-intro">
 		<div class="header-intro parallax100 t-center p-t-135 p-b-158" style="background-image: url(./images/background/img7.jpg);">
 			<span class="tit2 p-l-15 p-r-15">
-				Discover
+				Khám phá
 			</span>
 
 			<h3 class="tit4 t-center p-l-15 p-r-15 p-t-3">
@@ -167,16 +168,16 @@
 						<!-- Block1 -->
 						<div class="blo1">
 							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom">
-								<a href="#"><img src="{{ URL::asset('images/background/party.jpg') }}" alt="IMG-INTRO"></a>
+								<img src="{{ URL::asset('images/background/party.jpg') }}" alt="IMG-INTRO">
 							</div>
 
 							<div class="wrap-text-blo1 p-t-35">
-								<a href="#"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
+								<h4 class="txt5 color0-hov trans-0-4 m-b-13">
 									Vua của những bữa tiệc
-								</h4></a>
+								</h4>
 
 								<p class="m-b-20">
-									Phasellus lorem enim, luctus ut velit eget, con-vallis egestas eros.
+									Không gian thú vị, vừa phù hợp cho những bũa tiệc lãng man, vừa phù hợp với những bữa tiệc đôi chút sôi động.
 								</p>
 
 								
@@ -188,16 +189,16 @@
 						<!-- Block1 -->
 						<div class="blo1">
 							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom">
-								<a href="{{ route('news') }}"><img src="{{ URL::asset('images/background/slow4.jpg') }}" alt="IMG-INTRO"></a>
+								<img src="{{ URL::asset('images/background/slow4.jpg') }}" alt="IMG-INTRO">
 							</div>
 
 							<div class="wrap-text-blo1 p-t-35">
-								<a href="{{ route('news') }}"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
+								<h4 class="txt5 color0-hov trans-0-4 m-b-13">
 									Thực đơn mới lạ
-								</h4></a>
+								</h4>
 
 								<p class="m-b-20">
-									Aliquam eget aliquam magna, quis posuere risus ac justo ipsum nibh urna
+									Những món ăn độc, lạ, mang sự mới mẻ, sự tò mò tới cho khách hàng và hơn thế nữa.
 								</p>
 
 								
@@ -209,16 +210,16 @@
 						<!-- Block1 -->
 						<div class="blo1">
 							<div class="wrap-pic-blo1 bo-rad-10 hov-img-zoom">
-								<a href=""><img src="{{ URL::asset('images/background/love1.jpg') }}" alt="IMG-INTRO"></a> 
+								<img src="{{ URL::asset('images/background/love1.jpg') }}" alt="IMG-INTRO"> 
 							</div>
 
 							<div class="wrap-text-blo1 p-t-35">
-								<a href="#"><h4 class="txt5 color0-hov trans-0-4 m-b-13">
+								<h4 class="txt5 color0-hov trans-0-4 m-b-13">
 									Lãng mạn, đầy màu sắc
-								</h4></a>
+								</h4>
 
 								<p class="m-b-20">
-									Sed ornare ligula eget tortor tempor, quis porta tellus dictum.
+									Khung cảnh lãng mạn, ánh lửa nhẹ nhàng dành cho những bữa tiệc đôi lứa
 								</p>
 
 								
@@ -337,7 +338,7 @@
 							<!-- - -->
 							<div class="title-event t-center m-b-52">
 								<span class="tit2 p-l-15 p-r-15">
-									Upcomming
+									Sản phẩm sắp ra mắt
 								</span>
 
 								<h3 class="tit6 t-center p-l-15 p-r-15 p-t-3">
@@ -364,7 +365,7 @@
 									</h4>
 
 									<p class="t-center">
-										Donec quis lorem nulla. Nunc eu odio mi. Morbi nec lobortis est. Sed fringilla, nunc sed imperdiet lacinia
+										Cái tên đã nói nên phần nào nguồn gốc của sản phẩm này, xuất xứ từ vùng biển rất nổi tiếng trên phim ảnh : Caribe
 									</p>
 
 									<div class="flex-sa-m flex-w w-full m-t-40">
@@ -409,10 +410,7 @@
 										</div>
 									</div>
 
-									<a href="#" class="txt4 m-t-40">
-										Chi tiết
-										<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-									</a>
+									
 								</div>
 							</div>
 						</div>
@@ -452,7 +450,7 @@
 									</h4>
 
 									<p class="t-center">
-										Donec quis lorem nulla. Nunc eu odio mi. Morbi nec lobortis est. Sed fringilla, nunc sed imperdiet lacinia
+										Được đánh bắt ở gần bờ biển Pháp, mang lại đôi chút vị độc đáo của vùng đất này khác với cá thu tại Việt Nam
 									</p>
 
 									<div class="flex-sa-m flex-w w-full m-t-40">
@@ -497,10 +495,7 @@
 										</div>
 									</div>
 
-									<a href="#" class="txt4 m-t-40">
-										Chi tiết
-										<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-									</a>
+									
 								</div>
 							</div>
 						</div>
@@ -539,7 +534,7 @@
 									</h4>
 
 									<p class="t-center">
-										Donec quis lorem nulla. Nunc eu odio mi. Morbi nec lobortis est. Sed fringilla, nunc sed imperdiet lacinia
+										Vẫn là mì spaghetti đó, nhưng với công thức pha sốt mới mang lại hương vị vô cùng mới lạ.
 									</p>
 
 									<div class="flex-sa-m flex-w w-full m-t-40">
@@ -584,10 +579,6 @@
 										</div>
 									</div>
 
-									<a href="#" class="txt4 m-t-40">
-										Chi tiết
-										<i class="fa fa-long-arrow-right m-l-10" aria-hidden="true"></i>
-									</a>
 								</div>
 							</div>
 						</div>

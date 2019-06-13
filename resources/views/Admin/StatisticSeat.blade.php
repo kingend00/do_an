@@ -26,7 +26,7 @@
                             <label>Đến ngày</label>
                             <div class="input-group date nk-int-st" id="Picker">
                                 <span class="input-group-addon"></span>
-                                <input type="text" class="form-control" id="to" name="to" value="- - / - - / - - - -" data-date-format = 'yyyy-mm-dd' readonly>
+                                <input type="text" class="form-control" id="to" name="to" placeholder="Chọn ngày" data-date-format = 'yyyy-mm-dd' readonly>
                             </div>
                         </div>
                     </div>
@@ -61,6 +61,7 @@
                 success:function(data)
                 {
                     $('#result').html(data);
+                    console.log(data);
                 },
                 error:function(er)
                 {   

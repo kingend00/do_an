@@ -60,12 +60,17 @@
             </div>
         </div>
     </div>
-<div class="login-content" style="margin-top:-100px;padding-right:200px">
+<div class="login-content col-sm-12">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
     <div class="nk-block toggled" id="l-login">
-        @include('user.error')
-            <form  method="POST" action="{{ route('F_user.reset') }}">
+        
+           
+            
+                <form  method="POST" action="{{ route('F_user.reset') }}" id="formChangePass">
                     {{ csrf_field() }}
                     <div class="nk-form">
+                            @include('Layout.user.error')
                             <div class="input-group mg-t-15{{ $errors->has('email') ? ' has-error' : '' }}">
                                     <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
                                     <div class="nk-int-st">
@@ -73,7 +78,7 @@
                                     </div>
                                 </div>
                             <div class="input-group mg-t-15{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
+                                <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
                                 <div class="nk-int-st">
                                         <input id="old_pass" type="password" class="form-control" name="old_pass" value="{{ old('email') }}" placeholder="Mật khẩu cũ" required autofocus>
                                 </div>
@@ -81,7 +86,7 @@
                             <div class="input-group mg-t-15{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
                                 <div class="nk-int-st">
-                                        <input id="new_pass" type="password" class="form-control" name="new_pass" placeholder="Mật khẩu mới" minlength="8" required>
+                                        <input id="new_pass" type="password" class="form-control" name="new_pass" placeholder="Mật khẩu mới" minlength="6" required>
 
                                         
                                 </div>
@@ -89,23 +94,27 @@
                             <div class="input-group mg-t-15{{ $errors->has('password') ? ' has-error' : '' }}">
                                     <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
                                     <div class="nk-int-st">
-                                            <input id="re_new_pass" type="password" class="form-control" name="re_new_pass" minlength="8" placeholder="Nhập lại mật khẩu mới" required>
+                                            <input id="re_new_pass" type="password" class="form-control" name="re_new_pass" minlength="6" placeholder="Nhập lại mật khẩu mới" required>
     
                                             
                                     </div>
                             </div>
                             <div class="fm-checkbox">
                                
-                                <button type="submit" class="btn btn-success notika-btn-success" >Đăng nhập</button>
+                                <button type="submit" class="btn btn-success notika-btn-success" >Cập nhật</button>
                             </div>
                            
 
                              </div>
             </form>
+
+            
+           
+     </div>
     </div>
-
+   
 </div>
-
+    
 @stop
 @else
     <h1>404 Not Found</h1>

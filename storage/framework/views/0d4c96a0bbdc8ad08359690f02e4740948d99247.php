@@ -200,7 +200,7 @@
 						<li class="t-center m-b-13"><a href="<?php echo e(route('register')); ?>" class="txt19">Đăng kí</a></li>
 					<?php else: ?>
 						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" v-pre>
+							<a href="#"  class="dropdown-toggle" data-toggle="dropdown" role="button"  aria-expanded="false" aria-haspopup="true" v-pre >
 								<?php echo e(Auth::user()->name); ?> <span class="caret"></span>
 							</a>
 
@@ -293,7 +293,7 @@
 				<div class="col-sm-6 col-md-4 p-t-50">
 					<!-- - -->
 					<h4 class="txt13 m-b-33">
-						Latest twitter
+						Giới thiệu
 					</h4>
 
 					<div class="m-b-25">
@@ -301,13 +301,13 @@
 							<i class="fa fa-twitter" aria-hidden="true"></i>
 						</span>
 						<a href="#" class="txt15">
-							@colorlib
+							@hoangx.rogteam
 						</a>
 
 						<p class="txt14 m-b-18">
-							Activello is a good option. It has a slider built into that displays the featured image in the slider.
+						Rogteam, ông lớn về trí tuệ nhân tạo (AI) hàng đầu tại Việt Nam, với nhiều chi nhánh giải rác khắp cả nước
 							<a href="#" class="txt15">
-								https://buff.ly/2zaSfAQ
+								https://rogteam.vn/international
 							</a>
 						</p>
 
@@ -321,13 +321,13 @@
 							<i class="fa fa-twitter" aria-hidden="true"></i>
 						</span>
 						<a href="#" class="txt15">
-							@colorlib
+							@hoangx.rogteam
 						</a>
 
 						<p class="txt14 m-b-18">
-							Activello is a good option. It has a slider built into that displays
+							Rogteam place, một trong những thế mạnh khác của tập đoàn RogTeam, sở hữu lượng khách hàng khổng lồ
 							<a href="#" class="txt15">
-								https://buff.ly/2zaSfAQ
+								https://rogteam.vn/international
 							</a>
 						</p>
 
@@ -471,7 +471,7 @@ $('.dropdown').on('hide.bs.dropdown', function(e){
 <!--===============================================================================================-->
 	<script src="<?php echo e(URL::asset('/public/user/js/main.js')); ?>"></script>
 	<script type="text/javascript">
-		$('div.alert').delay(4500).fadeOut(100);
+		$('div.alert').delay(12000).fadeOut(100);
 	</script>
 	<script type="text/javascript" src="<?php echo e(URL::asset('/public/js/myjs.js')); ?>"></script>
 </body>

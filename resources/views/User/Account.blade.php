@@ -67,35 +67,40 @@
     <div class="row">
         <div class="col-lg-5" id="formData" style="margin-top:30px">
             {!! Form::open(['id'=>'form_update','route'=>'F_user.update','method'=>'POST'])!!}                     
-                <fieldset>
-                    <legend><h2>Thông tin tài khoản</h2></legend>
+               
+                    @include('Layout.user.error')
+                  
 
-                   {!! Form::hidden('Update_Id',Auth::user()->user_id,['id' =>'Update_Id','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']) !!}
+                   {!! Form::hidden('Update_Id',Auth::user()->user_id,['id' =>'Update_Id','class' => 'form-group','placeholder' => 'Enter here', 'required' => 'true','readonly' => 'true']) !!}
                
 
-                   <div class="form-group ic-cmp-int">
-                       <div class="form-ic-cmp">{!! Form::label('Email','Email',['class' => 'control-label']) !!}</div>
+                   <div class="form-group">
+                       <div class="nk-int-st">{!! Form::label('Email','Email',['class' => 'control-label']) !!}</div>
                                <div class="nk-int-st">
                                {!! Form::text('Email',Auth::user()->email,['id' =>'Email','class' => 'form-control','placeholder' => 'Enter here','required' => 'true','readonly'=>'true']) !!}
-                               </div>
+                               
+                            </div>
                    </div>
+                   <div class="nk-int-st">{!! Form::label('Email','Địa chỉ',['class' => 'control-label']) !!}</div>                        
+                   <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <div class="nk-int-st">
+                                <textarea name="Address" id="Address" class="form-control" rows="5" placeholder=" Nhập địa chỉ" >{{ Auth::user()->address }}</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                    
-                   <div class="form-group ic-cmp-int">
-                           <div class="form-ic-cmp">{!! Form::label('Email','Địa chỉ',['class' => 'control-label']) !!}</div>
-                                   <div class="nk-int-st">
-                                           {!! Form::text('Address',Auth::user()->address,['id' =>'Address','class' => 'form-control','placeholder' => 'Nhập địa chỉ','required' => 'true']) !!}
-                                   </div>
-                   </div>
-                   
-                   <div class="form-group ic-cmp-int">
-                           <div class="form-ic-cmp">{!! Form::label('Email','Tên chủ khoản',['class' => 'control-label']) !!}</div>
+                   <div class="form-group">
+                           <div class="nk-int-st">{!! Form::label('Email','Tên chủ khoản',['class' => 'control-label']) !!}</div>
                                    <div class="nk-int-st">
                                            {!! Form::text('Name',Auth::user()->name,['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập tên chủ khoản', 'required' => 'true']) !!}
                                    </div>
                    </div>
                    
-                   <div class="form-group ic-cmp-int">
-                           <div class="form-ic-cmp">{!! Form::label('Email','Số điện thoại',['class' => 'control-label']) !!}</div>
+                   <div class="form-group">
+                           <div class="nk-int-st">{!! Form::label('Email','Số điện thoại',['class' => 'control-label']) !!}</div>
                                    <div class="nk-int-st">
                                            {!! Form::text('Phone',Auth::user()->phone,['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập Số điện thoại', 'required' => 'true']) !!}
                                    </div>
@@ -103,7 +108,7 @@
                     <button class="btn notika-btn-cyan btn-submit" type="submit" >Sửa thông tin</button>  
                     
 
-                </fieldset>
+               
                
                        
    

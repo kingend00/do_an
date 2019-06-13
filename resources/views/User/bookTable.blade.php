@@ -11,7 +11,7 @@
 <section class="section-slide">
 	<div class="wrap-slick1">
 		<div class="slick1">
-			<div class="item-slick1 item1-slick1" style="background-image: url(images/background/img6.jpg);">
+			<div class="item-slick1 item1-slick1" style="background-image: url(images/background/bg5.jpg);">
 				<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 					<span class="caption1-slide1 txt1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
 						RogTeam Place
@@ -389,14 +389,19 @@
 					},
 					error:function(er)
 					{
-						console.log(er);
-						var errors = er.responseJSON;
-						var errorShow = '';
-						$.each(errors.errors,function(key,value){
-							errorShow += value+"<br>";
-						});
-						Mynotify(errorShow,'danger');
-						console.log(errorShow);
+						console.log(er.responseJSON.exception);
+						if(er.status == 500 && er.responseJSON.exception  == "Swift_TransportException" )
+						Mynotify('Quý khách đã đặt bàn thành công, xin hãy đợi trong giây lát, chúng tôi phản hồi lại','success');
+						else{
+							//console.log(er);
+							var errors = er.responseJSON;
+							var errorShow = '';
+							$.each(errors.errors,function(key,value){
+								errorShow += value+"<br>";
+							});
+							Mynotify(errorShow,'danger');
+							console.log(errorShow);
+						}
 					}
 				});
 			});

@@ -16,6 +16,7 @@ class C_Statistic extends Controller
     {
         return view('Admin.StatisticSeat');
     }
+    // Sản phẩm , combo bán theo khoảng ngày
     public function Time(Request $request)
     {
       //$from = $request->input('from');
@@ -34,6 +35,8 @@ class C_Statistic extends Controller
      
       return view('Admin.viewStatistic',compact('menu','combo'));
     }
+
+    // Sản phẩm. combo bán trong ngày
     public function Into(Request $request)
     {
       $into = date('Y-m-d',strtotime($request->input('into')));
@@ -51,15 +54,22 @@ class C_Statistic extends Controller
     }
     public function TimeSeat(Request $request)
     {
+      $new = array();
+      $seat = "";
         $from = date('Y-m-d',strtotime($request->input('from')));
         $to = date('Y-m-d',strtotime($request->input('to')));
+        //return $to;
 
-      $seat = DB::table('seat')->select('seat.type')->join('booktable','booktable.number_seat','=','seat.number_seat')->whereBetween('booktable.date',[$from,$to])->where('status','=','success')->get()->toArray();
-        $new = array();
+      if($to == "1970-01-01")
+        $seat = DB::table('seat')->select(DB::raw('COUNT(seat.type) as Count'),'seat.type')->join('booktable','booktable.number_seat','=','seat.number_seat')->where('booktable.date',$from)->where('status','=','success')->groupBy(DB::raw('seat.type'))->get()->toArray();
+      else
+      $seat = DB::table('seat')->select(DB::raw('COUNT(seat.type) as Count'),'seat.type')->join('booktable','booktable.number_seat','=','seat.number_seat')->whereBetween('booktable.date',[$from,$to])->where('status','=','success')->groupBy(DB::raw('seat.type'))->get()->toArray();
+        
           foreach($seat as $item)
-              $new[] = $item->type;
+              $new[$item->type] = $item->Count;                                   
         //$b =array_change_key_case($a);
-        $data = array_count_values($new);
+        //return count($new);
+        $data = $new;
         return view('Admin.viewStatistic',compact('data'));
 
     }

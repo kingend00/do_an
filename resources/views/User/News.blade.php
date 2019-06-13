@@ -4,10 +4,22 @@
 @stop
 @section('body')
 	<!-- Title Page -->
-	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/background/11.jpg);">
-		<h2 class="tit6 t-center">
-			Event
-		</h2>
+	<section class="section-slide">
+		<div class="wrap-slick1">
+			<div class="slick1">
+				<div class="item-slick1 item1-slick1" style="background-image: url(images/background/11.jpg);">
+					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+						<span class="caption1-slide1 txt1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
+							RogTeam Place
+						</span>
+	
+							<h2 class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
+								Event
+							</h2>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
 
@@ -23,9 +35,9 @@
 					<div class="blo4 p-b-63" id = "{{ $item->news_id }}">
 							<!-- - -->
 							<div class="pic-blo4 hov-img-zoom bo-rad-10 pos-relative">
-								<a href="blog-detail.html">
+								
 									<img src="{{ URL::asset('images/background/'.$item->image)}}" alt="IMG-BLOG">
-								</a>
+								
 
 								<div class="date-blo4 flex-col-c-m">
 									<span class="txt30 m-b-4">
@@ -41,7 +53,7 @@
 							<!-- - -->
 							<div class="text-blo4 p-t-33">
 								<h4 class="p-b-16">
-								<a href="blog-detail.html" class="tit9">{{ $item->title }}</a>
+								<a href="#" class="tit9">{{ $item->title }}</a>
 								</h4>
 
 								<div class="txt32 flex-w p-b-24">
@@ -87,133 +99,22 @@
 						<!-- Categories -->
 						<div class="categories">
 							<h4 class="txt33 bo5-b p-b-35 p-t-58">
-								Categories
+								Thực đơn 
 							</h4>
 
 							<ul>
+								@foreach(\App\Model\M_Category::all() as $item)
 								<li class="bo5-b p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										Cooking recipe
-									</a>
+										<a href="{{route('F_menu.index')}}/#{{$item->name}}" class="txt27">
+											{{$item->name}}
+										</a>
 								</li>
 
-								<li class="bo5-b p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										Delicious foods
-									</a>
-								</li>
-
-								<li class="bo5-b p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										Events Design
-									</a>
-								</li>
-
-								<li class="bo5-b p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										Restaurant Place
-									</a>
-								</li>
-
-								<li class="bo5-b p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										WordPress
-									</a>
-								</li>
+								@endforeach
+							
 							</ul>
 						</div>
 
-						
-
-
-						<!-- Archive -->
-						<div class="archive">
-							<h4 class="txt33 p-b-20 p-t-43">
-								Archive
-							</h4>
-
-							<ul>
-								<li class="flex-sb-m p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										uly 2018
-									</a>
-
-									<span class="txt29">
-										(9)
-									</span>
-								</li>
-
-								<li class="flex-sb-m p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										June 2018
-									</a>
-
-									<span class="txt29">
-										(39)
-									</span>
-								</li>
-
-								<li class="flex-sb-m p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										May 2018
-									</a>
-
-									<span class="txt29">
-										(29)
-									</span>
-								</li>
-
-								<li class="flex-sb-m p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										April  2018
-									</a>
-
-									<span class="txt29">
-										(35)
-									</span>
-								</li>
-
-								<li class="flex-sb-m p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										March 2018
-									</a>
-
-									<span class="txt29">
-										(22)
-									</span>
-								</li>
-
-								<li class="flex-sb-m p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										February 2018
-									</a>
-
-									<span class="txt29">
-										(32)
-									</span>
-								</li>
-
-								<li class="flex-sb-m p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										January 2018
-									</a>
-
-									<span class="txt29">
-										(21)
-									</span>
-								</li>
-
-								<li class="flex-sb-m p-t-8 p-b-8">
-									<a href="#" class="txt27">
-										December 2017
-									</a>
-
-									<span class="txt29">
-										(26)
-									</span>
-								</li>
-							</ul>
-						</div>
 					</div>
 				</div>
 			</div>

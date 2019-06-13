@@ -3,12 +3,23 @@
 	Đặt bàn
 @stop
 @section('body')
-	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image:url('../images/background/slide1.jpg');margin-bottom:30px">
-		<h2 class="tit6 t-center" style="color: green">
-			Pato Menu
-		</h2>
+<section class="section-slide">
+		<div class="wrap-slick1">
+			<div class="slick1">
+				<div class="item-slick1 item1-slick1" style="background-image: url(/images/background/bg3.jpg);">
+					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+						<span style="font-size:90px" class="caption1-slide1 txt1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
+							Món đã đặt
+						</span>
+	
+							<h2 class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
+								
+							</h2>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
-
 	<div class="container2">
 		@include('Layout.user.error')
 		@if(Cart::count() != 0)
@@ -20,7 +31,7 @@
 					<th>Giá</th>
 					<th>Mô tả </th>
 					<th>Số lượng</th>
-					<th>Tổng tiền/sản phẩm</th>					
+					<th>Tổng tiền / 1 sản phẩm</th>					
 					<th>Thao tác</th>
 				</tr>
 				@foreach($cart as $item)

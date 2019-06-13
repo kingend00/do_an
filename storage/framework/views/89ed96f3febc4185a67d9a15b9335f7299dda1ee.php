@@ -75,8 +75,9 @@
                             </div>
                 
                             <div class="nk-navigation nk-lg-ic">
-                                <a href="<?php echo e(route('login')); ?>"  data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Đăng nhập</span></a>
+                                <a href="<?php echo e(route('login')); ?>"  data-ma-block="#l-forget-password""><i class="notika-icon notika-plus-symbol"></i> <span>Đăng nhập</span></a>          
                                 <a href="<?php echo e(route('password.request')); ?>"  data-ma-block="#l-forget-password"><i>?</i> <span>Quên mật khẩu</span></a>
+                                <a href="<?php echo e(route('index')); ?>"  data-ma-block="#l-register"><i><-</i> <span>Trang chủ</span></a>
                             </div>
                 </form>
             </div>

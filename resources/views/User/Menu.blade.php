@@ -6,13 +6,13 @@
 <section class="section-slide">
 	<div class="wrap-slick1">
 		<div class="slick1">
-			<div class="item-slick1 item1-slick1" style="background-image: url(images/background/menu.jpg);">
+			<div class="item-slick1 item1-slick1" style="background-image: url(images/background/bg4.jpg);">
 				<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 					<span class="caption1-slide1 txt1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
 						RogTeam Place
 					</span>
 
-						<h2 style="color:yellow" class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
+						<h2 class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
 							Menu
 						</h2>
 				</div>
@@ -35,7 +35,7 @@
 							<div class="col-md-12">
 								<div class="header-lunch parallax0 parallax100" style="background-image: url(./images/background/img_menu_banner.jpg);margin-bottom: 40px;border-radius:30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;">
 								<div id = "{{$key}}" class="bg1-overlay t-center p-t-170 p-b-165" style="border-radius:30px;-webkit-border-radius: 30px;-moz-border-radius: 30px;border: none;">
-										<h2 class="tit4 t-center">
+								<h2 class="tit4 t-center" name ="{{$key}}">
 											{{ $key }}
 										</h2>
 									</div>
@@ -164,7 +164,7 @@
 					type:'GET',
 					url : url,
 					success:function(data){
-						Mynotify(data,'info');
+						Mynotify(data,'info',2500);
 						$('.contentCart').load(' .contentCart');
 					},
 					error:function(error){

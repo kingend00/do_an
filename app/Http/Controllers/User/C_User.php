@@ -58,7 +58,8 @@ class C_User extends Controller
             'Update_Id' => 'required',
             'Email' => 'required|email'
 
-        ]);
+        ],[],
+        ['Name'=>'Tên chủ khoản','Phone'=>'Số điện thoại','Email' => 'Email']);
        if(count(DB::table('users')->where('user_id','=',$request->Update_Id)->get()) != 0)
        {
                 $data = [

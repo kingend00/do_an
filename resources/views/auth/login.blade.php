@@ -10,16 +10,17 @@
                     {{ csrf_field() }}
                    
                     <div class="nk-form">
+                            @include('Layout.user.error')
                             <div class="input-group mg-t-15{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
                                 <div class="nk-int-st">
-                                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder = "Nhập email" required autofocus>
                                 </div>
                             </div>
                             <div class="input-group mg-t-15{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
                                 <div class="nk-int-st">
-                                        <input id="password" type="password" class="form-control" name="password" required>
+                                        <input id="password" type="password" class="form-control" name="password" required placeholder  ="Nhập mật khẩu">
 
                                         
                                 </div>
@@ -27,20 +28,22 @@
                             <div class="fm-checkbox">
                                 
                                 <button type="submit" class="btn btn-success notika-btn-success" >Đăng nhập</button>
+                                
                             </div>
                             <div class="fm-checkbox">
                                  <a href="{{ route('loginFb','facebook') }}" > Đăng nhập bằng <u>Facebook</u> <i class="fa fa-facebook"></i></a>
 
                             </div>
 
-                            <a href="#l-register" data-ma-action="nk-login-switch" data-ma-block="#l-register" class="btn btn-login btn-success btn-float"><i class="notika-icon notika-right-arrow right-arrow-ant"></i></a>
+                           
+                            <button type="submit" class="btn btn-login btn-success btn-float"><i class="notika-icon notika-right-arrow right-arrow-ant"></i></button>
                         </div>
             
                         <div class="nk-navigation nk-lg-ic">
                             <a href="{{ route('register') }}" data-ma-block="#l-register"><i class="notika-icon notika-plus-symbol"></i> <span>Đăng kí</span></a>
                            
                              <a href="{{ route('password.request')}}" data-ma-block="#l-forget-password"><i>?</i><span>Quên mật khẩu</span></a>
-                            
+                             <a href="{{ route('index')}}" data-ma-block="#l-register"><i><-</i><span>Trang chủ</span></a>
                          </div>
             </form>
         </div>
