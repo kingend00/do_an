@@ -345,32 +345,36 @@
     </div>
     <!-- Main Menu area End-->
 
-    
-        <?php if(isset($errors) && count($errors) > 0): ?>
-         <div class="alert alert-danger error-alert">           
-                        <h2>Đã có lỗi xảy ra </h2>
-                        <ul>
-                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <li><?php echo e($error); ?></li>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        </ul>
-                      
-        </div>
-        <?php endif; ?>
+    <?php if(count($errors) > 0): ?>
+	<div class="alert alert-danger error-alert">
+			<button type="button"  style="color:white" class="close" data-dismiss="alert" aria-label="Close"><h1 style="color:white"><strong><span><i class="notika-icon notika-close" style="color:white"></i></span></strong></h1></button>
+	           
+			<h2>Đã có lỗi xảy ra </h2>
+			<ul>
+				<?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+					<li><h4><?php echo e($error); ?></h4></li>
+				<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+			</ul>
+		  
+		
+	</div>
+   <?php endif; ?>
 
-        <?php if(Session::has('error')): ?> 
-            <div class="alert alert-danger error-alert">
-                <?php echo e(Session::get('error')); ?>
+   <?php if(Session::has('error')): ?> 
+   		<div class="alert alert-danger error-alert"> 
+				<button type="button"  style="color:white" class="close" data-dismiss="alert" aria-label="Close"><h1 style="color:white"><strong><span><i class="notika-icon notika-close" style="color:white"></i></span></strong></h1></button>
 
-            </div>       
-        <?php endif; ?>
-        <?php if(Session::has('success')): ?> 
-            <div class="alert alert-success error-alert">
-                <?php echo e(Session::get('success')); ?>
+		   <h4><?php echo e(Session::get('error')); ?></h4>
+	    </div>
+   <?php endif; ?>
+   <?php if(Session::has('success')): ?> 
+   <div class="alert alert-success error-alert"> 
+		<button type="button"  style="color:white" class="close" data-dismiss="alert" aria-label="Close"><h1 style="color:white"><strong><span><i class="notika-icon notika-close" style="color:white"></i></span></strong></h1></button>
 
-            </div>       
-        <?php endif; ?>
-    
+		   <h4><?php echo e(Session::get('success')); ?></h4>
+	   </div>       
+    <?php endif; ?>
+        
 	<?php echo $__env->yieldContent('body'); ?>
 
 
@@ -480,7 +484,7 @@
 	<!-- tawk chat JS
 		============================================ -->
    <script type="text/javascript">
-       $('div.alert').delay(12000).fadeOut(100);
+       $('div.alert').delay(10000).fadeOut(100);
    </script>
    <script>
       

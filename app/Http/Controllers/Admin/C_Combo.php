@@ -35,7 +35,7 @@ class C_Combo extends Controller
         })->addColumn('btn-details',function($combo){
             return '<button type="button" class="btn btn-danger danger-icon-notika btn-details" data-toggle="modal" data-target="#ModalDetails" data-url="'.route('B_combo.showDetails',$combo->combo_id).'"><i class="notika-icon notika-close"></i>Chi tiết</button>';})
         ->addColumn('image',function($combo){
-                return '<img src="images/background/'.$combo->image.'">';})
+                return '<img src="images/Combo/'.$combo->image.'"  width = 70px height = 70px>';})
                     
             ->rawColumns(['btn-edit','btn-destroy','btn-details','image'])->make(true);
     }
@@ -101,6 +101,7 @@ class C_Combo extends Controller
                 return redirect()->back()->with('success','Bạn đã tạo Combo thành công !!!');
 
         }
+        return redirect()->back()->with('error','Thất bại, hãy xem lại thông tin');
         
     }
 
@@ -154,25 +155,19 @@ class C_Combo extends Controller
         $id = $request->Id;
         if(count(DB::table('combo')->where('combo_id','=',$request->Id)->get())>=1)
         {
-            if($request->hasfile('Image')) 
-            { 
-            $file = $request->file('Image');
-            $extension = $file->getClientOriginalExtension(); // getting image extension
-            $filename =time().'.'.$extension;
-            $file->move('images/background/', $filename);
-            //return $filename; 
-
+           if($request->Image == null || $request->Image == "")
+           {
             $price = 0;
             $details = $request->Details;
             $quantity = explode(',',$request->Quantity);
 
             foreach($quantity as $value)
                 if(!is_numeric($value))
-                return redirect()-back()->with('error','Trường số lượng bạn nhập không phải số');
+                return redirect()->back()->with('error','Trường số lượng bạn nhập không phải số');
 
 
             if(count($details) != count($quantity))
-            return redirect()-back()->with('error','số lượng và sản phẩm không trùng khớp với nhau');
+            return redirect()->back()->with('error','số lượng và sản phẩm không trùng khớp với nhau');
 
             $id_details = DB::table('combo')->join('combo_details','combo.combo_id','=','combo_details.combo_id')->select('combo_details.id')->where('combo.combo_id','=',$id)->get();
 
@@ -185,7 +180,6 @@ class C_Combo extends Controller
                 'name' => $request->Name,
                 'discount' =>$request->Discount,
                 'type' => $request->Type,
-                'image' =>$filename,
                 'price' =>($price - (($price*($request->Discount))/100))
 
             ];
@@ -199,19 +193,77 @@ class C_Combo extends Controller
             
             DB::table('combo_details')->where('combo_id','=',$id)->delete();
             
-            for ($i=0; $i <count($quantity); $i++) { 
+            for ($i=0; $i <count($quantity); $i++) 
+            { 
                 $cb_details = new M_Combo_Details;
                 $cb_details->combos()->associate($combo);
                 $cb_details->menu_id = $details[$i];
                 $cb_details->quantity = $quantity[$i];
-               $cb_details->save();
+                $cb_details->save();
             }
-            return redirect()-back()->with('success','Cập nhật thành công');
-            }
+                return redirect()->back()->with('success','Cập nhật thành công');
+           }
+           else 
+           {
+                if($request->hasfile('Image')) 
+                { 
+                $file = $request->file('Image');
+                $extension = $file->getClientOriginalExtension(); // getting image extension
+                $filename =time().'.'.$extension;
+                $file->move('images/Combo/', $filename);
+                //return $filename; 
+
+                $price = 0;
+                $details = $request->Details;
+                $quantity = explode(',',$request->Quantity);
+
+                foreach($quantity as $value)
+                    if(!is_numeric($value))
+                    return redirect()->back()->with('error','Trường số lượng bạn nhập không phải số');
+
+
+                if(count($details) != count($quantity))
+                return redirect()->back()->with('error','số lượng và sản phẩm không trùng khớp với nhau');
+
+                $id_details = DB::table('combo')->join('combo_details','combo.combo_id','=','combo_details.combo_id')->select('combo_details.id')->where('combo.combo_id','=',$id)->get();
+
+                foreach($details as $key=>$value)
+                {
+                    $money = DB::table('menu')->select('price')->where('menu_id','=',$value)->value('price'); 
+                    $price += $money;
+                }
+                $data = [
+                    'name' => $request->Name,
+                    'discount' =>$request->Discount,
+                    'type' => $request->Type,
+                    'image' =>$filename,
+                    'price' =>($price - (($price*($request->Discount))/100))
+
+                ];
+                $combo = DB::table('combo')->where('combo_id','=',$id)->update($data);
+                
+                
+                // for ($i=0; $i <count($quantity); $i++) 
+                // { 
+                //     DB::table('combo_details')->where('id','=',$id_details[$i]->id)->update(['menu_id'=>$details[$i],'quantity'=>$quantity[$i]]);                     
+                // }
+                
+                DB::table('combo_details')->where('combo_id','=',$id)->delete();
+                
+                for ($i=0; $i <count($quantity); $i++) { 
+                    $cb_details = new M_Combo_Details;
+                    $cb_details->combos()->associate($combo);
+                    $cb_details->menu_id = $details[$i];
+                    $cb_details->quantity = $quantity[$i];
+                $cb_details->save();
+                }
+                    return redirect()->back()->with('success','Cập nhật thành công');
+                }
+           }
         }
-        else {
-            return redirect()-back()->with('error','Combo này không tồn tại');
-        }
+        
+            return redirect()->back()->with('error','Cập nhật thất bại, hãy xem lại thông tin !');
+        
        
         
     }

@@ -4,10 +4,22 @@
 @stop
 @section('body')
 	<!-- Title Page -->
-	<section class="bg-title-page flex-c-m p-t-160 p-b-80 p-l-15 p-r-15" style="background-image: url(images/background/contac2.jpg);">
-		<h2 class="tit6 t-center">
-			LIÊN HỆ
-		</h2>
+	<section class="section-slide">
+		<div class="wrap-slick1">
+			<div class="slick1">
+				<div class="item-slick1 item1-slick1" style="background-image: url(images/background/contac2.jpg);">
+					<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+						<span class="caption1-slide1 txt1 t-center animated visible-false m-b-15" data-appear="fadeInDown">
+							Contact
+						</span>
+	
+							<h2 class="caption2-slide1 tit1 t-center animated visible-false m-b-30" data-appear="fadeInUp">
+								Liên hệ
+							</h2>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
 
@@ -21,8 +33,11 @@
 				Nếu có, hãy gửi phản hồi cho chúng tôi !
 			</h1>
 			
-			{!! Form::open(['class' => 'wrap-form-reservation size22 m-l-r-auto','id'=>'form_update','method'=>'POST','route'=>'B_contact.store'])!!}
-				<div class="row">
+			
+		<form method="POST" id="form_update" class="wrap-form-reservation size22 m-l-r-auto">
+		{{ csrf_field() }}
+		
+			<div class="row">
 					<div class="col-md-4">
 						<!-- Name -->
 						<span class="txt9">
@@ -71,7 +86,7 @@
 						Gửi
 					</button>
 				</div>
-				{!! Form::close() !!}
+		</form>
 
 			<div class="row p-t-135">
 				<div class="col-sm-8 col-md-4 col-lg-4 m-l-r-auto p-t-30">
@@ -132,5 +147,40 @@
 			</div>
 		</div>
 	</section>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			
+			$.ajaxSetup({
+			headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+				}
+			});
+
+			$('#form_update').submit(function(e){
+				e.preventDefault();
+				$.ajax({
+					type : "POST",
+					url : "{{ route('createContact') }}",
+					data : $('#form_update').serialize(),
+					success:function(data)
+					{
+						Mynotify(data,'info',5000);
+					},
+					error:function(er)
+					{
+							var errors = er.responseJSON;
+							var errorShow = '';
+							$.each(errors.errors,function(key,value){
+								errorShow += value+"<br>";
+							});
+							Mynotify(errorShow,'danger');
+							
+					}
+				});
+			});
+			
+		});
+	</script>
+
 
 @stop

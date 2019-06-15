@@ -59,8 +59,11 @@ class C_Booktable extends Controller
         if($date3 < $date_now)
             return redirect()->back()->with('error','Ngày đặt nhỏ hơn ngày hiện tại');
         
-        if($request->Time < date('H:i'))
-         return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại'); 
+        if($date3  == $date_now)
+        {
+            if($request->Time < date('H:i'))
+             return redirect()->back()->with('error','Thời gian đặt nhỏ hơn thời gian hiện tại'); 
+        }
         //$date_new = date_format($date,'m/d/Y'); 
             //$date = date('d/m/Y - H:i:s',strtotime($date));   
             
@@ -107,7 +110,7 @@ class C_Booktable extends Controller
     public function showDetails($id)
     {      
             $data = DB::table('booktable_details')->where('booktable_id','=',$id)->get();
-            if(count($data)>=1)
+            if(count($data)!=0)
              return view('Admin.Details',compact('data'));
             return "Đơn này không có sản phẩm đặt trước";
     }

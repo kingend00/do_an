@@ -21,7 +21,7 @@ class C_Contact extends Controller
     }
     public function getDataContact()
     {
-        $contact = DB::table('feedback')->orderBy('type','DESC')->get();
+        $contact = DB::table('feedback')->orderBy('type','desc')->get();
         return Datatables::of($contact)->addColumn('btn-edit',function($contact){
             return '<button type="button" class="btn btn-teal teal-icon-notika btn-edit" data-toggle="modal" data-target="#ModalShow" data-url="'.route('B_contact.show',$contact->feedback_id).'"><i class = "glyphicon glyphicon-cog"></i> Xem</button>';
         })->addColumn('btn-destroy',function($contact){
@@ -37,6 +37,24 @@ class C_Contact extends Controller
     public function create()
     {
         //
+    }
+    public function createContact(Request $request)
+    {
+        $request->validate([
+            'name'=>'required|string',
+            'phone' => 'required|numeric',
+            'message' =>'required|max:255'
+        ],
+        [],
+        ['name'=>'Tên khách hàng','phone'=>'Số điện thoại','message' => 'Nội dung']);
+        $data = [
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'message' => $request->message,
+        ];
+        DB::table('feedback')->insert(['name' => $request->name,'phone' => $request->phone,'email' => $request->email,'message' => $request->message]);
+         return 'Cảm ơn bạn đã góp ý , chúng tôi sẽ xem và rút kinh nghiệm !!!';
     }
 
     /**
@@ -63,7 +81,7 @@ class C_Contact extends Controller
             'message' => $request->message,
         ];
         DB::table('feedback')->insert(['name' => $request->name,'phone' => $request->phone,'email' => $request->email,'message' => $request->message]);
-        return redirect()->back()->with('success','Cảm ơn bạn đã góp ý , chúng tôi sẽ xem và rút kinh nghiệm !!!');
+         return 'Cảm ơn bạn đã góp ý , chúng tôi sẽ xem và rút kinh nghiệm !!!';
     }
 
     /**

@@ -344,30 +344,36 @@
     </div>
     <!-- Main Menu area End-->
 
-    
-        @if(isset($errors) && count($errors) > 0)
-         <div class="alert alert-danger error-alert">           
-                        <h2>Đã có lỗi xảy ra </h2>
-                        <ul>
-                            @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
-                            @endforeach
-                        </ul>
-                      
-        </div>
-        @endif
+    @if(count($errors) > 0)
+	<div class="alert alert-danger error-alert">
+			<button type="button"  style="color:white" class="close" data-dismiss="alert" aria-label="Close"><h1 style="color:white"><strong><span><i class="notika-icon notika-close" style="color:white"></i></span></strong></h1></button>
+	           
+			<h2>Đã có lỗi xảy ra </h2>
+			<ul>
+				@foreach($errors->all() as $error)
+					<li><h4>{{$error}}</h4></li>
+				@endforeach
+			</ul>
+		  
+		
+	</div>
+   @endif
 
-        @if (Session::has('error')) 
-            <div class="alert alert-danger error-alert">
-                {{ Session::get('error') }}
-            </div>       
-        @endif
-        @if (Session::has('success')) 
-            <div class="alert alert-success error-alert">
-                {{ Session::get('success') }}
-            </div>       
-        @endif
-    
+   @if (Session::has('error')) 
+   		<div class="alert alert-danger error-alert"> 
+				<button type="button"  style="color:white" class="close" data-dismiss="alert" aria-label="Close"><h1 style="color:white"><strong><span><i class="notika-icon notika-close" style="color:white"></i></span></strong></h1></button>
+
+		   <h4>{{ Session::get('error') }}</h4>
+	    </div>
+   @endif
+   @if (Session::has('success')) 
+   <div class="alert alert-success error-alert"> 
+		<button type="button"  style="color:white" class="close" data-dismiss="alert" aria-label="Close"><h1 style="color:white"><strong><span><i class="notika-icon notika-close" style="color:white"></i></span></strong></h1></button>
+
+		   <h4>{{ Session::get('success') }}</h4>
+	   </div>       
+    @endif
+        
 	@yield('body')
 
 
@@ -477,7 +483,7 @@
 	<!-- tawk chat JS
 		============================================ -->
    <script type="text/javascript">
-       $('div.alert').delay(12000).fadeOut(100);
+       $('div.alert').delay(10000).fadeOut(100);
    </script>
    <script>
       

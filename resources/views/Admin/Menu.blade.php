@@ -64,7 +64,7 @@
 							
 									<div class="form-ic-cmp">{!! Form::label('Name','Description',['class' => 'control-label']) !!}</div>
 										<div class="nk-int-st">
-												{!! Form::text('Description','',['id' =>'Description','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+												{!! Form::text('Description','',['id' =>'Description','class' => 'form-control','placeholder' => 'Nhập mô tả']) !!}
 							</div>
 							</div>
 	
@@ -89,7 +89,7 @@
 						
 								<div class="form-ic-cmp">{!! Form::label('Name','Image',['class' => 'control-label']) !!}</div>
 									<div class="nk-int-st">
-											{!! Form::file('Image','',['id' =>'Image','class' => 'form-control','placeholder' => 'Enter here','required' => 'true']) !!}
+											{!! Form::file('Image','',['id' =>'Image','class' => 'form-control','placeholder' => 'Enter here']) !!}
 										</div>
 						</div>
 				                                 

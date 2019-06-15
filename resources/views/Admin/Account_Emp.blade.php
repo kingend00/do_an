@@ -249,7 +249,12 @@
 					$('#tbData').DataTable().ajax.reload();						
 				},
 				error:function(er){
-					console.log(er);
+					var errors = er.responseJSON;
+							var errorShow = '';
+							$.each(errors.errors,function(key,value){
+								errorShow += value;
+							});
+							alert(errorShow);
 				}
 			});
 		});

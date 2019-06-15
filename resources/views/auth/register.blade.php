@@ -13,7 +13,7 @@
                                 <div class="input-group mg-t-15{{ $errors->has('email') ? ' has-error' : '' }}">
                                         <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i> (*)</span>
                                         <div class="nk-int-st">
-                                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder='Email' requiredfocus >
+                                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder='Email' required focus >
         
                                                 @if ($errors->has('email'))
                                                     <span class="help-block">
@@ -77,7 +77,7 @@
                             <div class="nk-navigation nk-lg-ic">
                                 <a href="{{ route('login') }}"  data-ma-block="#l-forget-password""><i class="notika-icon notika-plus-symbol"></i> <span>Đăng nhập</span></a>          
                                 <a href="{{ route('password.request')}}"  data-ma-block="#l-forget-password"><i>?</i> <span>Quên mật khẩu</span></a>
-                                <a href="{{ route('index')}}"  data-ma-block="#l-register"><i><-</i> <span>Trang chủ</span></a>
+                                <a href="{{ route('index')}}"  data-ma-block="#l-register"><i><-</i><span>Trang chủ</span></a>
                             </div>
                 </form>
             </div>

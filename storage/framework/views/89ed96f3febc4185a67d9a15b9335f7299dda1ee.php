@@ -11,9 +11,9 @@
                         <div class="nk-form">
                                
                                 <div class="input-group mg-t-15<?php echo e($errors->has('email') ? ' has-error' : ''); ?>">
-                                        <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i></span>
+                                        <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-mail"></i> (*)</span>
                                         <div class="nk-int-st">
-                                                <input id="email" type="email" class="form-control" name="email" value="<?php echo e(old('email')); ?>" placeholder='Email' requiredfocus >
+                                                <input id="email" type="email" class="form-control" name="email" value="<?php echo e(old('email')); ?>" placeholder='Email' required focus >
         
                                                 <?php if($errors->has('email')): ?>
                                                     <span class="help-block">
@@ -23,7 +23,7 @@
                                         </div>
                                     </div>
                                     <div class="input-group mg-t-15<?php echo e($errors->has('name') ? ' has-error' : ''); ?>">
-                                        <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-support"></i></span>
+                                        <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-support"></i> (*)</span>
                                         <div class="nk-int-st">
                                                 <input id="name" type="text" class="form-control" name="name" value="<?php echo e(old('name')); ?>" placeholder='Tên chủ khoản' required >
         
@@ -35,7 +35,7 @@
                                         </div>
                                     </div>
                                     <div class="input-group mg-t-15<?php echo e($errors->has('phone') ? ' has-error' : ''); ?>">
-                                            <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-phone"></i></span>
+                                            <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-phone"></i> (*)</span>
                                             <div class="nk-int-st">
                                                     <input id="phone" type="text" class="form-control" name="phone" value="<?php echo e(old('phone')); ?>" placeholder='Số điện thoại' required >
             
@@ -47,7 +47,7 @@
                                             </div>
                                         </div>
                                 <div class="input-group mg-t-15<?php echo e($errors->has('password') ? ' has-error' : ''); ?>">
-                                    <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
+                                    <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i> (*)</span>
                                     <div class="nk-int-st">
                                             <input id="password" type="password" class="form-control" name="password" placeholder='Mật khẩu' required>
     
@@ -59,7 +59,7 @@
                                     </div>
                                 </div>
                                 <div class="input-group mg-t-15">
-                                    <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i></span>
+                                    <span class="input-group-addon nk-ic-st-pro"><i class="notika-icon notika-edit"></i> (*)</span>
                                     <div class="nk-int-st">
                                             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder='Nhập lại mật khẩu' required>
 
@@ -77,7 +77,7 @@
                             <div class="nk-navigation nk-lg-ic">
                                 <a href="<?php echo e(route('login')); ?>"  data-ma-block="#l-forget-password""><i class="notika-icon notika-plus-symbol"></i> <span>Đăng nhập</span></a>          
                                 <a href="<?php echo e(route('password.request')); ?>"  data-ma-block="#l-forget-password"><i>?</i> <span>Quên mật khẩu</span></a>
-                                <a href="<?php echo e(route('index')); ?>"  data-ma-block="#l-register"><i><-</i> <span>Trang chủ</span></a>
+                                <a href="<?php echo e(route('index')); ?>"  data-ma-block="#l-register"><i><-</i><span>Trang chủ</span></a>
                             </div>
                 </form>
             </div>

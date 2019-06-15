@@ -28,16 +28,20 @@ class C_User extends Controller
         event(new PusherEvent());
         
     }
+    // 
     public function resetPassword(Request $request)
     {
         $request->validate([
-            're_new_pass' => 'required|min:8|same:new_pass',
+            're_new_pass' => 'required|min:8',
             'new_pass' => 'required|min:8',
             'old_pass' => 'required',
             'email' => 'required|email'
 
         ],[],
         ['re_new_pass'=>'Mật khẩu nhập lại','new_pass'=>'Mật khẩu mới','old_pass' => 'Mật khẩu cũ']);
+        if($request->re_new_pass != $request->new_pass)
+         return redirect()->back()->with('error','2 mật khẩu không trùng khớp');
+         
         $old_pass = bcrypt($request->input('old_pass'));
         $user = DB::table('users')->select('password')->where('email','=',$request->email)->value('password');
         if(!(Hash::check($request->input('old_pass'), $user)))
@@ -55,7 +59,6 @@ class C_User extends Controller
         $request->validate([
             'Name' => 'required',
             'Phone' => 'required|numeric',
-            'Update_Id' => 'required',
             'Email' => 'required|email'
 
         ],[],

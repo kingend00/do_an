@@ -37,13 +37,16 @@ class C_News extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title'=>'required|string',
-            'image' => 'required|file',
-            'content' =>'required|max:255'
+            'Title'=>'required|string',
+            'Image' => 'required|file',
+            'Content' =>'required|max:255'
         ],
         [],
-        ['title'=>'Tiêu đề','image'=>'Ảnh','content' => 'Nội dung']);
-       
+        ['Title'=>'Tiêu đề','Image'=>'Ảnh','Content' => 'Nội dung']);
+        if(count(DB::table('news')->where('title','=',$request->Title)->get())!= 0)
+        {
+            return redirect()->back()->with('error',"Sự kiện này đã tồn tại");
+        }
         if($request->hasfile('Image')) 
         {
                 $file = $request->file('Image');
@@ -57,8 +60,8 @@ class C_News extends Controller
                 DB::table('news')->insert($data);
                 return redirect()->back()->with('success','Thêm thành công');
         }
-        else
-        return redirect()->back()->with('error','Trường ảnh không phải định dạng ảnh');
+        
+        return redirect()->back()->with('error','Thất bại, vui lòng kiểm tra lại thông tin');
     }
     public function getDataNews(){      
         $news = DB::table('news')->get();
@@ -72,33 +75,40 @@ class C_News extends Controller
     public function UpdateNews(Request $request)
     {
         $request->validate([
-            'title'=>'required|string',
-            'image' => 'required|file',
-            'content' =>'required|max:255'
+            'Title'=>'required|string',
+            
+            'Content' =>'required|max:255'
         ],
         [],
-        ['title'=>'Tiêu đề','image'=>'Ảnh','content' => 'Nội dung']);
-        if($request->hasfile('Image')) 
+        ['Title'=>'Tiêu đề','Content' => 'Nội dung']);
+        if($request->Image == "" || $request->Image == null)
         {
-                if(count(DB::table('news')->where('title','=',$request->Title)->get())!= 0)
-                {
-                    return redirect()->back()->with('error',"Sự kiện này đã tồn tại");
-                }
-                else {
-                    $file = $request->file('Image');
-                    $extension = $file->getClientOriginalExtension(); // getting image extension
-                    $filename =time().'.'.$extension;
-                    $file->move('images/background/', $filename); 
-                    $data = [
-                        'title'=>$request->Title,
-                        'image' => $filename,
-                        'content' => $request->Content];
-                    DB::table('news')->where('news_id','=',$request->Id)->update($data);
-                    return redirect()->back()->with('success','Cập nhật thành công');
-                }
+            $data = [
+                'title'=>$request->Title,
+                'content' => $request->Content];
+            DB::table('news')->where('news_id','=',$request->Id)->update($data);
+            return redirect()->back()->with('success','Cập nhật thành công');
         }
-        else
-            return redirect()->back()->with('error','Trường ảnh không phải định dạng ảnh');
+        else {
+            if($request->hasfile('Image')) 
+            {                  
+                        $file = $request->file('Image');
+                        $extension = $file->getClientOriginalExtension(); // getting image extension
+                        $filename =time().'.'.$extension;
+                        $file->move('images/background/', $filename); 
+                        $data = [
+                            'title'=>$request->Title,
+                            'image' => $filename,
+                            'content' => $request->Content];
+                        DB::table('news')->where('news_id','=',$request->Id)->update($data);
+                        return redirect()->back()->with('success','Cập nhật thành công');
+                    
+            }
+            else
+            return redirect()->back()->with('error','Trường ảnh không phải định dạng ảnh'); 
+        }
+        
+            return redirect()->back()->with('error','Đã có lôi xảy ra vui lòng kiểm tra lại thông tin');
         
     }
     /**

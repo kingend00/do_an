@@ -201,16 +201,12 @@ class C_Seat extends Controller
             $notification = "Đã có hóa đơn bàn ".$request->number_seat." ".$request->time." giờ";
             event(new PusherEvent($notification));
             $query = DB::table('booktable')->where('email','=',$request->email)->orderBy('booktable_id','DESC')->first();
-           
-            
-            
 
                 $check = Mail::send('User.sendBooktable',['data'=>$query], function ($message) use ($email) {
                     $message->to($email);
                 });
                 return "true";
-          
-                   
+                           
             
         }
         return 'Đã có người đặt đơn này , Quý khách vui lòng chọn lại thời gian khác !';

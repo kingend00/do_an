@@ -59,8 +59,8 @@
 						
 								<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
 									<div class="nk-int-st">
-								<?php echo Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email đăng kí','required' => 'true','readonly'=>'true']); ?>
-
+							
+								<input type="text" id="Update_Email" name="Update_Email" class="form-control"  readonly required>
 									</div>
 							</div>
 							<div class="form-group ic-cmp-int">
@@ -208,7 +208,7 @@
 					$('#Update_Password').val(response.data[0].password);
 					$('#Update_Address').val(response.data[0].address);
 					$('#Update_Name').val(response.data[0].name);
-					$('#Email').val(response.data[0].email);
+					$('#Update_Email').val(response.data[0].email);
 					$('#Update_Phone').val(response.data[0].phone);
 					
 				},
@@ -228,7 +228,7 @@
 				//data:{id:id},
 				dataType:'html',
 				success:function(response){
-					alert(response);
+					Mynotify(response,'success');
 					$('#tbData').DataTable().ajax.reload();	
 
 				},
@@ -252,16 +252,21 @@
 				
 				success:function(data){
 					console.log(data);
-
+					Mynotify('Cập nhật thành công','success');
 					$('#ModalUpdate').modal('hide');
-					alert('Thành công');
+					
 					$('#tbData').DataTable().ajax.reload();	
 					//
 					
 
 				},
 				error:function(er){
-					console.log(er);
+					var errors = er.responseJSON;
+							var errorShow = '';
+							$.each(errors.errors,function(key,value){
+								errorShow += value;
+							});
+							alert(errorShow);
 				}
 
 			});

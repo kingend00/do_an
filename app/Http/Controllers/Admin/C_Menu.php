@@ -53,26 +53,36 @@ class C_Menu extends Controller
             'Name'=>'required|string',
             'Price' => 'required|numeric',
             'Category_id' =>'required',
-            'Image' =>'required'
+            
 
         ],
         [],
-        ['Image'=>'Ảnh','Price'=>'Giá','Category_id' => 'Danh mục']
-        
-    );
+        ['Price'=>'Giá','Category_id' => 'Danh mục','Name' => 'Tên']);
         $id = $request->Id;
-        if(DB::table('menu')->where('menu_id','=',$id)->get())
+        if($request->Image != null || $request->Image != "")
         {
-            if($request->hasfile('Image')) 
-            { 
-                $file = $request->file('Image');
-                $extension = $file->getClientOriginalExtension(); // getting image extension
-                $filename =time().'.'.$extension;
-                $file->move('images/food/', $filename);
-                $data = ['name'=>$request->input('Name'),'description'=>$request->input('Description'),'price'=>$request->input('Price'),'category_id'=>$request->input('Category_id'),'image'=>$filename];
-                $Menu_items = DB::table('menu')->where('menu_id','=',$id)->update($data);
-                return redirect()->back()->with('success',"Cập nhật thành công");
-            }
+            if(count(DB::table('menu')->where('menu_id','=',$id)->get()) != 0)
+            {
+                if($request->hasfile('Image')) 
+                { 
+                    $file = $request->file('Image');
+                    $extension = $file->getClientOriginalExtension(); // getting image extension
+                    $filename =time().'.'.$extension;
+                    $file->move('images/food/', $filename);
+
+                    $data = ['name'=>$request->input('Name'),'description'=>$request->input('Description'),'price'=>$request->input('Price'),'category_id'=>$request->input('Category_id'),'image'=>$filename];
+                    $Menu_items = DB::table('menu')->where('menu_id','=',$id)->update($data);
+                    return redirect()->back()->with('success',"Cập nhật thành công");
+                }
+            } 
+            else {
+                redirect()->back()->with('error',"Sản phẩm không tồn tại");
+            }  
+        }
+        else {
+            $data = ['name'=>$request->input('Name'),'description'=>$request->input('Description'),'price'=>$request->input('Price'),'category_id'=>$request->input('Category_id')];
+                    $Menu_items = DB::table('menu')->where('menu_id','=',$id)->update($data);
+                    return redirect()->back()->with('success',"Cập nhật thành công");
         }
         return redirect()->back()->with('error',"Cập nhật thất bại");
     }
@@ -112,6 +122,7 @@ class C_Menu extends Controller
             }
         
         }
+        return redirect()->back()->with('error','Thất bại, hãy xem lại thông tin');
     }
 
     /**
@@ -152,14 +163,22 @@ class C_Menu extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(MenuRequest $request, $id)
+    public function update(Request $request, $id)
     {   
-        if(count(DB::table('menu')->where('menu_id','=',$id)->get())>=1)
-        {
-            
-            $data = ['name'=>$request->input('Name'),'description'=>$request->input('Description'),'price'=>$request->input('Price'),'category_id'=>$request->input('Category_id'),'image'=>$request->input('Image')];
-            $Menu_items = DB::table('menu')->where('menu_id','=',$id)->update($data);
-            return "Cập nhật thành công";
+        if($request->hasfile('Image')) 
+        {  $file = $request->file('Image');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            //$filename =time().'.'.$extension;
+            $file->move('images/food/', $extension);
+        
+
+            if(count(DB::table('menu')->where('menu_id','=',$id)->get())>=1)
+            {
+                
+                $data = ['name'=>$request->input('Name'),'description'=>$request->input('Description'),'price'=>$request->input('Price'),'category_id'=>$request->input('Category_id'),'image'=>$extension];
+                $Menu_items = DB::table('menu')->where('menu_id','=',$id)->update($data);
+                return "Cập nhật thành công";
+            }
         }
         return "Cập nhật thất bại";
         

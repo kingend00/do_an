@@ -157,7 +157,15 @@ class C_User extends Controller
      */
     public function update(Request $request, $id)
     {             
-        
+        $request->validate([
+            'Update_Password' => 'required|min:8',
+            'Update_Address' => 'required',
+            'Update_Name' => 'required',
+            'Update_Email' => 'required|email',
+            'Update_Phone' => 'required|numeric'
+
+        ],[],
+        ['Update_Password'=>'Mật khẩu','Update_Address'=>'Địa chỉ','Update_Name' => 'Tên tài khoản','Update_Email' =>'Email','Update_Phone' => 'Số điện thoại']);
              $dk = DB::table('users')->where('user_id','=',$id)->get();
              if ($dk == null) {
                 return response()->json('Tài khoản chưa tồn tại');

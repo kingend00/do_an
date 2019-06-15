@@ -65,15 +65,7 @@ Route::group(['prefix' => 'F_seat'],function(){
     Route::post('/checkTime','User\C_Seat@checkTime')->name('F_seat.checktime');
 });
 
-Route::get('/Contact',function(){
-    return view('User.Contact');
-})->name('contact');
-Route::get('/News',function(){
-    return view('User.News');
-})->name('news');
-Route::get('/About',function(){
-    return view('User.About');
-})->name('about');
+
 
 Route::resources(['F_menu'=>'User\C_Menu','F_seat'=>'User\C_Seat']);
 
@@ -124,7 +116,18 @@ Route::group(['middleware'=>['auth','denied_cus_emp']],function(){
         
     });
    
+   
 });
+Route::post('/createContact','Admin\C_Contact@createContact')->name('createContact');
+Route::get('/Contact',function(){
+    return view('User.Contact');
+})->name('contact');
+Route::get('/News',function(){
+    return view('User.News');
+})->name('news');
+Route::get('/About',function(){
+    return view('User.About');
+})->name('about');
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 

@@ -20,12 +20,11 @@
 	
 	
 		<div class="table-responsive">
-		<table class="table table-striped" id="tbData" >
+		<table class="table table-striped" id="tbData" style="width:600px">
 			<thead>
 				<th>Số bàn</th>
 				<th>Loại bàn</th>
-				<th>Sửa</th>
-				<th>Xóa</th>
+				
 			</thead>
 			
 		</table>
@@ -142,8 +141,7 @@
 				columns :[
 					{data:'number_seat'},
 					{data:'type'},
-					{data:'btn-edit'},
-					{data:'btn-destroy'}
+					
 				]
 			});
 

@@ -178,7 +178,7 @@
             
             <div class="modal-footer">
  
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
     	</div>
      </div>
@@ -187,6 +187,7 @@
 
 <!-- Modal ADD -->
 <div class="modal fade" id="ModalAdd" role="dialog">
+	
     <div class="modal-dialog modals-default">
         <div class="modal-content">
             <div class="modal-header">
@@ -195,8 +196,10 @@
              {!! Form::open(['id'=>'form_add','route'=>'B_booktable.store','method'=>'POST'])!!}
                         
             <div class="modal-body">
+					<h1>Thêm đơn đặt bàn</h1>
 					<div style="margin-bottom:20px">
-							<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>					
+						<div>Loại bàn &emsp;<i class="notika-icon notika-bar-chart"></i></div>
+											
 							<select name="Type_seat" id="Type_seat" >
 																		
 								@if(isset($TypeSeat))
@@ -217,7 +220,7 @@
 							</div>
 					</div>
 					<div style="margin-bottom:20px">
-						<div class="form-ic-cmp"><i class="notika-icon notika-edit"></i></div>
+						<div>Thời gian &emsp;<i class="notika-icon notika-success"></i></div>
 						<select id = "Time" name = "Time">
 							<option> Chọn thời gian</option>
 										<option>10:00</option>
@@ -246,30 +249,30 @@
 										
 						</select>		
 					</div>	
-					<div class="form-group ic-cmp-int">
+					<div>
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-mail"></i></div>
+						<div>Email &emsp;<i class="notika-icon notika-mail"></i></div>
 							<div class="nk-int-st">
 						{!! Form::text('Email','',['id' =>'Email','class' => 'form-control','placeholder' => 'Nhập Email ','required' => 'true']) !!}
 							</div>
 					</div>
-					<div class="form-group ic-cmp-int">
+					<div>
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-support"></i></div>
+						<div>Tên khách hàng &emsp;<i class="notika-icon notika-support"></i></div>
 							<div class="nk-int-st">
 						{!! Form::text('Name','',['id' =>'Name','class' => 'form-control','placeholder' => 'Nhập name', 'required' => 'true']) !!}
 					</div>
 				</div>
-					<div class="form-group ic-cmp-int">
+					<div>
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-phone"></i></div>
+						<div>Số điện thoại &emsp;<i class="notika-icon notika-social"></i></div>
 							<div class="nk-int-st">
 						{!! Form::text('Phone','',['id' =>'Phone','class' => 'form-control','placeholder' => 'Nhập phone','required' => 'true']) !!}
 					</div>
-				</div>
+					</div>
 				<div class="form-group nk-datapk-ctm form-elet-mg" id="data_1" style="margin-bottom:30px;">
 						
-						<div class="form-ic-cmp"><i class="notika-icon notika-calendar"></i></div>
+					<div>Ngày đặt &emsp;<i class="notika-icon notika-bar-chart"></i></div>
 							<div class="input-group date nk-int-st" id="Picker">
 							<span class="input-group-addon"></span>
 						{!! Form::text('Date','',['id' =>'Date','class' => 'form-control Date','placeholder' => 'Nhập Date', 'required' => 'true','data-date-format'=>'yyyy-mm-dd','readonly'=>true]) !!}
@@ -281,8 +284,8 @@
             
             <div class="modal-footer">
                 {{-- {!!  Form::submit('Save changes',null,['name' => 'hihi','class'=>'btn btn-default waves-effect']) !!} --}}
-                <button class="btn btn-default " type="submit">Save changes</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button class="btn btn-default " type="submit">Cập nhật</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
             </div>
 			{!! Form::close() !!}
 			</div>
@@ -508,8 +511,8 @@
 					
 					success:function(res){
 						var html = '';
-						html += "<select name = 'Number_seat' id = 'Number_seat' class = 'TypeSeat' >";
-						html += "<option>Chọn số bàn</option>";
+						html += "<select name = 'Number_seat' id = 'Number_seat' class = 'TypeSeat'>";
+						html += "<option disabled selected>Chọn số bàn</option>";
 						$.each(res,function(key,value){
 							$.each(value,function(number2,type){
 								$.each(type,function(key2,value2){

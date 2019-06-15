@@ -21,12 +21,11 @@
 	
 	
 		<div class="table-responsive">
-		<table class="table table-striped" id="tbData" >
+		<table class="table table-striped" id="tbData" style="width:600px">
 			<thead>
 				<th>Số bàn</th>
 				<th>Loại bàn</th>
-				<th>Sửa</th>
-				<th>Xóa</th>
+				
 			</thead>
 			
 		</table>
@@ -92,7 +91,7 @@
 						
 								<div class="form-ic-cmp">{!! Form::label('Number','Type',['class' => 'control-label']) !!}</div>
 								<div class="nk-int-st">
-									{!! Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']) !!}
+									{!! Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Nhập loại bàn', 'required' => 'true']) !!}
 									
 								</div>
 						</div>
@@ -134,8 +133,7 @@
 				columns :[
 					{data:'number_seat'},
 					{data:'type'},
-					{data:'btn-edit'},
-					{data:'btn-destroy'}
+					
 				]
 			});
 

@@ -24,7 +24,7 @@ class BookTableRequest extends FormRequest
     public function rules()
     {
         return [
-            'Update_Id'=>'required',
+            
             'Update_Date' =>'required|min:8',
             'Update_Time' => 'required',
             'Update_Status' => 'required',
@@ -34,7 +34,7 @@ class BookTableRequest extends FormRequest
     public function attributes()
     {
         return[
-            'Update_Id' => 'Chỉ mục', 
+            
             'Update_Date' => 'Ngày tháng',
             'Update_Time' =>'Thời gian',
             'Update_Status' => 'Trạng thái'

@@ -63,7 +63,7 @@ class C_Statistic extends Controller
       if($to == "1970-01-01")
         $seat = DB::table('seat')->select(DB::raw('COUNT(seat.type) as Count'),'seat.type')->join('booktable','booktable.number_seat','=','seat.number_seat')->where('booktable.date',$from)->where('status','=','success')->groupBy(DB::raw('seat.type'))->get()->toArray();
       else
-      $seat = DB::table('seat')->select(DB::raw('COUNT(seat.type) as Count'),'seat.type')->join('booktable','booktable.number_seat','=','seat.number_seat')->whereBetween('booktable.date',[$from,$to])->where('status','=','success')->groupBy(DB::raw('seat.type'))->get()->toArray();
+        $seat = DB::table('seat')->select(DB::raw('COUNT(seat.type) as Count'),'seat.type')->join('booktable','booktable.number_seat','=','seat.number_seat')->whereBetween('booktable.date',[$from,$to])->where('status','=','success')->groupBy(DB::raw('seat.type'))->get()->toArray();
         
           foreach($seat as $item)
               $new[$item->type] = $item->Count;                                   
