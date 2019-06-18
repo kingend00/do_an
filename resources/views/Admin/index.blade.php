@@ -53,6 +53,34 @@ Quản trị
                 </div>
             </div>
         </div>
+        @if(Auth::check())
+        <table class="table table-striped">
+                <thead>
+                        <th colspan="2"><h3>Thông tin tài khoản</h3></th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tên chủ khoản</td>
+                        <td>{{ Auth::user()->name }}</td>
+                    </tr>
+                    <tr>
+                            <td>Email</td>
+                            <td>{{ Auth::user()->email }}</td>
+                    </tr>
+                    <tr>
+                            <td>Số điện thoại</td>
+                            <td>{{ Auth::user()->phone }}</td>
+                    </tr>
+                    <tr>
+                            <td>Địa chỉ</td>
+                            <td>{{ Auth::user()->address }}</td>
+                     </tr>
+                     
+                </tbody>
+               
+        </table>
+
+        @endif
     </div>
 </div>
 

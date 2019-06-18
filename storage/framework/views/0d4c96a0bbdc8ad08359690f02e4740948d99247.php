@@ -471,7 +471,8 @@ $('.dropdown').on('hide.bs.dropdown', function(e){
 <!--===============================================================================================-->
 	<script src="<?php echo e(URL::asset('/public/user/js/main.js')); ?>"></script>
 	<script type="text/javascript">
-		$('div .alert').delay(15000).fadeOut(100);
+		$('div .alert').delay(10000).fadeOut(100);
+		$('.maxping').delay(10000).fadeOut(100);
 	</script>
 	<script type="text/javascript" src="<?php echo e(URL::asset('/public/js/myjs.js')); ?>"></script>
 </body>

@@ -22,7 +22,7 @@ class SocialAuth extends Controller
         auth()->login($user);
         if(SocialAccountService::$check == 1)
         {
-           
+          
             return redirect()->route('index')->with('success','Website đã gửi vào mail cho bạn mật khẩu lần đầu,vui lòng kiểm tra !');
 
         }

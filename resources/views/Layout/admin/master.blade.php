@@ -486,7 +486,8 @@
        $('div.alert').delay(10000).fadeOut(100);
    </script>
    <script>
-      
+      $(document).ready(function(){
+
         $.ajaxSetup({
 				headers: {
 				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -504,7 +505,8 @@
         	var channel = pusher.subscribe('Hoang-channel');
 			channel.bind('App\\Events\\PusherEvent',function(data){
                 $('#tbData').DataTable().ajax.reload();
-                ajaxLoadTable();
+                if($('#seat').val() != 'false')
+                     ajaxLoadTableHIHI();
                 if(data.message != 'false')
                 {
                     var notifi = '';
@@ -532,9 +534,67 @@
                 $('.hihi').html(0);	
                 $('#seen').css('display','none');
             });
+            
+            function ajaxLoadTableHIHI(){
+
+                $.ajax({
+                    type:"POST",
+                    url : "{{ route('F_seat.showTime_Seat') }}",
+                    data : $('#form').serialize(),
+                    
+                    success:function(data)
+                    {
+
+                        $('#test').html('');
+                        console.log(data);
+                        let shiftObj = JSON.parse(data);
+                        console.log(shiftObj);
+
+
+
+                        var instance = new TimeTable({
+
+                            // Beginning Time
+                            startTime: "10:00",
+
+                            // Ending Time
+                            endTime: "22:00",
+
+                            // Time to divide(minute)
+                            divTime: "30",
+
+                            // Time Table
+                            shift: shiftObj,
+
+                            // Other options
+                            option: {
+
+                            // workTime include time not displaying
+                            workTime: true,
+
+                            // bg color
+                            bgcolor: ["#00FFFF"],
+
+                            // {index :  name, : index: name,,..}
+                            // selectBox index and shift index should be same
+                            // Give randome if shift index was not in selectBox index
+                                
+                            }
+
+                            });
+                            instance.init("#test");
+                        
+                    },
+                    error:function(er)
+                    {
+                        console.log(er);
+                    }
+
+                });
+                };
+      });
 			
-       
-   
+    
    </script>
   
     

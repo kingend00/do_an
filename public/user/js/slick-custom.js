@@ -2,8 +2,9 @@
 
 (function ($) {
     // USE STRICT
+    
     "use strict";
-
+    
         /*[ Slick1 ]
         ===========================================================*/
         var itemSlick1 = $('.slick1').find('.item-slick1');
@@ -162,7 +163,7 @@
             },1000);              
         });
 
-
+        
         $('.slick3').slick({
             slidesToShow: 1,
             slidesToScroll: 1,
@@ -203,9 +204,10 @@
 
             action3s3[currentSlide] = setTimeout(function(){
                 $(btnSlide3[currentSlide]).addClass($(btnSlide3)[currentSlide].data('appear') + ' visible-true');
-            },1000);            
+            },1000); 
+                  
         });
-        
+       
 
         
 

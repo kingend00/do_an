@@ -64,6 +64,28 @@
 							</div>
 
 							<div class="col-md-4">
+								<!-- People -->
+								<span class="txt9">
+									Loại bàn (*)
+								</span>
+
+								<div class="wrap-inputpeople size12 bo2 bo-rad-10 m-t-3 m-b-23">
+									<!-- Select2 -->
+									<select class="selection-1" name="seat" id="seat">
+										
+										@if(isset($val))
+											<option value = "false">Chọn loại bàn</option>
+											@foreach($val as $seat)
+												<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
+											@endforeach
+										@else
+										<option>Không tồn tại loại nào</option>									
+										@endif
+										
+									</select>
+								</div>
+							</div>
+							<div class="col-md-4">
 								<!-- Time -->
 								<span class="txt9">
 									Thời gian (*)
@@ -101,28 +123,6 @@
 								</div>
 							</div>
 
-							<div class="col-md-4">
-								<!-- People -->
-								<span class="txt9">
-									Loại bàn (*)
-								</span>
-
-								<div class="wrap-inputpeople size12 bo2 bo-rad-10 m-t-3 m-b-23">
-									<!-- Select2 -->
-									<select class="selection-1" name="seat" id="seat">
-										
-										@if(isset($val))
-											<option value = "false">Chọn loại bàn</option>
-											@foreach($val as $seat)
-												<option value ="{{$seat->type}}">{{ $seat->type }} người</option>
-											@endforeach
-										@else
-										<option>Không tồn tại loại nào</option>									
-										@endif
-										
-									</select>
-								</div>
-							</div>
 						</div>
 
 						<div class="row">
@@ -431,7 +431,8 @@
 					success:function(data)
 					{
 						$('#test').html(null);
-
+							let gt = "<p style = 'font-size:30px'>Bảng thông tin bàn rảnh/bàn bận, <strong>Tô màu -> đang bận </strong></p><br>";
+							$('#test').html(gt);
 								//console.log(data);
 								if(data == "false")
 									Mynotify('Hãy chọn loại bàn','danger');

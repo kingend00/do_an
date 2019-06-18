@@ -944,6 +944,7 @@ class TimeTable{    // eslint-disable-line no-unused-vars
         const INDEX = this.c.getIndex(this.v.shiftTime);
         // Column of Header
         base.find("#theader").prepend("<th>Số bàn - Thời gian</th>");
+        
         // Column of Data
         for(let i = 0; i < NAMES.length; i ++){
             let td = base.find(`#${INDEX[i]}`);

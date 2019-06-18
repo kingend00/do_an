@@ -44,7 +44,7 @@ class SocialAccountService
             //kiểm tra nếu đăng nhập fb lần đầu , hiện thông báo : đã gửi mật khẩu lần đầu !
             self::$check = 1;
 
-            Mail::send('auth.sendFirstPass', [ 'content' => 'Email : ' . $email.',Mật khẩu lần đầu: '.$random ], function ($message) use ($email) {
+            Mail::send('auth.sendFirstPass', [ 'content' => 'Rogteam Place gửi tới Email : ' . $email.',Mật khẩu lần đầu: '.$random ], function ($message) use ($email) {
                 $message->to($email);
             });
             return $user;

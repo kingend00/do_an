@@ -70,7 +70,7 @@
 	</section>
 	
 	
-		
+	
 	<!-- Welcome -->
 	<section class="section-welcome bg1-pattern p-t-120 p-b-105">
 			<div class="row">
@@ -92,14 +92,14 @@
 							<div class="slick3 col-sm-12">
 								@foreach(\App\Model\M_News::all() as $item)
 								
-										<div class="item-slick1 item1-slick1" style="background-image: url({{'images/background/'.$item->image}});height:300px;width:400px;border-radius:10px" >
-											<div class="wrap-content-slide1 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
+										<div class="item-slick3 item1-slick3" style="background-image: url({{'images/background/'.$item->image}});height:300px;width:400px;border-radius:10px" >
+											<div class="wrap-content-slide3 sizefull flex-col-c-m p-l-15 p-r-15 p-t-150 p-b-170">
 						
 													<h1 style="color:white;font-size:40px">
 														{{$item->title}}
 													</h1>
 													<br>
-												<div class="wrap-btn-slide1 animated" data-appear="zoomIn">
+												<div class="wrap-btn-slide3 animated" data-appear="zoomIn">
 													<!-- Button1 -->
 													<a href="{{route('news')}}/#{{$item->news_id}}" class="btn1 flex-c-m size1 txt3 trans-0-4">
 														Xem thêm
@@ -117,7 +117,8 @@
 				</section>		
 		<div class="container">
 			
-			@include('Layout.user.error')
+			
+			
 			<div class="row">
 				<div class="col-md-6 p-t-45 p-b-30">
 					<div class="wrap-text-welcome t-center">
@@ -349,7 +350,7 @@
 							<!-- Block2 -->
 							<div class="blo2 flex-w flex-str flex-col-c-m-lg animated visible-false" data-appear="zoomIn">
 								<!-- Pic block2 -->
-							<a href="{{ route('news') }}" class="wrap-pic-blo2 bg1-blo2" style="background-image: url(./images/background/220.jpg);">
+							<a href="{{ route('news') }}" class="wrap-pic-blo2 bg1-blo2">
 									<div class="time-event size10 txt6 effect1">
 										<span class="txt-effect1 flex-c-m t-center">
 											08:00 tối thứ 2 - 21 November 2020
@@ -434,7 +435,7 @@
 							<!-- Block2 -->
 							<div class="blo2 flex-w flex-str flex-col-c-m-lg animated visible-false" data-appear="fadeInDown">
 								<!-- Pic block2 -->
-								<a href="{{ route('news') }}" class="wrap-pic-blo2 bg2-blo2" style="background-image: url(images/event-06.jpg);">
+								<a href="{{ route('news') }}" class="wrap-pic-blo2 bg2-blo2">
 									<div class="time-event size10 txt6 effect1">
 										<span class="txt-effect1 flex-c-m">
 											10:00 sáng thứ 7  - 21 November 2019
@@ -519,7 +520,7 @@
 							<!-- Block2 -->
 							<div class="blo2 flex-w flex-str flex-col-c-m-lg animated visible-false" data-appear="rotateInUpLeft">
 								<!-- Pic block2 -->
-								<a href="{{ route('news') }}" class="wrap-pic-blo2 bg3-blo2" style="background-image: url(images/event-01.jpg);">
+								<a href="{{ route('news') }}" class="wrap-pic-blo2 bg3-blo2">
 									<div class="time-event size10 txt6 effect1">
 										<span class="txt-effect1 flex-c-m">
 											08:00 tối chủ nhật - 21 November 2020
@@ -684,12 +685,23 @@
 			Contact
 		</button></a>
 		</form>
+		
 	</div>
+
+	<input type="hidden" value="{{ (Session::has('success')) ? Session::has('success') : "" }}" id="max_ping">
+
+
 	<script>
 		$(document).ready(function(){
-			$('.click').click(function(){
-				Mynotify('hihi đây là notify của tuiii !','success');
-			})
+			
+			let data = $('#max_ping').val();
+			if(data != "") 
+			{
+				Mynotify("Nhà hàng đã gửi mật khẩu lần đầu tới email của quý khách, vui lòng kiểm tra",'success');
+				setTimeout(function(){
+					$('#max_ping').val("");
+				},18000);
+			}
 		});
 	</script>
 @stop

@@ -96,7 +96,7 @@
 						
 								<div class="form-ic-cmp"><?php echo Form::label('Number','Type',['class' => 'control-label']); ?></div>
 								<div class="nk-int-st">
-									<?php echo Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Enter here', 'required' => 'true']); ?>
+									<?php echo Form::text('Type','',['id' =>'Type','class' => 'form-control','placeholder' => 'Nhập loại bàn', 'required' => 'true']); ?>
 
 									
 								</div>
